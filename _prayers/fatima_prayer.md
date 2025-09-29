@@ -1,9 +1,9 @@
 ---
 layout: prayer
-title: Fatima Prayer
+title: The Fatima Prayer
 order: 6
 ---
-# Fatima Prayer
+# {{ page.title }}
 
 O my Jesus,  
 forgive us our sins,  

@@ -3,7 +3,7 @@ layout: prayer
 title: The Hail Holy Queen (The Salve Regina)
 order: 7
 ---
-# The Hail Holy Queen (The Salve Regina)
+# {{ page.title }}
 
 Hail, holy Queen, mother of mercy,  
 our life, our sweetness, and our hope.  

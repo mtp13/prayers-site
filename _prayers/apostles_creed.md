@@ -3,7 +3,7 @@ layout: prayer
 title: The Apostles' Creed
 order: 2
 ---
-# The Apostles’ Creed
+# {{ page.title }}
 
 I believe in God,  
 the Father almighty,  

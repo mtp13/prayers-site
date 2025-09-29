@@ -1,9 +1,9 @@
 ---
 layout: prayer
-title: Rosary Closing Prayer
+title: The Rosary Closing Prayer
 order: 8
 ---
-# Rosary Closing Prayer
+# {{ page.title }}
 
 Let us pray:  
 

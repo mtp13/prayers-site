@@ -1,9 +1,9 @@
 ---
 layout: prayer
-title: Sign of the Cross
+title: The Sign of the Cross
 order: 1
 ---
-# Sign of the Cross
+# {{ page.title }}
 
 In the name of the Father,  
 and of the Son,  

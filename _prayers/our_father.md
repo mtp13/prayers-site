@@ -3,7 +3,7 @@ layout: prayer
 title: The Our Father
 order: 3
 ---
-# The Our Father
+# {{ page.title }}
 
 Our Father, who art in heaven,  
 hallowed be thy name;  

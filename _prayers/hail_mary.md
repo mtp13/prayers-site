@@ -3,7 +3,7 @@ layout: prayer
 title: The Hail Mary
 order: 4
 ---
-# The Hail Mary
+# {{ page.title }}
 
 Hail Mary, full of grace, the Lord is with thee;  
 Blessed art thou among women,  
