@@ -1,12 +1,11 @@
 ---
-
 layout: default
 title: Rosary Prayers
 ---
 
-# {{ page.title}}
+# {{ page.title }}
 
-Welcome to the Rosary Prayers page.  Below are the prayers commonly recited
+Welcome to the Rosary Prayers page. Below are the prayers commonly recited
 during the Rosary devotion.
 
 ## Today's Mystery
@@ -39,23 +38,7 @@ during the Rosary devotion.
 {% endfor %}
 
 {% if mystery_post %}
-<div style="border: 2px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 8px; background-color: #f9f9f9;">
-  <h3><a href="{{ mystery_post.url }}">{{ mystery_post.title }}</a></h3>
-  <p><em>Today's recommended mystery for {{ 'now' | date: '%A, %B %d, %Y' }}</em></p>
-  
-  {% if mystery_post.mysteries %}
-    <div style="margin: 15px 0;">
-      <strong>The Five Mysteries:</strong>
-      <ol style="margin: 10px 0; padding-left: 20px;">
-        {% for mystery in mystery_post.mysteries %}
-          <li style="margin: 5px 0; font-size: 0.95em;">{{ mystery }}</li>
-        {% endfor %}
-      </ol>
-    </div>
-  {% endif %}
-  
-  <a href="{{ mystery_post.url }}" style="color: #0066cc; text-decoration: none; font-weight: bold;">Read the full {{ mystery_post.title }} →</a>
-</div>
+{% include todays-mystery.html %}
 {% endif %}
 
 ## Rosary Prayers

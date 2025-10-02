@@ -5,7 +5,7 @@ order: 8
 ---
 # {{ page.title }}
 
-Let us pray:  
+Let us pray:
 
 O God, whose only-begotten Son, by His life, death, and Resurrection,
 has purchased for us the rewards of eternal life;  grant, we beseech thee,

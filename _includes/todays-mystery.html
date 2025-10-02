@@ -1,0 +1,20 @@
+<!-- Today's Mystery Display Component -->
+<div class="todays-mystery">
+  <h3><a href="{{ mystery_post.url }}">{{ mystery_post.title }}</a></h3>
+  <p><em>Today's recommended mystery for {{ 'now' | date: '%A, %B %d, %Y' }}</em></p>
+  
+  {% if mystery_post.mysteries %}
+    <div class="mystery-list">
+      <strong>The Five Mysteries:</strong>
+      <ol>
+        {% for mystery in mystery_post.mysteries %}
+          <li>{{ mystery }}</li>
+        {% endfor %}
+      </ol>
+    </div>
+  {% endif %}
+  
+  <a href="{{ mystery_post.url }}" class="read-more-link">
+    Read the full {{ mystery_post.title }} →
+  </a>
+</div>

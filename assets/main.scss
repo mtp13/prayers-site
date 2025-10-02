@@ -1,0 +1,85 @@
+---
+---
+
+@import "minima";
+
+/* Custom styles for the prayers site */
+
+.todays-mystery {
+  border: 2px solid #ddd;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.mystery-list {
+  margin: 15px 0;
+}
+
+.mystery-list ol {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.mystery-list li {
+  margin: 5px 0;
+  font-size: 0.95em;
+}
+
+.read-more-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.read-more-link:hover {
+  text-decoration: underline;
+}
+
+.prayer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mystery {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mystery h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  margin-top: 30px;
+}
+
+.mystery blockquote {
+  border-left: 4px solid #3498db;
+  margin: 20px 0;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  font-style: italic;
+}
+
+.mystery footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+  .todays-mystery {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  .prayer, .mystery {
+    padding: 10px;
+  }
+}

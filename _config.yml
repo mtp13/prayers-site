@@ -2,6 +2,13 @@
 title: Rosary Prayers
 description: A collection of prayers for the Holy Rosary
 theme: minima
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:title/
+
+# Collections
 collections:
   prayers:
     output: true
@@ -9,3 +16,30 @@ collections:
   mysteries:
     output: true
     permalink: /mysteries/:name
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# SEO and performance
+url: "https://your-site-url.com"  # Replace with your actual URL
+timezone: America/New_York  # Adjust to your timezone
+
+# Exclude from processing
+exclude:
+  - format_markdown.py
+  - index_backup.md
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+  - .bundle/
+  - .git/
+  - .gitignore
+  - node_modules/
+  - venv/
+
+# Include files
+include:
+  - _pages
