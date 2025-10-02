@@ -1,7 +1,13 @@
 ---
 layout: prayer
 title: The Glorious Mysteries
-order: 12
+order: 3
+mysteries:
+  - "First Glorious Mystery: The Resurrection"
+  - "Second Glorious Mystery: The Ascension"
+  - "Third Glorious Mystery: The Descent of the Holy Spirit"
+  - "Fourth Glorious Mystery: The Assumption"
+  - "Fifth Glorious Mystery: The Coronation of Mary"
 ---
 # {{ page.title }}
 

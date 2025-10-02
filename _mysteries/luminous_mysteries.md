@@ -1,7 +1,13 @@
 ---
 layout: prayer
 title: The Luminous Mysteries (Mysteries of Light)
-order: 13
+order: 4
+mysteries:
+  - "First Luminous Mystery: The Baptism of Jesus"
+  - "Second Luminous Mystery: The Wedding at Cana"
+  - "Third Luminous Mystery: The Proclamation of the Kingdom"
+  - "Fourth Luminous Mystery: The Transfiguration"
+  - "Fifth Luminous Mystery: The Institution of the Eucharist"
 ---
 # {{ page.title }}
 

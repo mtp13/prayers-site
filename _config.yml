@@ -6,3 +6,6 @@ collections:
   prayers:
     output: true
     permalink: /prayers/:name
+  mysteries:
+    output: true
+    permalink: /mysteries/:name
