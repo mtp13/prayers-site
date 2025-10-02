@@ -11,9 +11,10 @@ mysteries:
 ---
 # {{ page.title }}
 
-*Traditionally prayed on Tuesdays and Fridays*
+## Traditionally prayed on Tuesdays and Fridays
 
 ## First Sorrowful Mystery: The Agony in the Garden
+
 *Jesus prays in the Garden of Gethsemane and accepts his Father's will.*
 
 **Scripture:** Matthew 26:36-46
@@ -36,13 +37,15 @@ mysteries:
 > and the Son of man shall be betrayed into the hands of sinners. Rise, let us
 > go: behold he is at hand that will betray me.
 
-**Meditation:** Jesus experiences fear and anguish as he accepts the weight of our sins. He submits to the Father's will despite his human suffering.
+**Meditation:** Jesus experiences fear and anguish as he accepts the weight of our sins.
+He submits to the Father's will despite his human suffering.
 
 **Fruit of the Mystery:** Sorrow for Sin
 
 ---
 
 ## Second Sorrowful Mystery: The Scourging at the Pillar
+
 *Jesus is brutally scourged by the Roman soldiers.*
 
 **Scripture:** John 19:1
@@ -61,6 +64,7 @@ mysteries:
 ---
 
 ## Third Sorrowful Mystery: The Crowning with Thorns
+
 *The soldiers mock Jesus by placing a crown of thorns on his head.*
 
 **Scripture:** Matthew 27:27-31
@@ -80,6 +84,7 @@ mysteries:
 ---
 
 ## Fourth Sorrowful Mystery: The Carrying of the Cross
+
 *Jesus carries his cross to Calvary, meeting his mother and others along the way.*
 
 **Scripture:** Luke 23:26-32
@@ -95,13 +100,15 @@ mysteries:
 > if in the green wood they do these things, what shall be done in the dry? And
 > there were also two other malefactors led with him to be put to death.
 
-**Meditation:** Jesus embraces his cross and teaches us to embrace ours. Simon helps carry the cross, showing us to help one another.
+**Meditation:** Jesus embraces his cross and teaches us to embrace ours.
+Simon helps carry the cross, showing us to help one another.
 
 **Fruit of the Mystery:** Patience
 
 ---
 
 ## Fifth Sorrowful Mystery: The Crucifixion and Death
+
 *Jesus is crucified between two thieves and dies for our salvation.*
 
 **Scripture:** Luke 23:33-49

@@ -11,7 +11,7 @@ mysteries:
 ---
 # {{ page.title }}
 
-*Traditionally prayed on Mondays and Saturdays*
+## Traditionally prayed on Mondays and Saturdays
 
 ## First Joyful Mystery: The Annunciation
 
@@ -19,25 +19,25 @@ mysteries:
 
 **Scripture:** Luke 1:26-38
 
-> And in the sixth month, the angel Gabriel was sent from God into a city of
-> Galilee, called Nazareth, To a virgin espoused to a man whose name was Joseph,
-> of the house of David; and the virgin's name was Mary. And the angel being
-> come in, said unto her: Hail, full of grace, the Lord is with thee: blessed
-> art thou among women. Who having heard, was troubled at his saying, and thought
-> with herself what manner of salutation this should be. And the angel said to
-> her: Fear not, Mary, for thou hast found grace with God. Behold thou shalt
-> conceive in thy womb, and shalt bring forth a son; and thou shalt call his
-> name Jesus. He shall be great, and shall be called the Son of the most High;
-> and the Lord God shall give unto him the throne of David his father; and he
-> shall reign in the house of Jacob for ever. And of his kingdom there shall
-> be no end. And Mary said to the angel: How shall this be done, because I know
-> not man? And the angel answering, said to her: The Holy Ghost shall come upon
-> thee, and the power of the most High shall overshadow thee. And therefore
-> also the Holy which shall be born of thee shall be called the Son of God.
-> And behold thy cousin Elizabeth, she also hath conceived a son in her old age;
-> and this is the sixth month with her that is called barren: Because no word
-> shall be impossible with God. And Mary said: Behold the handmaid of the Lord;
-> be it done unto me according to thy word. And the angel departed from her.
+> In the sixth month, the angel Gabriel was sent from God to a town of
+> Galilee called Nazareth,  to a virgin betrothed to a man named Joseph, of
+> the house of David, and the virgin’s name was Mary.  And coming to her, he
+> said, “Hail, favored one! The Lord is with you.”  But she was greatly
+> troubled at what was said and pondered what sort of greeting this might be.
+> Then the angel said to her, “Do not be afraid, Mary, for you have found
+> favor with God.  Behold, you will conceive in your womb and bear a son, and
+> you shall name him Jesus.  He will be great and will be called Son of the
+> Most High, and the Lord God will give him the throne of David his father,
+> and he will rule over the house of Jacob forever, and of his kingdom there
+> will be no end.”  But Mary said to the angel, “How can this be, since I
+> have no relations with a man?”  And the angel said to her in reply, “The
+> holy Spirit will come upon you, and the power of the Most High will
+> overshadow you. Therefore the child to be born will be called holy, the Son
+> of God.  And behold, Elizabeth, your relative, has also conceived a son
+> in her old age, and this is the sixth month for her who was called barren;
+> for nothing will be impossible for God.”  Mary said, “Behold, I am the
+> handmaid of the Lord. May it be done to me according to your word.” Then the
+> angel departed from her.
 
 **Meditation:** We contemplate Mary's humility and trust in God's plan. Her
 "yes" to God changed the course of human history.
@@ -85,37 +85,39 @@ mysteries:
 
 **Scripture:** Luke 2:1-20
 
-> And it came to pass, that in those days there went out a decree from Caesar
-> Augustus, that the whole world should be enrolled. This enrolling was first
-> made by Cyrinus, the governor of Syria. And all went to be enrolled, every
-> one into his own city. And Joseph also went up from Galilee, out of the city
-> of Nazareth into Judea, to the city of David, which is called Bethlehem:
-> because he was of the house and family of David, To be enrolled with Mary his
-> espoused wife, who was with child. And it came to pass, that when they were
-> there, her days were accomplished, that she should be delivered. And she
-> brought forth her firstborn son, and wrapped him up in swaddling clothes, and
-> laid him in a manger; because there was no room for them in the inn. And there
-> were in the same country shepherds watching, and keeping the night watches
-> over their flock. And behold an angel of the Lord stood by them, and the
-> brightness of God shone round about them; and they feared with a great fear.
-> And the angel said to them: Fear not; for, behold, I bring you good tidings
-> of great joy, that shall be to all the people: For, this day, is born to you
-> a Saviour, who is Christ the Lord, in the city of David. And this shall be a
-> sign unto you. You shall find the infant wrapped in swaddling clothes, and
-> laid in a manger. And suddenly there was with the angel a multitude of the
-> heavenly army, praising God, and saying: Glory to God in the highest; and on
-> earth peace to men of good will. And it came to pass, after the angels departed
-> from them into heaven, the shepherds said one to another: Let us go over to
-> Bethlehem, and let us see this word that is come to pass, which the Lord hath
-> shewed to us. And they came with haste; and they found Mary and Joseph, and
-> the infant lying in the manger. And seeing, they understood of the word that
-> had been spoken to them concerning this child. And all that heard, wondered;
-> and at those things that were told them by the shepherds. But Mary kept all
-> these words, pondering them in her heart. And the shepherds returned, glorifying
-> and praising God, for all the things they had heard and seen, as it was told
-> unto them.
+> The Birth of Jesus.
+> In those days a decree went out from Caesar Augustus that the whole world
+> should be enrolled.  This was the first enrollment, when Quirinius was
+> governor of Syria.  So all went to be enrolled, each to his own town.  And
+> Joseph too went up from Galilee from the town of Nazareth to Judea, to the
+> city of David that is called Bethlehem, because he was of the house and
+> family of David,  to be enrolled with Mary, his betrothed, who was with
+> child.  While they were there, the time came for her to have her child,  and
+> she gave birth to her firstborn son. She wrapped him in swaddling clothes and
+> laid him in a manger, because there was no room for them in the inn.
+> Now there were shepherds in that region living in the fields and keeping
+> the night watch over their flock.  The angel of the Lord appeared to them
+> and the glory of the Lord shone around them, and they were struck with great
+> fear.  The angel said to them, “Do not be afraid; for behold, I proclaim to
+> you good news of great joy that will be for all the people.  For today
+> in the city of David a savior has been born for you who is Messiah and Lord.
+> And this will be a sign for you: you will find an infant wrapped in
+> swaddling clothes and lying in a manger.”  And suddenly there was a
+> multitude of the heavenly host with the angel, praising God and saying:
+>> “Glory to God in the highest and on earth peace to those on whom his favor rests.”
+> The Visit of the Shepherds.
+> When the angels went away from them to heaven, the shepherds said to one
+> another, “Let us go, then, to Bethlehem to see this thing that has taken
+> place, which the Lord has made known to us.”  So they went in haste and found
+> Mary and Joseph, and the infant lying in the manger. When they saw this, they
+> made known the message that had been told them about this child.  All who
+> heard it were amazed by what had been told them by the shepherds.  And Mary
+> kept all these things, reflecting on them in her heart.  Then the shepherds
+> returned, glorifying and praising God for all they had heard and seen, just
+> as it had been told to them.
 
-**Meditation:** The Son of God becomes man, born in poverty and humility. The shepherds are the first to worship the newborn King.
+**Meditation:** The Son of God becomes man, born in poverty and humility.
+The shepherds are the first to worship the newborn King.
 
 **Fruit of the Mystery:** Poverty of Spirit
 
@@ -153,7 +155,8 @@ mysteries:
 > serving night and day. Now she, at the same hour, coming in, confessed to the
 > Lord; and spoke of him to all that looked for the redemption of Israel.
 
-**Meditation:** Jesus is offered to the Father in obedience to the Law. Simeon prophesies that a sword will pierce Mary's heart.
+**Meditation:** Jesus is offered to the Father in obedience to the Law.
+Simeon prophesies that a sword will pierce Mary's heart.
 
 **Fruit of the Mystery:** Obedience
 

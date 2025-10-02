@@ -11,8 +11,9 @@ mysteries:
 ---
 # {{ page.title }}
 
-*Traditionally prayed on Thursdays*  
-*Introduced by Pope John Paul II in 2002*
+## Traditionally prayed on Thursdays
+
+### Introduced by Pope John Paul II in 2002
 
 ## First Luminous Mystery: The Baptism of Jesus
 
