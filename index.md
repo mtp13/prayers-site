@@ -1,10 +1,13 @@
 ---
+
 layout: default
 title: Rosary Prayers
 ---
+
 # {{ page.title}}
 
-Welcome to the Rosary Prayers page.  Below are the prayers commonly recited during the Rosary devotion.
+Welcome to the Rosary Prayers page.  Below are the prayers commonly recited
+during the Rosary devotion.
 
 ## Today's Mystery
 
