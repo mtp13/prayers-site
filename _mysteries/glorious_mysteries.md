@@ -35,7 +35,8 @@ mysteries:
 > did him homage. Then Jesus said to them, “Do not be afraid. Go tell my
 > brothers to go to Galilee, and there they will see me.”
 
-**Meditation:** Jesus conquers death and opens the gates of heaven. His resurrection gives us hope for eternal life.
+**Meditation:** Jesus conquers death and opens the gates of heaven. His
+resurrection gives us hope for eternal life.
 
 **Fruit of the Mystery:** Faith
 
