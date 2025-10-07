@@ -22,6 +22,38 @@
         'Luminous Mysteries': '/mysteries/luminous-mysteries'
     };
     
+    // Mystery lists for each type
+    const mysteryLists = {
+        'Joyful Mysteries': [
+            "First Joyful Mystery: The Annunciation",
+            "Second Joyful Mystery: The Visitation", 
+            "Third Joyful Mystery: The Nativity",
+            "Fourth Joyful Mystery: The Presentation",
+            "Fifth Joyful Mystery: The Finding in the Temple"
+        ],
+        'Sorrowful Mysteries': [
+            "First Sorrowful Mystery: The Agony in the Garden",
+            "Second Sorrowful Mystery: The Scourging at the Pillar",
+            "Third Sorrowful Mystery: The Crowning with Thorns", 
+            "Fourth Sorrowful Mystery: The Carrying of the Cross",
+            "Fifth Sorrowful Mystery: The Crucifixion and Death"
+        ],
+        'Glorious Mysteries': [
+            "First Glorious Mystery: The Resurrection",
+            "Second Glorious Mystery: The Ascension",
+            "Third Glorious Mystery: The Descent of the Holy Spirit",
+            "Fourth Glorious Mystery: The Assumption of Mary",
+            "Fifth Glorious Mystery: The Coronation of Mary"
+        ],
+        'Luminous Mysteries': [
+            "First Luminous Mystery: The Baptism of Jesus",
+            "Second Luminous Mystery: The Wedding at Cana",
+            "Third Luminous Mystery: The Proclamation of the Kingdom",
+            "Fourth Luminous Mystery: The Transfiguration", 
+            "Fifth Luminous Mystery: The Institution of the Eucharist"
+        ]
+    };
+    
     function updateTodaysMystery() {
         const mysteryContainer = document.querySelector('.todays-mystery');
         if (!mysteryContainer) return;
@@ -58,6 +90,17 @@
         if (readMoreLink) {
             readMoreLink.href = mysteryUrl;
             readMoreLink.textContent = `Read the full ${mysteryForToday} →`;
+        }
+        
+        // Update the mystery list
+        const mysteryList = mysteryContainer.querySelector('.mystery-list ol');
+        if (mysteryList && mysteryLists[mysteryForToday]) {
+            mysteryList.innerHTML = '';
+            mysteryLists[mysteryForToday].forEach(mystery => {
+                const li = document.createElement('li');
+                li.textContent = mystery;
+                mysteryList.appendChild(li);
+            });
         }
         
         // Add a data attribute to indicate this was updated by JS
