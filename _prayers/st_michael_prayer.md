@@ -1,6 +1,6 @@
 ---
 layout: prayer
-title: The Prayer to St. Michael
+title: The Prayer to Saint Michael
 order: 9
 ---
 # {{ page.title }}
