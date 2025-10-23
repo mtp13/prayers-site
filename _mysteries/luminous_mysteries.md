@@ -1,5 +1,5 @@
 ---
-layout: prayer
+layout: mystery
 title: The Luminous Mysteries (Mysteries of Light)
 order: 4
 mysteries:
@@ -21,14 +21,14 @@ mysteries:
 
 **Scripture:** Matthew 3:13-17
 
-> Then cometh Jesus from Galilee to the Jordan, unto John, to be baptized by
-> him. But John stayed him, saying: I ought to be baptized by thee, and comest
-> thou to me? And Jesus answering, said to him: Suffer it to be so now. For so
-> it becometh us to fulfill all justice. Then he suffered him. And Jesus being
-> baptized, forthwith came out of the water: and lo, the heavens were opened
-> to him: and he saw the Spirit of God descending as a dove, and coming upon
-> him. And behold a voice from heaven, saying: This is my beloved Son, in whom
-> I am well pleased.
+> Then Jesus came from Galilee to John at the Jordan to be baptized by him.
+> John tried to prevent him, saying, “I need to be baptized by you, and yet you
+> are coming to me?” Jesus said to him in reply, “Allow it now, for thus it is
+> fitting for us to fulfill all righteousness.” Then he allowed him.  After
+> Jesus was baptized, he came up from the water and behold, the heavens were
+> opened [for him], and he saw the Spirit of God descending like a dove [and]
+> coming upon him. And a voice came from the heavens, saying, “This is my
+> beloved Son, with whom I am well pleased.”
 
 **Meditation:** The Trinity is revealed as the Father's voice is heard and the
 Spirit descends like a dove. Jesus begins his public ministry.
@@ -43,22 +43,21 @@ Spirit descends like a dove. Jesus begins his public ministry.
 
 **Scripture:** John 2:1-11
 
-> And the third day, there was a marriage in Cana of Galilee: and the mother
-> of Jesus was there. And Jesus also was invited, and his disciples, to the
-> marriage. And the wine failing, the mother of Jesus saith to him: They have
-> no wine. And Jesus saith to her: Woman, what is that to me and to thee? my
-> hour is not yet come. His mother saith to the waiters: Whatsoever he shall
-> say to you, do ye. Now there were set there six waterpots of stone, according
-> to the manner of the purifying of the Jews, containing two or three measures
-> apiece. Jesus saith to them: Fill the waterpots with water. And they filled
-> them up to the brim. And Jesus saith to them: Draw out now, and carry to the
-> chief steward of the feast. And they carried it. And when the chief steward
-> had tasted the water made wine, and knew not whence it was, but the waiters
-> knew who had drawn the water; the chief steward calleth the bridegroom, And
-> saith to him: Every man at first setteth forth good wine, and when men have
-> well drunk, then that which is worse. But thou hast kept the good wine until
-> now. This beginning of miracles did Jesus in Cana of Galilee; and manifested
-> his glory, and his disciples believed in him.
+> On the third day there was a wedding in Cana in Galilee, and the mother of
+> Jesus was there.  Jesus and his disciples were also invited to the wedding.
+> When the wine ran short, the mother of Jesus said to him, “They have no
+> wine.” [And] Jesus said to her, “Woman, how does your concern affect me? My
+> hour has not yet come.”  His mother said to the servers, “Do whatever he
+> tells you.”  Now there were six stone water jars there for Jewish ceremonial
+> washings,  each holding twenty to thirty gallons. Jesus told them, “Fill the
+> jars with water.” So they filled them to the brim. Then he told them, “Draw
+> some out now and take it to the headwaiter.” So they took it. And when the
+> headwaiter tasted the water that had become wine, without knowing where it
+> came from (although the servers who had drawn the water knew), the headwaiter
+> called the bridegroom and said to him, “Everyone serves good wine first, and
+> then when people have drunk freely, an inferior one; but you have kept the
+> good wine until now.” Jesus did this as the beginning of his signs in Cana in
+> Galilee and so revealed his glory, and his disciples began to believe in him.
 
 **Meditation:** At Mary's request, Jesus reveals his glory through his first
 miracle. Mary shows us the way to Jesus: "Do whatever he tells you."
@@ -73,16 +72,15 @@ miracle. Mary shows us the way to Jesus: "Do whatever he tells you."
 
 **Scripture:** Mark 1:15
 
-> And saying: The time is accomplished, and the kingdom of God is at hand: repent,
-> and believe the gospel.
+> “This is the time of fulfillment. The kingdom of God is at hand. Repent, and
+> believe in the gospel.”
 
 **Additional Scripture:** Luke 4:18-19
 
-> The Spirit of the Lord is upon me. Wherefore he hath anointed me to preach
-> the gospel to the poor, he hath sent me to heal the contrite of heart, To
-> preach deliverance to the captives, and sight to the blind, to set at liberty
-> them that are bruised, to preach the acceptable year of the Lord, and the
-> day of reward.
+> “The Spirit of the Lord is upon me, because he has anointed me to bring glad
+> tidings to the poor.  He has sent me to proclaim liberty to captives and
+> recovery of sight to the blind, to let the oppressed go free, and to proclaim
+> a year acceptable to the Lord.”
 
 **Meditation:** Jesus announces the Good News and calls all people to
 repentance. He heals the sick and forgives sinners.
@@ -97,18 +95,18 @@ repentance. He heals the sick and forgives sinners.
 
 **Scripture:** Matthew 17:1-8
 
-> And after six days Jesus taketh unto him Peter and James, and John his brother,
-> and bringeth them up into a high mountain apart: And he was transfigured before
-> them. And his face did shine as the sun: and his garments became white as
-> snow. And behold there appeared to them Moses and Elias talking with him. And
-> Peter answering, said to Jesus: Lord, it is good for us to be here: if thou
-> wilt, let us make here three tabernacles, one for thee, and one for Moses,
-> and one for Elias. And as he was yet speaking, behold a bright cloud overshadowed
-> them. And lo, a voice out of the cloud, saying: This is my beloved Son, in
-> whom I am well pleased: hear ye him. And the disciples hearing, fell upon their
-> face, and were very much afraid. And Jesus came and touched them: and said
-> to them, Arise, and fear not. And they lifting up their eyes, saw no one but
-> only Jesus.
+> After six days Jesus took Peter, James, and John his brother, and led them up
+> a high mountain by themselves.  And he was transfigured before them; his face
+> shone like the sun and his clothes became white as light. And behold, Moses
+> and Elijah appeared to them, conversing with him. Then Peter said to Jesus in
+> reply, “Lord, it is good that we are here. If you wish, I will make three
+> tents here, one for you, one for Moses, and one for Elijah.”  While he was
+> still speaking, behold, a bright cloud cast a shadow over them, then from the
+> cloud came a voice that said, “This is my beloved Son, with whom I am well
+> pleased; listen to him.” When the disciples heard this, they fell prostrate
+> and were very much afraid. But Jesus came and touched them, saying, “Rise,
+> and do not be afraid.” And when the disciples raised their eyes, they saw no
+> one else but Jesus alone.
 
 **Meditation:** Jesus reveals his divine glory to strengthen the apostles for
 his coming passion. Moses and Elijah appear with him.
@@ -123,21 +121,20 @@ his coming passion. Moses and Elijah appear with him.
 
 **Scripture:** Matthew 26:26-28
 
-> And whilst they were at supper, Jesus took bread, and blessed, and broke:
-> and gave to his disciples, and said: Take ye, and eat. This is my body. And
-> taking the chalice, he gave thanks, and gave to them, saying: Drink ye all
-> of this. For this is my blood of the new testament, which shall be shed for
-> many unto remission of sins.
+> While they were eating, Jesus took bread, said the blessing, broke it, and
+> giving it to his disciples said, “Take and eat; this is my body.”  Then he
+> took a cup, gave thanks, and gave it to them, saying, “Drink from it, all of
+> you,  for this is my blood of the covenant, which will be shed on behalf of
+> many for the forgiveness of sins.
 
 **Additional Scripture:** 1 Corinthians 11:23-25
 
-> For I have received of the Lord that which also I delivered unto you, that
-> the Lord Jesus, the same night in which he was betrayed, took bread. And giving
-> thanks, broke, and said: Take ye, and eat: this is my body, which shall be
-> delivered for you: this do for the commemoration of me. In like manner also
-> the chalice, after he had supped, saying: This chalice is the new testament
-> in my blood: this do ye, as often as you shall drink, for the commemoration
-> of me.
+> For I received from the Lord what I also handed on to you,  that the Lord
+> Jesus, on the night he was handed over, took bread, and, after he had given
+> thanks, broke it and said, “This is my body that is for you. Do this in
+> remembrance of me.” In the same way also the cup, after supper, saying, “This
+> cup is the new covenant in my blood. Do this, as often as you drink it, in
+> remembrance of me.”
 
 **Meditation:** Jesus gives us his Body and Blood as spiritual food. He
 establishes the priesthood and the sacrifice of the Mass.
@@ -145,5 +142,3 @@ establishes the priesthood and the sacrifice of the Mass.
 **Fruit of the Mystery:** Adoration
 
 ---
-
-*Scripture quotations are from the Douay-Rheims Bible, a public domain translation of the Latin Vulgate.*
