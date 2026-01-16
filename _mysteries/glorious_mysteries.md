@@ -48,7 +48,7 @@ resurrection gives us hope for eternal life.
 
 **Scripture:** Luke 24:50-53
 
-> Then he led them [out] as far as Bethany, raised his hands, and blessed them.
+> Then he led them out as far as Bethany, raised his hands, and blessed them.
 > As he blessed them he parted from them and was taken up to heaven. They did
 > him homage and then returned to Jerusalem with great joy,  and they were
 > continually in the temple praising God.

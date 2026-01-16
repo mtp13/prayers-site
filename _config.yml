@@ -23,8 +23,8 @@ plugins:
   - jekyll-sitemap
 
 # SEO and performance
-url: "https://your-site-url.com"  # Replace with your actual URL
-timezone: America/New_York  # Adjust to your timezone
+url: "https://prayers-site-mike-pullen.vercel.app/"  # Replace with your actual URL
+timezone: America/Chicago  # Adjust to your timezone
 
 # Exclude from processing
 exclude:

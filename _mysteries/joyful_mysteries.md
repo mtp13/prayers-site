@@ -180,7 +180,7 @@ Simeon prophesies that a sword will pierce Mary's heart.
 > you not know that I must be in my Father’s house?” But they did not
 > understand what he said to them. He went down with them and came to Nazareth,
 > and was obedient to them; and his mother kept all these things in her heart.
-> And Jesus advanced [in] wisdom and age and favor before God and man.
+> And Jesus advanced in wisdom and age and favor before God and man.
 
 **Meditation:** Jesus shows his dedication to his Father's business, even as a child. Mary ponders these things in her heart.
 

@@ -3,4 +3,23 @@ layout: default
 ---
 <div class="prayer">
   {{ content }}
+  
+  {% assign current_order = page.order %}
+  {% assign next_prayer = nil %}
+  {% assign sorted_prayers = site.prayers | sort: 'order' %}
+  
+  {% for prayer in sorted_prayers %}
+    {% if prayer.order > current_order %}
+      {% assign next_prayer = prayer %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if next_prayer %}
+  <div class="next-prayer-link" style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
+    <a href="{{ next_prayer.url }}" class="next-prayer">
+      → {{ next_prayer.title }}
+    </a>
+  </div>
+  {% endif %}
 </div>

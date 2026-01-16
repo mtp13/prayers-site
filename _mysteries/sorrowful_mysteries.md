@@ -119,8 +119,8 @@ Simon helps carry the cross, showing us to help one another.
 **Scripture:** Luke 23:33-49
 
 > When they came to the place called the Skull, they crucified him and
-> the criminals there, one on his right, the other on his left.  [Then
-> Jesus said, “Father, forgive them, they know not what they do.”]
+> the criminals there, one on his right, the other on his left.  Then
+> Jesus said, “Father, forgive them, they know not what they do.”
 > They divided his garments by casting lots.  The people stood by and
 > watched; the rulers, meanwhile, sneered at him and said, “He saved
 > others, let him save himself if he is the chosen one, the Messiah of

@@ -26,7 +26,7 @@ mysteries:
 > are coming to me?” Jesus said to him in reply, “Allow it now, for thus it is
 > fitting for us to fulfill all righteousness.” Then he allowed him.  After
 > Jesus was baptized, he came up from the water and behold, the heavens were
-> opened [for him], and he saw the Spirit of God descending like a dove [and]
+> opened for him, and he saw the Spirit of God descending like a dove and
 > coming upon him. And a voice came from the heavens, saying, “This is my
 > beloved Son, with whom I am well pleased.”
 
@@ -46,7 +46,7 @@ Spirit descends like a dove. Jesus begins his public ministry.
 > On the third day there was a wedding in Cana in Galilee, and the mother of
 > Jesus was there.  Jesus and his disciples were also invited to the wedding.
 > When the wine ran short, the mother of Jesus said to him, “They have no
-> wine.” [And] Jesus said to her, “Woman, how does your concern affect me? My
+> wine.” And Jesus said to her, “Woman, how does your concern affect me? My
 > hour has not yet come.”  His mother said to the servers, “Do whatever he
 > tells you.”  Now there were six stone water jars there for Jewish ceremonial
 > washings,  each holding twenty to thirty gallons. Jesus told them, “Fill the

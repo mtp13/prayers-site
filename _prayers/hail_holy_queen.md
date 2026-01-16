@@ -14,9 +14,11 @@ Turn, then, most gracious advocate,
 thine eyes of mercy toward us;
 and after this, our exile,
 show unto us the blessed fruit of thy womb, Jesus.
+
 O clement, O loving, O sweet Virgin Mary.
 
 V. Pray for us, O Holy Mother of God.
+
 R. That we may be made worthy of the promises of Christ.
 
 Amen.
