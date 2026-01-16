@@ -1,15 +1,7 @@
 ---
 layout: default
-title: Rosary Prayers
+title: Today's Mystery
 ---
-
-# {{ page.title }}
-
-Welcome to the Rosary Prayers page. Below are the prayers commonly recited
-during the Rosary devotion.
-
-## Today's Mystery
-
 {% assign current_day = 'now' | date: '%u' %}
 {% assign mystery_for_today = '' %}
 {% assign mystery_post = '' %}
@@ -41,7 +33,7 @@ during the Rosary devotion.
 {% include todays-mystery.html %}
 {% endif %}
 
-## Rosary Prayers
+## Prayers
 
 <ul>
 {% assign sorted_prayers = site.prayers | sort: 'order' %}
@@ -50,7 +42,7 @@ during the Rosary devotion.
 {% endfor %}
 </ul>
 
-## All Mysteries
+## Mysteries
 
 <ul>
 {% assign sorted_mysteries = site.mysteries | sort: 'order' %}
