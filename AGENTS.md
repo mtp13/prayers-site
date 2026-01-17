@@ -1,158 +1,161 @@
 # AGENTS.md
 
-This file contains guidelines for agentic coding assistants working on this Jekyll-based prayers site repository.
+Guidance for agentic coding assistants working in this Astro-based Rosary prayers site.
 
 ## Project Overview
 
-This is a Jekyll static site generator project that creates a Catholic Rosary prayers website. The site uses:
-- **Jekyll 4.4.1** as the static site generator
-- **Minima theme** as the base theme
-- **Kramdown** for Markdown processing
-- **Liquid templating** for dynamic content
-- **Collections** for organizing prayers and mysteries
-- **Ruby/Bundler** for dependency management
+- Static site built with Astro 5.
+- Content lives in `src/content` collections (prayers, mysteries).
+- Pages are Astro components in `src/pages`.
+- Styling is in `src/styles/global.css` and component-level styles.
+- Hosted on Vercel; output is static `dist/`.
 
-## Build and Development Commands
+## Commands
 
-### Prerequisites
+### Install
+
 ```bash
-# Install Ruby dependencies (run first)
-bundle install
+npm install
 ```
 
 ### Development Server
+
 ```bash
-# Start local development server with live reload
-bundle exec jekyll serve
-
-# Start with draft posts
-bundle exec jekyll serve --drafts
-
-# Start with specific host/port
-bundle exec jekyll serve --host 0.0.0.0 --port 4000
+npm run dev
 ```
 
-### Build Commands
-```bash
-# Build the site for production
-bundle exec jekyll build
+Optional:
 
-# Clean and rebuild
-bundle exec jekyll clean && bundle exec jekyll build
+```bash
+npm run dev:host
 ```
 
-### Linting and Validation
+### Build
+
 ```bash
-# Markdown linting (if .markdownlint.json is present)
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+Optional:
+
+```bash
+npm run preview:host
+```
+
+### Linting
+
+Markdown linting (when `.markdownlint.json` is present):
+
+```bash
 npx markdownlint "**/*.md" --config .markdownlint.json
-
-# Alternative markdownlint if available globally
-markdownlint "**/*.md" --config .markdownlint.json
 ```
 
-### Testing
-This project currently has no automated tests. For any future testing:
-- Check for Ruby test frameworks in Gemfile
-- Look for test directories (test/, spec/, features/)
-- Run tests with `bundle exec rake test` or `bundle exec rspec` if available
+### Tests
+
+- No automated tests are configured.
+- Single-test commands are not applicable yet.
+- If tests are added later, document `npm test -- <file>` or framework-specific commands.
+
+## Repository Layout
+
+```text
+.
+├── astro.config.mjs
+├── package.json
+├── src/
+│   ├── components/
+│   ├── content/
+│   ├── layouts/
+│   ├── pages/
+│   └── styles/
+├── public/
+└── tsconfig.json
+```
 
 ## Code Style Guidelines
 
-### File Organization
-```
-├── _config.yml          # Jekyll configuration
-├── _includes/           # Reusable Liquid templates
-├── _layouts/            # Page layout templates
-├── _prayers/            # Prayer collection items
-├── _mysteries/          # Mystery collection items
-├── assets/              # CSS, JS, images
-├── index.md             # Homepage
-├── about.md             # About page
-├── 404.html             # Custom 404 page
-└── bible_script.py      # Python scripture fetching utility
-```
+### General Formatting
 
-### Markdown Files
-- **Front Matter**: All content files must have YAML front matter
-- **Line Length**: Max 120 characters (per .markdownlint.json)
-- **Indentation**: 2 spaces for Markdown files
-- **File Naming**: Use lowercase with underscores (snake_case)
+- Indentation: 2 spaces (per `.editorconfig`).
+- End files with a newline.
+- Prefer ASCII unless existing content uses Unicode.
+- Markdown line length: 120; headings max 100 (per `.markdownlint.json`).
 
-#### Front Matter Structure
+### Astro Components
+
+- Use frontmatter for imports, props, and data fetching.
+- Keep component markup semantic and accessible (labels, headings, aria where needed).
+- Prefer composition in `src/components/` and layout shells in `src/layouts/`.
+- Use `class` attributes, not `className`.
+
+### TypeScript/JavaScript
+
+- Project uses ESM (`"type": "module"`).
+- Prefer `const` and `let` over `var`.
+- Avoid implicit `any`; rely on `astro/tsconfigs/strict` defaults.
+- Imports: standard library first, then third-party, then local modules.
+
+### Content Collections
+
+- Collections live in `src/content/` and are defined in `src/content/config.ts`.
+- Prayer and mystery content files are Markdown.
+- Front matter fields used today: `title` (required), `order` (optional), `layout` (optional), `mysteries` (optional for mystery group pages).
+
+Example front matter:
+
 ```yaml
 ---
-layout: [layout_name]           # Required: default, page, prayer, mystery
-title: "Page Title"            # Required: Display title
-order: [number]                 # Optional: For sorting collections
-permalink: /custom-path/        # Optional: Custom URL
-mysteries:                      # For mystery files only
-  - "First Mystery Name"
-  - "Second Mystery Name"
+title: "Hail Mary"
+order: 3
 ---
 ```
 
-### Liquid Templating
-- **Indentation**: 2 spaces for Liquid code blocks
-- **Variable Naming**: Use snake_case for custom variables
-- **Conditionals**: Use `{% if %}...{% endif %}` with proper spacing
-- **Loops**: Use `{% for %}...{% endfor %}` with descriptive iterator names
+### Markdown and Content
 
-#### Common Patterns
-```liquid
-# Sorting collections
-{% assign sorted_items = site.collection_name | sort: 'order' %}
+- Preserve prayer text and capitalization; do not paraphrase.
+- Scripture references use `Book Chapter:Verse` (example: `Luke 1:26-38`).
+- Keep list indentation at 2 spaces.
+- Use snake_case for filenames in `src/content/`.
+- Use Title Case for titles.
 
-# Date formatting
-{{ 'now' | date: '%A, %B %d, %Y' }}
+### CSS
 
-# Conditional content based on day of week
-{% assign current_day = 'now' | date: '%u' %}
-{% if current_day == '1' %}
-  <!-- Monday content -->
-{% endif %}
-```
+- Global styles live in `src/styles/global.css`.
+- Class names are kebab-case.
+- Keep styles responsive; check mobile layouts after edits.
+- Reuse existing CSS variables when possible.
 
-### Python Script (bible_script.py)
-- **Indentation**: 4 spaces (Python standard)
-- **Line Length**: Max 100 characters (per .editorconfig)
-- **Imports**: Group standard library imports first, then third-party
-- **Error Handling**: Use specific exceptions with descriptive messages
-- **Docstrings**: Add docstrings for functions with parameters and return types
+### Error Handling
 
-### Configuration Files
-- **_config.yml**: Follow Jekyll's configuration structure
-- **.editorconfig**: Maintain consistent editor settings
-- **.markdownlint.json**: Define Markdown linting rules
-- **Gemfile**: Use specific version pinning for Ruby gems
+- Guard against missing content in page rendering (null checks before use).
+- In Astro pages, ensure `getStaticPaths` handles empty collections gracefully.
+- For utility scripts, raise explicit errors with clear messages.
 
-### HTML Includes and Layouts
-- **Semantic HTML**: Use appropriate HTML5 semantic elements
-- **CSS Classes**: Use kebab-case for class names
-- **Accessibility**: Include proper ARIA labels and semantic structure
-- **Responsive Design**: Ensure mobile-friendly layouts
+### Python (bible_script.py)
 
-### Content Guidelines
-- **Scripture Citations**: Use format "Book Chapter:Verse" (e.g., "Luke 1:26-38")
-- **Prayer Text**: Maintain original formatting and capitalization
-- **Mystery Structure**: Include Scripture, Meditation, and Fruit sections
-- **Titles**: Use title case for page and prayer titles
+- Indentation: 4 spaces (per `.editorconfig`).
+- Imports: standard library first, third-party next.
+- Add docstrings for functions with parameters and return values.
+- Raise specific exceptions with descriptive messages.
 
-### Naming Conventions
-- **Files**: snake_case for all file names
-- **Collections**: plural names (prayers, mysteries)
-- **Variables**: snake_case in Liquid and Python
-- **CSS Classes**: kebab-case
-- **Page Titles**: Title Case with proper capitalization
+## Content Structure Notes
 
-### Git and Repository
-- **Branches**: Use descriptive branch names
-- **Commits**: Follow conventional commit format if established
-- **Ignore Files**: Respect .gitignore (excludes _site/, vendor/, .bundle/)
-- **Deploy**: Site configured for Vercel deployment
+- Mystery pages include Scripture, Meditation, and Fruit sections.
+- Prayer content should match traditional wording.
+- Use front matter ordering to control navigation sequence.
 
-## Important Notes
-- **No Node.js**: This is a Ruby/Jekyll project, avoid npm commands
-- **Static Site**: All content is static; no server-side processing beyond build
-- **Collections**: Use Jekyll collections for organized content management
-- **Permalinks**: Custom permalinks configured for SEO-friendly URLs
-- **Plugins**: Minimal plugin usage (jekyll-feed, jekyll-sitemap only)
+## Tooling Notes
+
+- This is an Astro project; avoid Ruby/Jekyll commands.
+- `dist/` is the build output; do not edit it manually.
+- Deployment targets Vercel static output.
+
+## Cursor/Copilot Rules
+
+- No Cursor rules or Copilot instructions found in `.cursor/rules/`, `.cursorrules`, or `.github/copilot-instructions.md`.
