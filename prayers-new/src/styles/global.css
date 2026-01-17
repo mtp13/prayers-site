@@ -1,0 +1,349 @@
+:root {
+  /* Sacred color palette */
+  --sacred-bronze: #8B4513;
+  --sacred-burgundy: #702963;
+  --warm-cream: #FFFBF5;
+  --rich-brown: #2C1810;
+  --light-rose: #FFF5F5;
+
+  /* Typography variables */
+  --base-font-family: Georgia, serif;
+  --base-font-size: 18px;
+  --prayer-font-size: 19px;
+
+  /* Theme mappings */
+  --brand-color: var(--sacred-bronze);
+  --text-color: var(--rich-brown);
+  --background-color: var(--warm-cream);
+  --grey-color: var(--sacred-bronze);
+
+  /* Spacing */
+  --spacing-unit: 30px;
+}
+
+/* Base Reset & Typography (Minima-like) */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--base-font-family);
+  font-size: var(--base-font-size);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: var(--sacred-burgundy);
+  font-family: Georgia, serif;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+a {
+  color: var(--sacred-bronze);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: #63310d; /* Darker shade of bronze */
+}
+.wrapper {
+  max-width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Enhanced styles for prayer and mystery components */
+
+/* Today's Mystery component */
+.todays-mystery {
+  border: 1px solid rgba(139, 69, 19, 0.2);
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--warm-cream) 0%, var(--light-rose) 100%);
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.05);
+}
+.todays-mystery h3 {
+  margin-top: 0;
+  color: var(--sacred-burgundy);
+}
+.todays-mystery h3 a {
+  color: var(--sacred-burgundy);
+  font-weight: bold;
+}
+.todays-mystery h3 a:hover {
+  text-decoration: underline;
+}
+
+.mystery-list {
+  margin: 15px 0;
+}
+.mystery-list strong {
+  color: var(--sacred-burgundy);
+}
+.mystery-list ol {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+.mystery-list li {
+  margin: 5px 0;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+.read-more-link {
+  color: var(--sacred-bronze);
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 1px solid rgba(139, 69, 19, 0.3);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.read-more-link:hover {
+  background-color: rgba(139, 69, 19, 0.05);
+  text-decoration: none;
+  border-color: var(--sacred-bronze);
+}
+
+/* Prayer container styling */
+.prayer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: var(--warm-cream);
+  border-radius: 8px;
+  border: 1px solid rgba(139, 69, 19, 0.1);
+  box-shadow: 0 2px 4px rgba(139, 69, 19, 0.05);
+}
+.prayer h1 {
+  color: var(--sacred-burgundy);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.prayer > p {
+  font-family: Georgia, serif;
+  text-align: center;
+  line-height: 1.7;
+  font-style: italic;
+  font-size: var(--prayer-font-size);
+  margin-bottom: 1.5rem;
+}
+
+/* Next prayer link styling */
+.next-prayer-link {
+  border-top: 1px solid rgba(139, 69, 19, 0.1);
+  margin-top: 2rem;
+  padding-top: 1rem;
+  text-align: center;
+}
+.next-prayer-link .next-prayer {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgba(139, 69, 19, 0.05);
+  color: var(--sacred-bronze);
+  text-decoration: none;
+  border-radius: 4px;
+  border: 1px solid rgba(139, 69, 19, 0.2);
+  transition: all 0.2s ease;
+  font-style: normal;
+  font-size: 14px;
+}
+.next-prayer-link .next-prayer:hover {
+  background-color: rgba(139, 69, 19, 0.1);
+  border-color: var(--sacred-bronze);
+}
+
+/* Mystery page styling */
+.mystery {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: var(--warm-cream);
+  border-radius: 8px;
+  border: 1px solid rgba(139, 69, 19, 0.1);
+}
+.mystery h1 {
+  color: var(--sacred-burgundy);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.mystery h2 {
+  color: var(--sacred-burgundy);
+  margin-top: 2rem;
+}
+.mystery blockquote {
+  border-left: 4px solid var(--sacred-bronze);
+  background: linear-gradient(to right, rgba(139, 69, 19, 0.05), transparent);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  line-height: 1.6;
+}
+.mystery strong {
+  color: var(--sacred-bronze);
+}
+
+.mystery-copyright {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0px 20px;
+  font-size: .8rem;
+  font-style: italic;
+  color: rgba(44, 24, 16, 0.7);
+}
+
+/* Header and Navigation Improvements */
+.site-header {
+  border-top: 5px solid var(--sacred-burgundy);
+  border-bottom: 1px solid var(--sacred-bronze);
+  min-height: 60px;
+  position: relative;
+  background-color: #fff;
+}
+.site-header .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color);
+  font-size: 1.4rem;
+  text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+.site-title:hover {
+  text-decoration: none;
+  color: var(--sacred-bronze);
+}
+.site-crucifix {
+  transition: opacity 0.3s ease;
+  min-width: 24px;
+}
+.site-nav {
+  margin-top: 0;
+}
+.site-nav .trigger {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.page-link {
+  display: inline-block;
+  line-height: 1.5;
+  padding: 5px 0;
+  color: var(--text-color);
+}
+
+/* Dropdown navigation styles */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-toggle {
+  cursor: pointer;
+}
+.dropdown-toggle::after {
+  content: " ▼";
+  font-size: 0.7em;
+  opacity: 0.7;
+  margin-left: 4px;
+  transition: opacity 0.2s ease;
+}
+.dropdown-toggle:hover::after {
+  opacity: 1;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 220px;
+  box-shadow: 0 8px 16px 0px rgba(139, 69, 19, 0.1);
+  z-index: 1000;
+  border-radius: 4px;
+  border: 1px solid rgba(139, 69, 19, 0.2);
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+}
+.nav-dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content a {
+  color: var(--text-color);
+  padding: 6px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  line-height: 1.4;
+  border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+  transition: background-color 0.2s ease;
+}
+.dropdown-content a:last-child {
+  border-bottom: none;
+}
+.dropdown-content a:hover {
+  background-color: rgba(139, 69, 19, 0.05);
+  color: var(--sacred-bronze);
+}
+
+/* Mobile Responsive Adjustments */
+@media screen and (max-width: 600px) {
+  .site-header .wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .site-nav .trigger {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .todays-mystery {
+    margin: 10px;
+    padding: 15px;
+  }
+  .prayer, .mystery {
+    padding: 20px 15px;
+  }
+  .prayer > p {
+    font-size: 18px;
+  }
+  
+  /* Mobile Dropdown */
+  .nav-dropdown {
+    display: block;
+    width: 100%;
+  }
+  .dropdown-content {
+    position: static;
+    display: none; /* In pure CSS hover, this requires click on mobile or hover logic. */
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    background-color: rgba(139, 69, 19, 0.03);
+    padding-left: 15px;
+  }
+  /* On mobile, we might want to just show them or use a click handler later. 
+     For now, hover works on some touch devices, but "click" is better.
+     Since we are doing "Vanilla CSS", we'll stick to hover/focus-within for now. */
+  .nav-dropdown:hover .dropdown-content,
+  .nav-dropdown:focus-within .dropdown-content {
+    display: block;
+  }
+}

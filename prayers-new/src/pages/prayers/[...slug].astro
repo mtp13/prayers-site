@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const prayers = await getCollection('prayers');
+  const sortedPrayers = prayers.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+
+  return sortedPrayers.map((entry, index) => {
+    const nextPrayer = index < sortedPrayers.length - 1 ? sortedPrayers[index + 1] : null;
+    return {
+      params: { slug: entry.slug },
+      props: { entry, nextPrayer },
+    };
+  });
+}
+
+const { entry, nextPrayer } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title}>
+  <article class="prayer">
+    <h1>{entry.data.title}</h1>
+    
+    <Content />
+
+    {nextPrayer && (
+      <div class="next-prayer-link">
+        <a href={`/prayers/${nextPrayer.slug}`} class="next-prayer">
+          Next: {nextPrayer.data.title} →
+        </a>
+      </div>
+    )}
+  </article>
+</BaseLayout>

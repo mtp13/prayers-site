@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MysteryCard from '../components/MysteryCard.astro';
+
+const prayers = await getCollection('prayers');
+const mysteries = await getCollection('mysteries');
+
+const sortedPrayers = prayers.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+const sortedMysteries = mysteries.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+---
+
+<BaseLayout title="Rosary Prayers" description="A collection of prayers for the Holy Rosary">
+  <section>
+    <h2>Today's Mystery</h2>
+    <MysteryCard mysteries={mysteries} />
+  </section>
+
+  <section>
+    <h2>Prayers</h2>
+    <ul>
+      {sortedPrayers.map((prayer) => (
+        <li><a href={`/prayers/${prayer.slug}`}>{prayer.data.title}</a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Mysteries</h2>
+    <ul>
+      {sortedMysteries.map((mystery) => (
+        <li><a href={`/mysteries/${mystery.slug}`}>{mystery.data.title}</a></li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
