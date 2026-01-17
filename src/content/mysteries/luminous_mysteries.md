@@ -1,5 +1,5 @@
 ---
-title: The Luminous Mysteries (Mysteries of Light)
+title: The Luminous Mysteries
 order: 4
 mysteries:
   - "First Luminous Mystery: The Baptism of Jesus"

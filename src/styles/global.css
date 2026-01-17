@@ -202,13 +202,42 @@ a:hover {
   color: rgba(44, 24, 16, 0.7);
 }
 
+/* Footer */
+.site-footer {
+  border-top: 1px solid rgba(139, 69, 19, 0.2);
+  margin-top: 3rem;
+  padding: 1.5rem 0 2rem;
+  font-size: 0.85rem;
+  color: rgba(44, 24, 16, 0.75);
+}
+
+.site-footer .footer-line {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.site-footer .footer-line a {
+  font-weight: bold;
+}
+
+.site-footer .footer-line code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8rem;
+  line-height: 1;
+  vertical-align: baseline;
+  display: inline-block;
+}
+
 /* Header and Navigation Improvements */
 .site-header {
   border-top: 5px solid var(--sacred-burgundy);
   border-bottom: 1px solid var(--sacred-bronze);
   min-height: 60px;
   position: relative;
-  background-color: #fff;
+  background-color: var(--warm-cream);
 }
 .site-header .wrapper {
   display: flex;
@@ -257,6 +286,11 @@ a:hover {
 }
 .dropdown-toggle {
   cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  padding: 5px 0;
 }
 .dropdown-toggle::after {
   content: " ▼";
@@ -271,7 +305,7 @@ a:hover {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #fff;
+  background-color: var(--warm-cream);
   min-width: 220px;
   box-shadow: 0 8px 16px 0px rgba(139, 69, 19, 0.1);
   z-index: 1000;
@@ -281,15 +315,16 @@ a:hover {
   left: 0;
   margin-top: 4px;
 }
-.nav-dropdown:hover .dropdown-content {
+.nav-dropdown:hover .dropdown-content,
+.nav-dropdown.is-open .dropdown-content {
   display: block;
 }
 .dropdown-content a {
   color: var(--text-color);
-  padding: 6px 16px;
+  padding: 8px 16px;
   text-decoration: none;
   display: block;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.4;
   border-bottom: 1px solid rgba(139, 69, 19, 0.1);
   transition: background-color 0.2s ease;
@@ -305,14 +340,29 @@ a:hover {
 /* Mobile Responsive Adjustments */
 @media screen and (max-width: 600px) {
   .site-header .wrapper {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+  .site-title {
+    font-size: 1.4rem;
+    gap: 6px;
+    white-space: normal;
+    line-height: 1.1;
+  }
+  .site-title-text {
+    display: none;
   }
   .site-nav .trigger {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 10px;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0;
+  }
+  .dropdown-toggle::after {
+    font-size: 0.8em;
+    margin-left: 2px;
   }
   .todays-mystery {
     margin: 10px;
@@ -327,17 +377,18 @@ a:hover {
   
   /* Mobile Dropdown */
   .nav-dropdown {
-    display: block;
-    width: 100%;
+    display: inline-flex;
+    width: auto;
+    white-space: nowrap;
   }
   .dropdown-content {
-    position: static;
+    position: absolute;
     display: none; /* In pure CSS hover, this requires click on mobile or hover logic. */
-    width: 100%;
-    box-shadow: none;
-    border: none;
-    background-color: rgba(139, 69, 19, 0.03);
-    padding-left: 15px;
+    min-width: 200px;
+    box-shadow: 0 8px 16px 0px rgba(139, 69, 19, 0.1);
+    border: 1px solid rgba(139, 69, 19, 0.2);
+    background-color: var(--warm-cream);
+    padding-left: 0;
   }
   /* On mobile, we might want to just show them or use a click handler later. 
      For now, hover works on some touch devices, but "click" is better.
