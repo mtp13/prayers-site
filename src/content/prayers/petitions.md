@@ -5,6 +5,10 @@ order: 11
 
 Most Sacred Heart of Jesus, Have Mercy on us.
 
+Most Sacred Heart of Jesus, Have Mercy on us.
+
+Most Sacred Heart of Jesus, Have Mercy on us.
+
 Immaculate Heart of Mary, pray for us
 
 Saint Joseph, pray for us

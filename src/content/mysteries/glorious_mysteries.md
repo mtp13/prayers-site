@@ -99,17 +99,17 @@ The Church is born through the power of the Holy Spirit.
 
 > And Mary said:
 >
->>“My soul proclaims the greatness of the Lord;  my spirit
->> rejoices in God my savior.
->> For he has looked upon his handmaid’s lowliness; behold, from now on will
->> all ages call me blessed.
->> The Mighty One has done great things for me, and holy is his name.
->> His mercy is from age to age to those who fear him.
->> He has shown might with his arm, dispersed the arrogant of mind and heart.
->> He has thrown down the rulers from their thrones but lifted up the lowly.
->> The hungry he has filled with good things; the rich he has sent away empty.
->> He has helped Israel his servant, remembering his mercy,  according to his
->> promise to our fathers, to Abraham and to his descendants forever.”
+>“My soul proclaims the greatness of the Lord; my spirit rejoices in
+> God my savior.  For he has looked upon his handmaid’s lowliness;
+> behold, from now on all ages will call me blessed.  The Mighty One
+> has done great things for me, and holy is his name.  His mercy is
+> from age to age to those who fear him.  He has shown might with his
+> arm, dispersed the arrogant of mind and heart.  He has thrown down
+> the rulers from their thrones but lifted up the lowly.  The hungry
+> he has filled with good things; the rich he has sent away empty.  He
+> has helped Israel his servant, remembering his mercy, according to
+> his promise to our fathers, to Abraham and to his descendants
+> forever.”
 >
 > Mary remained with her about three months and then returned to her home.
 

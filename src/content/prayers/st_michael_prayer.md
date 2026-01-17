@@ -1,6 +1,6 @@
 ---
 title: The Prayer to Saint Michael
-order: 9
+order: 10
 ---
 
 Saint Michael the Archangel, defend us in battle; be our protection against the

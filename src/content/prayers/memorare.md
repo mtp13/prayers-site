@@ -1,6 +1,6 @@
 ---
 title: The Memorare
-order: 10
+order: 9
 ---
 
 Remember, O most gracious Virgin Mary, that never was it known that anyone who
