@@ -27,7 +27,7 @@ const { Content } = await render(entry);
 
     {nextPrayer && (
       <div class="next-prayer-link">
-        <a href={`/prayers/${nextPrayer.slug}`} class="next-prayer">
+          <a href={`${import.meta.env.BASE_URL}/prayers/${nextPrayer.slug}`} class="next-prayer">
           Next: {nextPrayer.data.title} →
         </a>
       </div>

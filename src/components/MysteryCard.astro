@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { mysteries } = Astro.props;
-
+const baseUrl = import.meta.env.BASE_URL;
 // Pass the data to the client-side script safely
 const mysteryData = mysteries.map(m => ({
   title: m.data.title,
@@ -27,12 +27,12 @@ const mysteryData = mysteries.map(m => ({
   </div>
   
   <a href="#" class="read-more-link" id="mystery-read-more">
-    Read the full mystery →
+      Read the full mystery →
   </a>
 </div>
 
-<script define:vars={{ mysteryData }}>
-  const mysteryMapping = {
+<script define:vars={{ mysteryData, baseUrl }}>
+    const mysteryMapping = {
     1: 'The Joyful Mysteries',    // Monday
     2: 'The Sorrowful Mysteries', // Tuesday
     3: 'The Glorious Mysteries',  // Wednesday
@@ -40,9 +40,9 @@ const mysteryData = mysteries.map(m => ({
     5: 'The Sorrowful Mysteries', // Friday
     6: 'The Joyful Mysteries',    // Saturday
     0: 'The Glorious Mysteries'   // Sunday
-  };
+    };
 
-  function updateMystery() {
+    function updateMystery() {
     const today = new Date();
     const dayOfWeek = today.getDay();
     const mysteryName = mysteryMapping[dayOfWeek];
@@ -62,25 +62,25 @@ const mysteryData = mysteries.map(m => ({
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     
     if (link) {
-        link.textContent = mystery.title;
-        link.href = `/mysteries/${mystery.slug}`;
+    link.textContent = mystery.title;
+    link.href = `${baseUrl}/mysteries/${mystery.slug}`;
     }
     
     if (dateSpan) {
-        dateSpan.textContent = today.toLocaleDateString('en-US', dateOptions);
+    dateSpan.textContent = today.toLocaleDateString('en-US', dateOptions);
     }
     
     if (list) {
-        list.innerHTML = '';
-        mystery.list.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item;
-            list.appendChild(li);
-        });
+    list.innerHTML = '';
+    mystery.list.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    list.appendChild(li);
+    });
     }
 
     if (readMore) {
-        readMore.href = `/mysteries/${mystery.slug}`;
+    readMore.href = `${baseUrl}/mysteries/${mystery.slug}`;
         readMore.textContent = `Read the full ${mystery.title} →`;
     }
   }
