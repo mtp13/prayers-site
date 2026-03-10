@@ -2,16 +2,16 @@
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  mysteries: CollectionEntry<'mysteries'>[];
+    mysteries: CollectionEntry<'mysteries'>[];
 }
 
 const { mysteries } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 // Pass the data to the client-side script safely
 const mysteryData = mysteries.map(m => ({
-  title: m.data.title,
-  slug: m.slug,
-  list: m.data.mysteries || []
+    title: m.data.title,
+    slug: m.slug,
+    list: m.data.mysteries || []
 }));
 ---
 

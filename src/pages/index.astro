@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MysteryCard from '../components/MysteryCard.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const prayers = await getCollection('prayers');
 const mysteries = await getCollection('mysteries');
 
@@ -20,7 +22,7 @@ const sortedMysteries = mysteries.sort((a, b) => (a.data.order || 99) - (b.data.
     <h2>Prayers</h2>
     <ul>
       {sortedPrayers.map((prayer) => (
-        <li><a href={`${import.meta.env.BASE_URL}/prayers/${prayer.slug}`}>{prayer.data.title}</a></li>
+        <li><a href={`${baseUrl}/prayers/${prayer.slug}`}>{prayer.data.title}</a></li>
       ))}
     </ul>
   </section>
@@ -29,7 +31,7 @@ const sortedMysteries = mysteries.sort((a, b) => (a.data.order || 99) - (b.data.
     <h2>Mysteries</h2>
     <ul>
       {sortedMysteries.map((mystery) => (
-        <li><a href={`${import.meta.env.BASE_URL}/mysteries/${mystery.slug}`}>{mystery.data.title}</a></li>
+        <li><a href={`${baseUrl}/mysteries/${mystery.slug}`}>{mystery.data.title}</a></li>
       ))}
     </ul>
   </section>
