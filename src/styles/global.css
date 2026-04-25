@@ -130,9 +130,20 @@ a:hover {
   text-align: center;
   margin-bottom: 2rem;
 }
+
+.prayer li > p:first-of-type {
+  font-family: Georgia, serif;
+  text-align: left;
+  line-height: 1.7;
+  font-style: normal;
+  font-size: var(--prayer-font-size);
+  margin-bottom: 0.75rem;
+}
+
+.prayer li > p:not(:first-of-type),
 .prayer > p {
   font-family: Georgia, serif;
-  text-align: center;
+  text-align: left;
   line-height: 1.7;
   font-style: italic;
   font-size: var(--prayer-font-size);
@@ -374,7 +385,7 @@ a:hover {
   .prayer > p {
     font-size: 18px;
   }
-  
+
   /* Mobile Dropdown */
   .nav-dropdown {
     display: inline-flex;
@@ -390,7 +401,7 @@ a:hover {
     background-color: var(--warm-cream);
     padding-left: 0;
   }
-  /* On mobile, we might want to just show them or use a click handler later. 
+  /* On mobile, we might want to just show them or use a click handler later.
      For now, hover works on some touch devices, but "click" is better.
      Since we are doing "Vanilla CSS", we'll stick to hover/focus-within for now. */
   .nav-dropdown:hover .dropdown-content,
