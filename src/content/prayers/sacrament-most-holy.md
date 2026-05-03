@@ -8,4 +8,4 @@ O Sacrament Divine,
 All praise and all thanksgiving,    
 Be every moment Thine!    
 
-Amen
+Amen.

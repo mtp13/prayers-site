@@ -17,4 +17,4 @@ For it is in giving that we receive, \
 it is in pardoning that we are pardoned, \
 and it is in dying that we are born to eternal life.
 
-Amen
+Amen.

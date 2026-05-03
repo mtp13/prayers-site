@@ -122,6 +122,6 @@ order: 17
     His merciful Heart, as through an open gate, we pass through to
     Heaven.[^2]
 
-[^1]:    Diary of Saint Maria Faustina Kowalska, 72
+[^1]: Diary of Saint Maria Faustina Kowalska, 72
 
-[^2]:  Diary, 1570
+[^2]: Diary, 1570

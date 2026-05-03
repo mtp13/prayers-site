@@ -123,7 +123,7 @@ his coming passion. Moses and Elijah appear with him.
 > giving it to his disciples said, “Take and eat; this is my body.”  Then he
 > took a cup, gave thanks, and gave it to them, saying, “Drink from it, all of
 > you,  for this is my blood of the covenant, which will be shed on behalf of
-> many for the forgiveness of sins.
+> many for the forgiveness of sins.”
 
 **Additional Scripture:** 1 Corinthians 11:23-25
 

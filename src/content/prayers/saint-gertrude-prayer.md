@@ -9,5 +9,5 @@ for all the holy souls in Purgatory, for sinners everywhere, for
 sinners in the Universal Church, those in my own home and within my
 family.
 
-Amen
+Amen.
 
