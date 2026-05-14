@@ -21,8 +21,9 @@
 - `npm run build`
 - `npm run preview`
 - `npm run preview:host`
+- `npm run test:links`: Check for broken links by serving the `dist/` directory and crawling it.
+- `npm run test`: Build the site and run all tests.
 - Markdown lint: `npx markdownlint "**/*.md" --config .markdownlint.json`
-- No automated tests are configured.
 - Use Conventional Commits for git messages, e.g. `fix: ...`, `docs: ...`, `feat: ...`.
 
 ## Style

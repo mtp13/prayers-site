@@ -8,9 +8,16 @@
     "build": "astro build",
     "preview": "astro preview",
     "preview:host": "astro preview --host",
+    "test:links": "start-server-and-test preview http://localhost:4321/rosary/ 'linkinator http://localhost:4321/rosary/ --recurse --silent --concurrency 10'",
+    "test": "npm run build && npm run test:links",
     "astro": "astro"
   },
   "dependencies": {
     "astro": "^5.16.11"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "linkinator": "^7.6.1",
+    "start-server-and-test": "^3.0.5"
   }
 }
