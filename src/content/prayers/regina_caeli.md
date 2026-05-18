@@ -1,6 +1,6 @@
 ---
 title: Regina Caeli Prayer
-order: 19
+order: 15
 ---
 
 Queen of heaven, rejoice, alleluia. \
