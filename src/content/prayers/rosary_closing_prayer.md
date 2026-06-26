@@ -11,4 +11,9 @@ that by meditating upon these mysteries of the Most Holy Rosary
 of the Blessed Virgin Mary, we may imitate what they contain
 and obtain what they promise, through the same Christ our Lord.
 
+V. May the divine assistance remain always with us.
+
+R. And may the souls of the faithful departed through the mercy of God rest in
+peace.
+
 Amen.
