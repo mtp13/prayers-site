@@ -17,12 +17,17 @@ export async function getStaticPaths() {
 
 const { entry, nextPrayer } = Astro.props;
 const { Content } = await render(entry);
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title={entry.data.title}>
   <article class="prayer">
     <h1>{entry.data.title}</h1>
-    
+
+    <div class="prayer-return" id="prayer-return" hidden>
+      <a class="prayer-return-link" id="prayer-return-link" href={baseUrl}>← Back to mystery</a>
+    </div>
+     
     <Content />
 
     {nextPrayer && (
@@ -33,4 +38,18 @@ const { Content } = await render(entry);
       </div>
     )}
   </article>
+
+  <script>
+    const params = new URL(window.location.href).searchParams;
+    const backUrl = params.get('back');
+    const backLabel = params.get('backLabel');
+    const returnWrap = document.getElementById('prayer-return');
+    const returnLink = document.getElementById('prayer-return-link');
+
+    if (backUrl && returnWrap && returnLink) {
+      returnLink.href = backUrl;
+      returnLink.textContent = `← Back to ${backLabel || 'mystery'}`;
+      returnWrap.hidden = false;
+    }
+  </script>
 </BaseLayout>

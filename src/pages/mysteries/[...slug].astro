@@ -37,7 +37,9 @@ const firstPage = set.pages[0];
 
 let sectionHtml = '';
 let currentPageTitle = set.title;
+let currentPageSlug = '';
 let navigation: { previous: { slug: string; title: string } | null; next: { slug: string; title: string } | null } | null = null;
+let prayerLinks: { title: string; href: string }[] = [];
 
 if (kind === 'detail') {
   if (typeof pageIndex !== 'number') {
@@ -46,8 +48,19 @@ if (kind === 'detail') {
 
   const page = set.pages[pageIndex];
   currentPageTitle = page.title;
+  currentPageSlug = page.slug;
   sectionHtml = await getMysterySectionHtml(setSlug, pageIndex);
   navigation = getMysteryNavigation(setSlug, pageIndex);
+
+  const currentMysteryUrl = `${baseUrl}/mysteries/${setSlug}/${currentPageSlug}`;
+  prayerLinks = [
+    { title: 'Our Father', slug: 'our_father' },
+    { title: 'Hail Mary', slug: 'hail_mary' },
+    { title: 'Fatima Prayer', slug: 'fatima_prayer' },
+  ].map((prayer) => ({
+    title: prayer.title,
+    href: `${baseUrl}/prayers/${prayer.slug}?back=${encodeURIComponent(currentMysteryUrl)}&backLabel=${encodeURIComponent(currentPageTitle)}`,
+  }));
 }
 ---
 
@@ -74,7 +87,7 @@ if (kind === 'detail') {
           {set.pages.map((page, index) => (
             <li>
               <a href={`${baseUrl}/mysteries/${setSlug}/${page.slug}`}>
-                {index + 1}. {page.title}
+                {page.title}
               </a>
             </li>
           ))}
@@ -102,6 +115,14 @@ if (kind === 'detail') {
           ) : (
             <span class="mystery-nav-link is-disabled" aria-disabled="true">Next →</span>
           )}
+        </div>
+
+        <div class="mystery-quick-prayers" aria-label="Quick prayer links">
+          {prayerLinks.map((prayer) => (
+            <a class="mystery-quick-prayer-link" href={prayer.href}>
+              {prayer.title}
+            </a>
+          ))}
         </div>
 
         <div class="mystery-content" set:html={sectionHtml} />
