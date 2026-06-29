@@ -1,5 +1,4 @@
 ---
-import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
   getMysteryNavigation,
@@ -34,21 +33,13 @@ const { kind, setSlug, pageIndex } = Astro.props as {
 
 const set = mysterySets[setSlug];
 const baseUrl = import.meta.env.BASE_URL;
+const firstPage = set.pages[0];
 
-let Content;
 let sectionHtml = '';
 let currentPageTitle = set.title;
 let navigation: { previous: { slug: string; title: string } | null; next: { slug: string; title: string } | null } | null = null;
 
-if (kind === 'overview') {
-  const entry = await getEntry('mysteries', setSlug);
-
-  if (!entry) {
-    throw new Error(`Missing overview entry for ${setSlug}`);
-  }
-
-  ({ Content } = await render(entry));
-} else {
+if (kind === 'detail') {
   if (typeof pageIndex !== 'number') {
     throw new Error(`Missing page index for ${setSlug}`);
   }
@@ -65,7 +56,29 @@ if (kind === 'overview') {
     {kind === 'overview' ? (
       <>
         <h1>{set.title}</h1>
-        <Content />
+        <p class="mystery-overview-intro">
+          A shorter guide to pray one mystery at a time.
+        </p>
+
+        <p class="mystery-overview-days">
+          <strong>Traditionally prayed on:</strong> {set.days.join(' and ')}
+        </p>
+
+        <p class="mystery-overview-start">
+          <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${firstPage.slug}`}>
+            Start with {firstPage.title} →
+          </a>
+        </p>
+
+        <ol class="mystery-overview-list">
+          {set.pages.map((page, index) => (
+            <li>
+              <a href={`${baseUrl}/mysteries/${setSlug}/${page.slug}`}>
+                {index + 1}. {page.title}
+              </a>
+            </li>
+          ))}
+        </ol>
       </>
     ) : (
       <>

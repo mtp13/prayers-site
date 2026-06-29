@@ -192,6 +192,21 @@ a:hover {
   color: var(--sacred-burgundy);
   margin-top: 2rem;
 }
+.mystery-overview-intro,
+.mystery-overview-days,
+.mystery-overview-start {
+  text-align: center;
+}
+.mystery-overview-start {
+  margin: 1.25rem 0 1.5rem;
+}
+.mystery-overview-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+.mystery-overview-list li {
+  margin: 0.65rem 0;
+}
 .mystery-back {
   margin: 0 0 1rem;
   text-align: center;
