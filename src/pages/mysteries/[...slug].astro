@@ -1,34 +1,127 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  getMysteryNavigation,
+  getMysterySectionHtml,
+  mysterySetOrder,
+  mysterySets,
+  type MysterySetSlug,
+} from '../../lib/rosary-mysteries';
 
 export async function getStaticPaths() {
-  const mysteries = await getCollection('mysteries');
-  const sortedMysteries = mysteries.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+  return mysterySetOrder.flatMap((setSlug) => {
+    const set = mysterySets[setSlug];
 
-  return sortedMysteries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+    return [
+      {
+        params: { slug: setSlug },
+        props: { kind: 'overview', setSlug },
+      },
+      ...set.pages.map((page, pageIndex) => ({
+        params: { slug: `${setSlug}/${page.slug}` },
+        props: { kind: 'detail', setSlug, pageIndex },
+      })),
+    ];
+  });
 }
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { kind, setSlug, pageIndex } = Astro.props as {
+  kind: 'overview' | 'detail';
+  setSlug: MysterySetSlug;
+  pageIndex?: number;
+};
+
+const set = mysterySets[setSlug];
+const baseUrl = import.meta.env.BASE_URL;
+
+let Content;
+let sectionHtml = '';
+let currentPageTitle = set.title;
+let navigation: { previous: { slug: string; title: string } | null; next: { slug: string; title: string } | null } | null = null;
+
+if (kind === 'overview') {
+  const entry = await getEntry('mysteries', setSlug);
+
+  if (!entry) {
+    throw new Error(`Missing overview entry for ${setSlug}`);
+  }
+
+  ({ Content } = await render(entry));
+} else {
+  if (typeof pageIndex !== 'number') {
+    throw new Error(`Missing page index for ${setSlug}`);
+  }
+
+  const page = set.pages[pageIndex];
+  currentPageTitle = page.title;
+  sectionHtml = await getMysterySectionHtml(setSlug, pageIndex);
+  navigation = getMysteryNavigation(setSlug, pageIndex);
+}
 ---
 
-<BaseLayout title={entry.data.title}>
+<BaseLayout title={currentPageTitle}>
   <article class="mystery">
-    <h1>{entry.data.title}</h1>
-    <Content />
+    {kind === 'overview' ? (
+      <>
+        <h1>{set.title}</h1>
+        <Content />
+      </>
+    ) : (
+      <>
+        <p class="mystery-back">
+          <a href={`${baseUrl}/mysteries/${setSlug}`}>← Back to {set.title}</a>
+        </p>
+
+        <div class="mystery-nav">
+          {navigation?.previous ? (
+            <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${navigation.previous.slug}`}>
+              ← Previous: {navigation.previous.title}
+            </a>
+          ) : (
+            <span class="mystery-nav-link is-disabled" aria-disabled="true">← Previous</span>
+          )}
+
+          {navigation?.next ? (
+            <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${navigation.next.slug}`}>
+              Next: {navigation.next.title} →
+            </a>
+          ) : (
+            <span class="mystery-nav-link is-disabled" aria-disabled="true">Next →</span>
+          )}
+        </div>
+
+        <div class="mystery-content" set:html={sectionHtml} />
+
+        <div class="mystery-nav mystery-nav--bottom">
+          {navigation?.previous ? (
+            <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${navigation.previous.slug}`}>
+              ← Previous: {navigation.previous.title}
+            </a>
+          ) : (
+            <span class="mystery-nav-link is-disabled" aria-disabled="true">← Previous</span>
+          )}
+
+          {navigation?.next ? (
+            <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${navigation.next.slug}`}>
+              Next: {navigation.next.title} →
+            </a>
+          ) : (
+            <span class="mystery-nav-link is-disabled" aria-disabled="true">Next →</span>
+          )}
+        </div>
+      </>
+    )}
   </article>
 
-  <div class="mystery-copyright">
-    <p>Scripture texts in this work are taken from the 
-    <em>New American Bible, revised edition</em> 
-    © 2010, 1991, 1986, 1970 Confraternity of Christian Doctrine, 
-    Washington, D.C. and are used by permission of the copyright owner. 
-    All Rights Reserved. No part of the <em>New American Bible</em> 
-    may be reproduced in any form without permission in writing from 
-    the copyright owner.</p>
-  </div>
+  {kind === 'detail' && (
+    <div class="mystery-copyright">
+      <p>
+        Scripture texts in this work are taken from the <em>New American Bible, revised edition</em> © 2010, 1991,
+        1986, 1970 Confraternity of Christian Doctrine, Washington, D.C. and are used by permission of the copyright
+        owner. All Rights Reserved. No part of the <em>New American Bible</em> may be reproduced in any form without
+        permission in writing from the copyright owner.
+      </p>
+    </div>
+  )}
 </BaseLayout>

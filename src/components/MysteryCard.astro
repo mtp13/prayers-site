@@ -1,17 +1,14 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { dayToMysterySet, mysterySets } from '../lib/rosary-mysteries';
 
-interface Props {
-    mysteries: CollectionEntry<'mysteries'>[];
-}
-
-const { mysteries } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
-// Pass the data to the client-side script safely
-const mysteryData = mysteries.map(m => ({
-    title: m.data.title,
-    slug: m.slug,
-    list: m.data.mysteries || []
+
+const mysteryData = Object.values(mysterySets).map((set) => ({
+  title: set.title,
+  slug: set.slug,
+  firstPageSlug: set.pages[0].slug,
+  firstPageTitle: set.pages[0].title,
+  list: set.pages.map((page) => page.title),
 }));
 ---
 
@@ -31,63 +28,48 @@ const mysteryData = mysteries.map(m => ({
   </a>
 </div>
 
-<script define:vars={{ mysteryData, baseUrl }}>
-    const mysteryMapping = {
-    1: 'The Joyful Mysteries',    // Monday
-    2: 'The Sorrowful Mysteries', // Tuesday
-    3: 'The Glorious Mysteries',  // Wednesday
-    4: 'The Luminous Mysteries',  // Thursday
-    5: 'The Sorrowful Mysteries', // Friday
-    6: 'The Joyful Mysteries',    // Saturday
-    0: 'The Glorious Mysteries'   // Sunday
-    };
+<script define:vars={{ mysteryData, dayToMysterySet, baseUrl }}>
 
-    function updateMystery() {
+  function updateMystery() {
     const today = new Date();
     const dayOfWeek = today.getDay();
-    const mysteryName = mysteryMapping[dayOfWeek];
-    
-    // Find the data object
-    const mystery = mysteryData.find(m => m.title === mysteryName);
-    
-    if (!mystery) return; // Should not happen if data is complete
+    const mysterySlug = dayToMysterySet[dayOfWeek];
+    const mystery = mysteryData.find((m) => m.slug === mysterySlug);
 
-    // Update DOM
+    if (!mystery) return;
+
     const link = document.getElementById('mystery-link');
     const dateSpan = document.getElementById('mystery-date');
     const list = document.getElementById('mystery-ol');
     const readMore = document.getElementById('mystery-read-more');
 
-    // Format date
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    
+    const firstMysteryHref = `${baseUrl}/mysteries/${mystery.slug}/${mystery.firstPageSlug}`;
+
     if (link) {
-    link.textContent = mystery.title;
-    link.href = `${baseUrl}/mysteries/${mystery.slug}`;
+      link.textContent = mystery.title;
+      link.href = `${baseUrl}/mysteries/${mystery.slug}`;
     }
-    
+
     if (dateSpan) {
-    dateSpan.textContent = today.toLocaleDateString('en-US', dateOptions);
+      dateSpan.textContent = today.toLocaleDateString('en-US', dateOptions);
     }
-    
+
     if (list) {
-    list.innerHTML = '';
-    mystery.list.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = item;
-    list.appendChild(li);
-    });
+      list.innerHTML = '';
+      mystery.list.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+      });
     }
 
     if (readMore) {
-    readMore.href = `${baseUrl}/mysteries/${mystery.slug}`;
-        readMore.textContent = `Read the full ${mystery.title} →`;
+      readMore.href = firstMysteryHref;
+      readMore.textContent = `Start with ${mystery.firstPageTitle} →`;
     }
   }
 
-  // Run immediately
   updateMystery();
-
-  // Check for day changes every minute
   setInterval(updateMystery, 60 * 1000);
 </script>
