@@ -20,5 +20,9 @@
     "http-server": "^14.1.1",
     "linkinator": "^7.6.1",
     "start-server-and-test": "^3.0.5"
+  },
+  "allowScripts": {
+    "esbuild@0.27.7": true,
+    "esbuild@0.25.12": true
   }
 }

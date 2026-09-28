@@ -3,6 +3,8 @@ title: The Hail Holy Queen (The Salve Regina)
 order: 7
 ---
 
+**Hail Holy Queen**
+
 Hail, holy Queen, mother of mercy,
 our life, our sweetness, and our hope.
 To thee do we cry, poor banished children of Eve;
@@ -19,4 +21,13 @@ V. Pray for us, O Holy Mother of God.
 
 R. That we may be made worthy of the promises of Christ.
 
-Amen.
+
+**Salve Regina**
+
+Salve, Regina, mater misericordiae, vita, dulcedo, et spes nostra, salve. Ad te
+clamamus exsules filii Evae. Ad te suspiramus, gementes et flentes in hac
+lacrimarum valle. Eia, ergo, advocata nostra, illos tuos misericordes oculos
+ad nos converte. Et Iesum, benedictum fructum ventris tui, nobis post hoc
+exsilium ostende.
+
+O clemens, O pia, O dulcis Virgo Maria.
