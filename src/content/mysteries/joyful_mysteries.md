@@ -212,5 +212,3 @@ Simeon prophesies that a sword will pierce Mary's heart.
 **Meditation:** Jesus shows his dedication to his Father's business, even as a child. Mary ponders these things in her heart.
 
 **Fruit of the Mystery:** Joy in Finding Jesus
-
----

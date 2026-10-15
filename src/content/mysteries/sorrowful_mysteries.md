@@ -143,5 +143,3 @@ Simon helps carry the cross, showing us to help one another.
 **Meditation:** Jesus offers his life for our redemption. He forgives his enemies and entrusts his mother to John's care.
 
 **Fruit of the Mystery:** Perseverance
-
----

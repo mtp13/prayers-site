@@ -132,5 +132,3 @@ his coming passion. Moses and Elijah appear with him.
 establishes the priesthood and the sacrifice of the Mass.
 
 **Fruit of the Mystery:** Adoration
-
----

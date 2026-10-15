@@ -132,5 +132,3 @@ The Church is born through the power of the Holy Spirit.
 **Meditation:** Mary reigns as Queen beside her Son. She intercedes for us and helps lead us to Jesus.
 
 **Fruit of the Mystery:** Trust in Mary's Intercession
-
----

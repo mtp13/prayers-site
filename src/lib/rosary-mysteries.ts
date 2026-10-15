@@ -102,6 +102,8 @@ function getMysterySource(slug: MysterySetSlug): string {
   return source;
 }
 
+const ordinals = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
+
 function stripFrontmatter(source: string): string {
   return source.replace(/^---\s*\n[\s\S]*?\n---\s*\n?/, '').trim();
 }
@@ -113,12 +115,21 @@ export function getMysterySections(slug: MysterySetSlug): string[] {
     .filter(Boolean);
 
   // Sections are matched to pages by position, so a stray `---` would pair text with the wrong title.
-  const expected = mysterySets[slug].pages.length;
-  if (sections.length !== expected) {
+  const { pages, title } = mysterySets[slug];
+  if (sections.length !== pages.length) {
     throw new Error(
-      `${slug}.md has ${sections.length} sections separated by "---" but ${expected} pages are defined in mysterySets`,
+      `${slug}.md has ${sections.length} sections separated by "---" but ${pages.length} pages are defined in mysterySets`,
     );
   }
+
+  // Catch reordered sections or titles that drifted from mysterySets, e.g. "## First Joyful Mystery: The Annunciation".
+  const setName = title.replace(/^The /, '').replace(/ Mysteries$/, '');
+  sections.forEach((section, index) => {
+    const heading = `## ${ordinals[index]} ${setName} Mystery: ${pages[index].title}`;
+    if (!section.split('\n').some((line) => line.trim() === heading)) {
+      throw new Error(`${slug}.md section ${index + 1} is missing the heading "${heading}"`);
+    }
+  });
 
   return sections;
 }
