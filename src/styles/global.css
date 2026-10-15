@@ -414,9 +414,14 @@ a:hover {
   left: 0;
   margin-top: 4px;
 }
-.nav-dropdown:hover .dropdown-content,
 .nav-dropdown.is-open .dropdown-content {
   display: block;
+}
+/* Touch devices keep :hover after a tap, so only open on hover with a real pointer. */
+@media (hover: hover) {
+  .nav-dropdown:hover .dropdown-content {
+    display: block;
+  }
 }
 .dropdown-content a {
   color: var(--text-color);
@@ -485,18 +490,11 @@ a:hover {
   }
   .dropdown-content {
     position: absolute;
-    display: none; /* In pure CSS hover, this requires click on mobile or hover logic. */
+    display: none;
     min-width: 200px;
     box-shadow: 0 8px 16px 0px rgba(139, 69, 19, 0.1);
     border: 1px solid rgba(139, 69, 19, 0.2);
     background-color: var(--warm-cream);
     padding-left: 0;
-  }
-  /* On mobile, we might want to just show them or use a click handler later.
-     For now, hover works on some touch devices, but "click" is better.
-     Since we are doing "Vanilla CSS", we'll stick to hover/focus-within for now. */
-  .nav-dropdown:hover .dropdown-content,
-  .nav-dropdown:focus-within .dropdown-content {
-    display: block;
   }
 }
