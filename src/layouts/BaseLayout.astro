@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import { execSync } from 'node:child_process';
+import { commitDateIso, commitSha } from '../lib/build-info';
 
 interface Props {
   title: string;
@@ -9,17 +9,6 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-
-let commitSha = 'unknown';
-let commitDateIso = '';
-
-try {
-  commitSha = execSync('git log -1 --format=%h', { encoding: 'utf-8' }).trim();
-  commitDateIso = execSync('git log -1 --format=%cI', { encoding: 'utf-8' }).trim();
-} catch (error) {
-  commitSha = 'unknown';
-  commitDateIso = '';
-}
 
 const commitDate = commitDateIso ? new Date(commitDateIso) : null;
 const formattedCommitDate = commitDate
