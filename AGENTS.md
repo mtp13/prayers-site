@@ -1,7 +1,8 @@
 # AGENTS.md
 
 - Astro 5 static site for Rosary prayers and mysteries.
-- Content lives in `src/content/prayers/` and `src/content/mysteries/`; pages are `src/pages/index.astro`, `src/pages/prayers/[...slug].astro`, and `src/pages/mysteries/[...slug].astro`.
+- Content lives in `src/content/prayers/` and `src/content/mysteries/`.
+- Pages are `src/pages/index.astro`, `src/pages/prayers/[...slug].astro`, and `src/pages/mysteries/[...slug].astro`.
 - `astro.config.mjs` sets `base: "/rosary"`; use `import.meta.env.BASE_URL` for internal links.
 - The site builds to static `dist/`; do not edit generated output.
 
@@ -22,8 +23,8 @@
 - `npm run preview`
 - `npm run preview:host`
 - `npm run test:links`: Check for broken links by serving the `dist/` directory and crawling it.
-- `npm run test`: Build the site and run all tests.
-- Markdown lint: `npx markdownlint "**/*.md" --config .markdownlint.json`
+- `npm run test`: Lint, build the site, and check links.
+- `npm run lint`: Lint Markdown with markdownlint.
 - Use Conventional Commits for git messages, e.g. `fix: ...`, `docs: ...`, `feat: ...`.
 
 ## Style

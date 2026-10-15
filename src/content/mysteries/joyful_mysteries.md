@@ -25,14 +25,14 @@ mysteries:
 > of greeting this might be. Then the angel said to her, “Do not be
 > afraid, Mary, for you have found favor with God.  Behold, you will
 > conceive in your womb and bear a son, and you shall name him Jesus.
-> 
+>
 > He will be great and will be called Son of the Most High, and the
 > Lord God will give him the throne of David his father, and he will
 > rule over the house of Jacob forever, and of his kingdom there will
 > be no end.”  
 >
 > But Mary said to the angel, “How can this be, since I have no
-> relations with a man?” And the angel said to her in reply, 
+> relations with a man?” And the angel said to her in reply,
 >
 > “The holy Spirit will come upon you, and the power of the Most High
 > will overshadow you. Therefore the child to be born will be called
@@ -67,7 +67,7 @@ mysteries:
 > infant in my womb leaped for joy. Blessed are you who believed that what was
 > spoken to you by the Lord would be fulfilled.”  
 >
-> And Mary said: 
+> And Mary said:
 >
 > “My soul proclaims the greatness of the Lord; my spirit rejoices in
 > God my savior.  For he has looked upon his handmaid’s lowliness;
@@ -115,14 +115,14 @@ baby leaps in her womb at the presence of Jesus.
 > will be for all the people.  For today in the city of David a savior
 > has been born for you who is Messiah and Lord. And this will be a
 > sign for you: you will find an infant wrapped in swaddling clothes
-> and lying in a manger.” 
+> and lying in a manger.”
 >
 > And suddenly there was a multitude of the heavenly host with the
 > angel, praising God and saying:
 >
 > “Glory to God in the highest and on earth peace to those on whom his
 > favor rests.”
-> 
+>
 > When the angels went away from them to heaven, the shepherds said to
 > one another, “Let us go, then, to Bethlehem to see this thing that
 > has taken place, which the Lord has made known to us.” So they went

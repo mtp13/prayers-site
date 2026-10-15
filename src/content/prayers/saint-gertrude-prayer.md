@@ -10,4 +10,3 @@ sinners in the Universal Church, those in my own home and within my
 family.
 
 Amen.
-

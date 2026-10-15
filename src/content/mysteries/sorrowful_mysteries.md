@@ -100,7 +100,7 @@ He submits to the Father's will despite his human suffering.
 > nursed.’ At that time people will say to the mountains, ‘Fall upon us!’ and
 > to the hills, ‘Cover us!’  for if these things are done when the wood is
 > green what will happen when it is dry?”
-
+>
 > Now two others, both criminals, were led away with him to be executed.
 
 **Meditation:** Jesus embraces his cross and teaches us to embrace ours.
@@ -134,7 +134,7 @@ Simon helps carry the cross, showing us to help one another.
 > Then he said, “Jesus, remember me when you come into your kingdom.”
 > He replied to him, “Amen, I say to you, today you will be with me in
 > Paradise.”
-
+>
 > It was now about noon and darkness came over the whole land until
 > three in the afternoon because of an eclipse of the sun. Then the
 > veil of the temple was torn down the middle.  Jesus cried out in a

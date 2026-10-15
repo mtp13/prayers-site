@@ -1,6 +1,7 @@
 # Rosary Prayers
 
-An Astro 5 static site that presents Catholic Rosary prayers and mysteries. Content is managed in Astro content collections, rendered into simple, readable pages, and deployed as a static site on Vercel.
+An Astro 5 static site that presents Catholic Rosary prayers and mysteries. Content is managed in Astro content
+collections, rendered into simple, readable pages, and deployed as a static site on Vercel.
 
 ## Requirements
 
