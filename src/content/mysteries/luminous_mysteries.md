@@ -1,12 +1,6 @@
 ---
 title: The Luminous Mysteries
 order: 4
-mysteries:
-  - "First Luminous Mystery: The Baptism of Jesus"
-  - "Second Luminous Mystery: The Wedding at Cana"
-  - "Third Luminous Mystery: The Proclamation of the Kingdom"
-  - "Fourth Luminous Mystery: The Transfiguration"
-  - "Fifth Luminous Mystery: The Institution of the Eucharist"
 ---
 
 ## Traditionally prayed on Thursdays

@@ -1,13 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
+import { getSortedCollection } from '../lib/collections';
 
 const baseUrl = import.meta.env.BASE_URL;
 
-const prayers = await getCollection('prayers');
-const mysteries = await getCollection('mysteries');
-
-const sortedPrayers = prayers.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
-const sortedMysteries = mysteries.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+const sortedPrayers = await getSortedCollection('prayers');
+const sortedMysteries = await getSortedCollection('mysteries');
 ---
 
 <header class="site-header" role="banner">
@@ -27,19 +24,23 @@ const sortedMysteries = mysteries.sort((a, b) => (a.data.order || 99) - (b.data.
     <nav class="site-nav">
       <div class="trigger">
         <div class="nav-dropdown">
-          <button class="page-link dropdown-toggle" type="button" aria-expanded="false">Prayers</button>
-          <div class="dropdown-content" role="menu">
+          <button class="page-link dropdown-toggle" type="button" aria-expanded="false" aria-controls="nav-prayers">
+            Prayers
+          </button>
+          <div class="dropdown-content" id="nav-prayers">
             {sortedPrayers.map((prayer) => (
-              <a href={`${baseUrl}/prayers/${prayer.slug}`} role="menuitem">{prayer.data.title}</a>
+              <a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a>
             ))}
           </div>
         </div>
-        
+
         <div class="nav-dropdown">
-          <button class="page-link dropdown-toggle" type="button" aria-expanded="false">Mysteries</button>
-          <div class="dropdown-content" role="menu">
+          <button class="page-link dropdown-toggle" type="button" aria-expanded="false" aria-controls="nav-mysteries">
+            Mysteries
+          </button>
+          <div class="dropdown-content" id="nav-mysteries">
             {sortedMysteries.map((mystery) => (
-              <a href={`${baseUrl}/mysteries/${mystery.slug}`} role="menuitem">{mystery.data.title}</a>
+              <a href={`${baseUrl}/mysteries/${mystery.id}`}>{mystery.data.title}</a>
             ))}
           </div>
         </div>

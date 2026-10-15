@@ -1,12 +1,6 @@
 ---
 title: The Sorrowful Mysteries
 order: 2
-mysteries:
-  - "First Sorrowful Mystery: The Agony in the Garden"
-  - "Second Sorrowful Mystery: The Scourging at the Pillar"
-  - "Third Sorrowful Mystery: The Crowning with Thorns"
-  - "Fourth Sorrowful Mystery: The Carrying of the Cross"
-  - "Fifth Sorrowful Mystery: The Crucifixion and Death"
 ---
 
 ## Traditionally prayed on Tuesdays and Fridays

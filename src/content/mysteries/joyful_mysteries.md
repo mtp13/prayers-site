@@ -1,12 +1,6 @@
 ---
 title: The Joyful Mysteries
 order: 1
-mysteries:
-  - "First Joyful Mystery: The Annunciation"
-  - "Second Joyful Mystery: The Visitation"
-  - "Third Joyful Mystery: The Nativity"
-  - "Fourth Joyful Mystery: The Presentation"
-  - "Fifth Joyful Mystery: The Finding in the Temple"
 ---
 
 ## Traditionally prayed on Mondays and Saturdays

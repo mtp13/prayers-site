@@ -1,12 +1,6 @@
 ---
 title: The Glorious Mysteries
 order: 3
-mysteries:
-  - "First Glorious Mystery: The Resurrection"
-  - "Second Glorious Mystery: The Ascension"
-  - "Third Glorious Mystery: The Descent of the Holy Spirit"
-  - "Fourth Glorious Mystery: The Assumption of Mary"
-  - "Fifth Glorious Mystery: The Coronation of Mary"
 ---
 
 ## Traditionally prayed on Wednesdays and Sundays

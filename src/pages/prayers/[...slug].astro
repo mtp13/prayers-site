@@ -1,18 +1,15 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSortedCollection } from '../../lib/collections';
 
 export async function getStaticPaths() {
-  const prayers = await getCollection('prayers');
-  const sortedPrayers = prayers.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+  const sortedPrayers = await getSortedCollection('prayers');
 
-  return sortedPrayers.map((entry, index) => {
-    const nextPrayer = index < sortedPrayers.length - 1 ? sortedPrayers[index + 1] : null;
-    return {
-      params: { slug: entry.slug },
-      props: { entry, nextPrayer },
-    };
-  });
+  return sortedPrayers.map((entry, index) => ({
+    params: { slug: entry.id },
+    props: { entry, nextPrayer: sortedPrayers[index + 1] ?? null },
+  }));
 }
 
 const { entry, nextPrayer } = Astro.props;
@@ -27,12 +24,12 @@ const baseUrl = import.meta.env.BASE_URL;
     <div class="prayer-return" id="prayer-return" hidden>
       <a class="prayer-return-link" id="prayer-return-link" href={baseUrl}>← Back to mystery</a>
     </div>
-     
+
     <Content />
 
     {nextPrayer && (
       <div class="next-prayer-link">
-          <a href={`${import.meta.env.BASE_URL}/prayers/${nextPrayer.slug}`} class="next-prayer">
+        <a href={`${baseUrl}/prayers/${nextPrayer.id}`} class="next-prayer">
           Next: {nextPrayer.data.title} →
         </a>
       </div>
@@ -44,10 +41,26 @@ const baseUrl = import.meta.env.BASE_URL;
     const backUrl = params.get('back');
     const backLabel = params.get('backLabel');
     const returnWrap = document.getElementById('prayer-return');
-    const returnLink = document.getElementById('prayer-return-link');
+    const returnLink = document.getElementById('prayer-return-link') as HTMLAnchorElement | null;
 
-    if (backUrl && returnWrap && returnLink) {
-      returnLink.href = backUrl;
+    // Only follow `back` links that stay on this site, so a crafted URL can't inject e.g. `javascript:`.
+    function safeBackUrl(value: string | null): string | null {
+      if (!value) return null;
+
+      try {
+        const url = new URL(value, window.location.origin);
+        const isSameSite = url.origin === window.location.origin
+          && url.pathname.startsWith(`${import.meta.env.BASE_URL}/`);
+        return isSameSite ? url.pathname + url.search + url.hash : null;
+      } catch {
+        return null;
+      }
+    }
+
+    const safeUrl = safeBackUrl(backUrl);
+
+    if (safeUrl && returnWrap && returnLink) {
+      returnLink.href = safeUrl;
       returnLink.textContent = `← Back to ${backLabel || 'mystery'}`;
       returnWrap.hidden = false;
     }

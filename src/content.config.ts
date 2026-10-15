@@ -1,23 +1,19 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+const schema = z.object({
+  title: z.string(),
+  order: z.number().optional(),
+});
 
 const prayers = defineCollection({
-  // Use 'content' type for markdown files
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    order: z.number().optional(),
-    layout: z.string().optional(), // We won't use this in Astro, but it's in the files
-  }),
+  loader: glob({ pattern: '*.md', base: './src/content/prayers' }),
+  schema,
 });
 
 const mysteries = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    order: z.number().optional(),
-    layout: z.string().optional(),
-    mysteries: z.array(z.string()).optional(),
-  }),
+  loader: glob({ pattern: '*.md', base: './src/content/mysteries' }),
+  schema,
 });
 
 export const collections = {
