@@ -8,23 +8,24 @@
     "build": "astro build",
     "preview": "astro preview",
     "preview:host": "astro preview --host",
-    "test:links": "start-server-and-test preview http://localhost:4321/rosary/ 'linkinator http://localhost:4321/rosary/ --recurse --silent --concurrency 10'",
+    "test:links": "sh scripts/test-links.sh",
     "test": "npm run lint && npm run build && npm run test:links",
     "astro": "astro",
     "lint": "markdownlint \"**/*.md\" --config .markdownlint.json --ignore node_modules"
   },
   "dependencies": {
-    "astro": "^5.16.11",
+    "astro": "^7.4.0",
     "marked": "^18.0.5"
   },
   "devDependencies": {
-    "http-server": "^14.1.1",
     "linkinator": "^7.6.1",
-    "markdownlint-cli": "^0.49.1",
-    "start-server-and-test": "^3.0.5"
+    "markdownlint-cli": "^0.49.1"
   },
   "allowScripts": {
     "esbuild@0.27.7": true,
     "esbuild@0.25.12": true
+  },
+  "engines": {
+    "node": ">=22.22.0"
   }
 }
