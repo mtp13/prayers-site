@@ -37,6 +37,7 @@ const baseUrl = import.meta.env.BASE_URL;
 const firstPage = set.pages[0];
 
 let sectionHtml = '';
+let currentPage = firstPage;
 let currentPageTitle = set.title;
 let currentPageSlug = '';
 let navigation: ReturnType<typeof getMysteryNavigation> = { previous: null, next: null };
@@ -48,6 +49,7 @@ if (kind === 'detail') {
   }
 
   const page = set.pages[pageIndex];
+  currentPage = page;
   currentPageTitle = page.title;
   currentPageSlug = page.slug;
   sectionHtml = await getMysterySectionHtml(setSlug, pageIndex);
@@ -100,7 +102,7 @@ if (kind === 'detail') {
           <a href={`${baseUrl}/mysteries/${setSlug}`}>← Back to {set.title}</a>
         </p>
 
-        <MysteryNav setSlug={setSlug} previous={navigation.previous} next={navigation.next} />
+        <MysteryNav setSlug={setSlug} current={currentPage} previous={navigation.previous} next={navigation.next} />
 
         <nav class="mystery-quick-prayers" aria-label="Quick prayer links">
           {prayerLinks.map((prayer) => (
@@ -112,7 +114,7 @@ if (kind === 'detail') {
 
         <div class="mystery-content" set:html={sectionHtml} />
 
-        <MysteryNav setSlug={setSlug} previous={navigation.previous} next={navigation.next} position="bottom" />
+        <MysteryNav setSlug={setSlug} current={currentPage} previous={navigation.previous} next={navigation.next} position="bottom" />
       </>
     )}
   </article>
