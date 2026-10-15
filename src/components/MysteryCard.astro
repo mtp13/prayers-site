@@ -9,10 +9,22 @@ const mysteryData = Object.values(mysterySets).map((set) => ({
   firstPageSlug: set.pages[0].slug,
   firstPageTitle: set.pages[0].title,
   list: set.pages.map((page) => page.title),
+  days: set.days,
 }));
 ---
 
-<div class="todays-mystery" id="mystery-card">
+<noscript>
+  <div class="todays-mystery">
+    <p>Today's mystery needs JavaScript. Each set is traditionally prayed on:</p>
+    <ul>
+      {mysteryData.map((mystery) => (
+        <li><a href={`${baseUrl}/mysteries/${mystery.slug}`}>{mystery.title}</a>: {mystery.days.join(' and ')}</li>
+      ))}
+    </ul>
+  </div>
+</noscript>
+
+<div class="todays-mystery" id="mystery-card" hidden>
   <h3><a href="#" id="mystery-link">Loading today's mystery...</a></h3>
   <p><em>Today's recommended mystery for <span id="mystery-date">...</span></em></p>
   
@@ -71,5 +83,6 @@ const mysteryData = Object.values(mysterySets).map((set) => ({
   }
 
   updateMystery();
+  document.getElementById('mystery-card')?.removeAttribute('hidden');
   setInterval(updateMystery, 60 * 1000);
 </script>

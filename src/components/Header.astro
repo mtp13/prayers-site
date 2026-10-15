@@ -77,7 +77,7 @@ const sortedMysteries = await getSortedCollection('mysteries');
       });
 
       document.addEventListener('click', (event) => {
-        if (!event.target.closest('.nav-dropdown')) {
+        if (!(event.target as Element).closest('.nav-dropdown')) {
           closeAll();
         }
       });

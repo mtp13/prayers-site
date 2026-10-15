@@ -51,6 +51,12 @@ a:hover {
   text-decoration: underline;
   color: #63310d; /* Darker shade of bronze */
 }
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--sacred-burgundy);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
 .wrapper {
   max-width: 800px;
   margin-right: auto;

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import MysteryNav from '../../components/MysteryNav.astro';
 import {
   getMysteryNavigation,
   getMysterySectionHtml,
@@ -38,7 +39,7 @@ const firstPage = set.pages[0];
 let sectionHtml = '';
 let currentPageTitle = set.title;
 let currentPageSlug = '';
-let navigation: { previous: { slug: string; title: string } | null; next: { slug: string; title: string } | null } | null = null;
+let navigation: ReturnType<typeof getMysteryNavigation> = { previous: null, next: null };
 let prayerLinks: { title: string; href: string }[] = [];
 
 if (kind === 'detail') {
@@ -84,7 +85,7 @@ if (kind === 'detail') {
         </p>
 
         <ol class="mystery-overview-list">
-          {set.pages.map((page, index) => (
+          {set.pages.map((page) => (
             <li>
               <a href={`${baseUrl}/mysteries/${setSlug}/${page.slug}`}>
                 {page.title}
@@ -99,51 +100,19 @@ if (kind === 'detail') {
           <a href={`${baseUrl}/mysteries/${setSlug}`}>← Back to {set.title}</a>
         </p>
 
-        <div class="mystery-nav">
-          {navigation?.previous ? (
-            <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${navigation.previous.slug}`}>
-              ← Previous: {navigation.previous.title}
-            </a>
-          ) : (
-            <span class="mystery-nav-link is-disabled" aria-disabled="true">← Previous</span>
-          )}
+        <MysteryNav setSlug={setSlug} previous={navigation.previous} next={navigation.next} />
 
-          {navigation?.next ? (
-            <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${navigation.next.slug}`}>
-              Next: {navigation.next.title} →
-            </a>
-          ) : (
-            <span class="mystery-nav-link is-disabled" aria-disabled="true">Next →</span>
-          )}
-        </div>
-
-        <div class="mystery-quick-prayers" aria-label="Quick prayer links">
+        <nav class="mystery-quick-prayers" aria-label="Quick prayer links">
           {prayerLinks.map((prayer) => (
             <a class="mystery-quick-prayer-link" href={prayer.href}>
               {prayer.title}
             </a>
           ))}
-        </div>
+        </nav>
 
         <div class="mystery-content" set:html={sectionHtml} />
 
-        <div class="mystery-nav mystery-nav--bottom">
-          {navigation?.previous ? (
-            <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${navigation.previous.slug}`}>
-              ← Previous: {navigation.previous.title}
-            </a>
-          ) : (
-            <span class="mystery-nav-link is-disabled" aria-disabled="true">← Previous</span>
-          )}
-
-          {navigation?.next ? (
-            <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${navigation.next.slug}`}>
-              Next: {navigation.next.title} →
-            </a>
-          ) : (
-            <span class="mystery-nav-link is-disabled" aria-disabled="true">Next →</span>
-          )}
-        </div>
+        <MysteryNav setSlug={setSlug} previous={navigation.previous} next={navigation.next} position="bottom" />
       </>
     )}
   </article>
