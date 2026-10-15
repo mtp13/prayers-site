@@ -1,11 +1,11 @@
 # Rosary Prayers
 
-An Astro 5 static site that presents Catholic Rosary prayers and mysteries. Content is managed in Astro content
+An Astro 7 static site that presents Catholic Rosary prayers and mysteries. Content is managed in Astro content
 collections, rendered into simple, readable pages, and deployed as a static site on Vercel.
 
 ## Requirements
 
-- Node.js (LTS recommended)
+- Node.js 22.22 or later
 - npm
 
 ## Install
