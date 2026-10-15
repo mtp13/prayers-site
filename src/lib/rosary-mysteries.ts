@@ -107,10 +107,20 @@ function stripFrontmatter(source: string): string {
 }
 
 export function getMysterySections(slug: MysterySetSlug): string[] {
-  return stripFrontmatter(getMysterySource(slug))
+  const sections = stripFrontmatter(getMysterySource(slug))
     .split(/\n---\n/)
     .map((section) => section.trim())
     .filter(Boolean);
+
+  // Sections are matched to pages by position, so a stray `---` would pair text with the wrong title.
+  const expected = mysterySets[slug].pages.length;
+  if (sections.length !== expected) {
+    throw new Error(
+      `${slug}.md has ${sections.length} sections separated by "---" but ${expected} pages are defined in mysterySets`,
+    );
+  }
+
+  return sections;
 }
 
 export function getMysterySectionMarkdown(slug: MysterySetSlug, index: number): string {
