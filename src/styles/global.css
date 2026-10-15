@@ -225,6 +225,9 @@ button:focus-visible {
 .mystery-overview-start {
   margin: 1.25rem 0 1.5rem;
 }
+.mystery-overview-start .mystery-nav-link {
+  font-weight: bold;
+}
 .mystery-overview-list {
   margin: 0;
   padding-left: 1.25rem;
@@ -236,31 +239,45 @@ button:focus-visible {
   margin: 0 0 1rem;
   text-align: center;
 }
+/* Two equal columns: Previous on the left, Next always on the right (even on the first mystery). */
 .mystery-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: space-between;
-  margin: 1.25rem 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 1rem 0 1.25rem;
 }
 .mystery-nav--bottom {
   margin-top: 2rem;
 }
 .mystery-nav-link {
-  display: inline-block;
-  padding: 0.75rem 1rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-height: 44px; /* comfortable touch target */
+  padding: 0.45rem 0.75rem;
   border: 1px solid rgba(139, 69, 19, 0.22);
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.35);
   color: var(--sacred-burgundy);
-  font-weight: bold;
+  line-height: 1.25;
 }
 .mystery-nav-link:hover {
   background: rgba(139, 69, 19, 0.05);
   text-decoration: none;
 }
-.mystery-nav-link.is-disabled {
-  opacity: 0.5;
+.mystery-nav-link--next {
+  grid-column: 2;
+  text-align: right;
+}
+.mystery-nav-label {
+  color: var(--sacred-bronze);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.mystery-nav-title {
+  font-size: 0.95rem;
+  font-weight: bold;
 }
 .mystery-quick-prayers {
   display: flex;
@@ -481,8 +498,27 @@ button:focus-visible {
   .prayer, .mystery {
     padding: 20px 15px;
   }
-  .mystery-nav {
-    flex-direction: column;
+  /* On phones the page gutter is enough; drop the card frame to give the text more width. */
+  .mystery {
+    padding: 12px 0;
+    border: none;
+    background: none;
+  }
+  .mystery h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+  }
+  .mystery h2 {
+    font-size: 1.35rem;
+    line-height: 1.25;
+    margin-top: 1.25rem;
+  }
+  .mystery-back {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .mystery-nav-title {
+    font-size: 0.9rem;
   }
   .prayer > p {
     font-size: 18px;

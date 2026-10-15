@@ -18,22 +18,23 @@ const back = `back=${encodeURIComponent(`${setUrl}/${current.slug}`)}&backLabel=
 const hailHolyQueenHref = `${baseUrl}/prayers/hail_holy_queen?${back}`;
 ---
 
-<div class:list={['mystery-nav', { 'mystery-nav--bottom': position === 'bottom' }]}>
-  {previous ? (
-    <a class="mystery-nav-link" href={`${setUrl}/${previous.slug}`}>
-      ← Previous: {previous.title}
+<nav
+  class:list={['mystery-nav', { 'mystery-nav--bottom': position === 'bottom' }]}
+  aria-label={position === 'bottom' ? 'Mystery navigation (bottom)' : 'Mystery navigation'}
+>
+  {previous && (
+    <a class="mystery-nav-link mystery-nav-link--prev" href={`${setUrl}/${previous.slug}`} rel="prev">
+      <span class="mystery-nav-label">← Previous</span>
+      <span class="mystery-nav-title">{previous.title}</span>
     </a>
-  ) : (
-    <span class="mystery-nav-link is-disabled" aria-disabled="true">← Previous</span>
   )}
 
-  {next ? (
-    <a class="mystery-nav-link" href={`${setUrl}/${next.slug}`}>
-      Next: {next.title} →
-    </a>
-  ) : (
-    <a class="mystery-nav-link" href={hailHolyQueenHref}>
-      Next: Hail Holy Queen →
-    </a>
-  )}
-</div>
+  <a
+    class="mystery-nav-link mystery-nav-link--next"
+    href={next ? `${setUrl}/${next.slug}` : hailHolyQueenHref}
+    rel={next ? 'next' : undefined}
+  >
+    <span class="mystery-nav-label">Next →</span>
+    <span class="mystery-nav-title">{next ? next.title : 'Hail Holy Queen'}</span>
+  </a>
+</nav>
