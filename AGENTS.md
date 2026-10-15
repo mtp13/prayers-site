@@ -9,10 +9,13 @@
 ## Content Rules
 
 - Markdown content uses front matter.
-- Current schema fields: `title` required, `order` optional, `layout` optional, `mysteries` optional for mystery entries.
+- Current schema fields: `title` required, `order` optional.
 - Keep filenames `snake_case`, titles in Title Case, and prayer text verbatim.
-- If you add front matter fields, update `src/content/config.ts`.
-- Ordering uses `order` with a fallback of `99`.
+- If you add front matter fields, update `src/content.config.ts`.
+- Ordering uses `order` with a fallback of `99`, then title; use `getSortedCollection` from `src/lib/collections.ts`.
+- Mystery files are split into pages on `---` lines. Each must have exactly as many sections as its `pages` entry in
+  `src/lib/rosary-mysteries.ts`, or the build fails.
+- If you rename a content file, add a redirect for the old URL in `astro.config.mjs`.
 
 ## Commands
 
