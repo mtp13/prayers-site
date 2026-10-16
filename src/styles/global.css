@@ -215,18 +215,35 @@ button:focus-visible {
   counter-reset: howto;
 }
 .howto li {
+  counter-increment: howto;
+}
+.howto-link {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0 0 1rem 2.6rem;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 2rem 0.6rem 3.1rem;
+  border: 1px solid rgba(139, 69, 19, 0.15);
+  border-radius: 8px;
   line-height: 1.35;
-  counter-increment: howto;
 }
-.howto li::before {
+.howto-link::after {
+  content: "›";
+  position: absolute;
+  top: 50%;
+  right: 0.9rem;
+  color: var(--sacred-bronze);
+  transform: translateY(-50%);
+}
+.howto-link:hover {
+  background: rgba(139, 69, 19, 0.05);
+  text-decoration: none;
+}
+.howto-link::before {
   content: counter(howto);
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0.6rem;
+  left: 0.6rem;
   display: flex;
   align-items: center;
   justify-content: center;

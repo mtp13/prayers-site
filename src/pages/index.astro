@@ -1,13 +1,37 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getPrayerGroups } from '../lib/collections';
-import { dayToMysterySet, mysterySetOrder, mysterySets } from '../lib/rosary-mysteries';
+import { dayToMysterySet, mysterySetOrder, mysterySets, type MysterySetMeta } from '../lib/rosary-mysteries';
 
 const baseUrl = import.meta.env.BASE_URL;
 const prayerGroups = await getPrayerGroups();
 const sets = mysterySetOrder.map((slug) => mysterySets[slug]);
 const shortName = (title: string) => title.replace(/^The /, '').replace(/ Mysteries$/, '');
 const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' · ');
+const setUrl = (set: MysterySetMeta) => `${baseUrl}/mysteries/${set.slug}`;
+
+// The how-to steps link into the set shown in the card; the script updates them when the set changes.
+const defaultSet = sets[0];
+const howtoSteps = [
+  {
+    key: 'opening',
+    title: 'Opening prayers',
+    detail: "Sign of the Cross, Apostles' Creed, Our Father, three Hail Marys, Glory Be",
+    href: (set: MysterySetMeta) => `${setUrl(set)}/opening`,
+  },
+  {
+    key: 'decades',
+    title: 'Five decades',
+    detail: 'For each mystery: Our Father, ten Hail Marys, Glory Be, Fatima Prayer',
+    href: (set: MysterySetMeta) => `${setUrl(set)}/${set.pages[0].slug}`,
+  },
+  {
+    key: 'conclusion',
+    title: 'Concluding prayers',
+    detail: 'Hail Holy Queen, Rosary Closing Prayer, Sign of the Cross',
+    href: (set: MysterySetMeta) => `${setUrl(set)}/conclusion`,
+  },
+];
 ---
 
 <BaseLayout title="Rosary Prayers" description="Pray the Holy Rosary: today's mysteries, step by step, and the prayers">
@@ -16,7 +40,15 @@ const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' 
 
     {/* One card per set. The script shows today's, and the set cards below switch between them. */}
     {sets.map((set) => (
-      <section class="today-card" id={`card-${set.slug}`} data-set={set.slug} aria-label={set.title} hidden>
+      <section
+        class="today-card"
+        id={`card-${set.slug}`}
+        data-set={set.slug}
+        data-name={shortName(set.title)}
+        data-howto={JSON.stringify(Object.fromEntries(howtoSteps.map((h) => [h.key, h.href(set)])))}
+        aria-label={set.title}
+        hidden
+      >
         <p class="today-date" data-today-date></p>
         <p class="today-kicker">
           <span class="today-kicker-today">Today's Mystery</span>
@@ -26,7 +58,7 @@ const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' 
         <ol class="today-list">
           {set.pages.map((page) => <li>{page.title}</li>)}
         </ol>
-        <a class="today-begin" href={`${baseUrl}/mysteries/${set.slug}/opening`}>Begin the Rosary</a>
+        <a class="today-begin" href={`${setUrl(set)}/opening`}>Begin the Rosary</a>
       </section>
     ))}
 
@@ -38,7 +70,7 @@ const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' 
             <a
               class="set-card"
               data-set={set.slug}
-              href={`${baseUrl}/mysteries/${set.slug}`}
+              href={setUrl(set)}
               aria-controls={`card-${set.slug}`}
             >
               <span class="set-card-title">{shortName(set.title)}</span>
@@ -52,21 +84,19 @@ const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' 
 
     <section class="home-section" aria-labelledby="home-howto">
       <h2 class="home-heading" id="home-howto">How to Pray the Rosary</h2>
+      <p class="home-note">
+        Each step opens on its own for the <span data-howto-set>{shortName(defaultSet.title)}</span> Mysteries, the set
+        chosen above.
+      </p>
       <ol class="howto">
-        <li>
-          <span class="howto-step">Opening prayers</span>
-          <span class="howto-detail">Sign of the Cross, Apostles' Creed, Our Father, three Hail Marys, Glory Be</span>
-        </li>
-        <li>
-          <span class="howto-step">Five decades</span>
-          <span class="howto-detail">
-            For each mystery: Our Father, ten Hail Marys, Glory Be, Fatima Prayer
-          </span>
-        </li>
-        <li>
-          <span class="howto-step">Concluding prayers</span>
-          <span class="howto-detail">Hail Holy Queen, Rosary Closing Prayer, Sign of the Cross</span>
-        </li>
+        {howtoSteps.map((howtoStep) => (
+          <li>
+            <a class="howto-link" data-howto-step={howtoStep.key} href={howtoStep.href(defaultSet)}>
+              <span class="howto-step">{howtoStep.title}</span>
+              <span class="howto-detail">{howtoStep.detail}</span>
+            </a>
+          </li>
+        ))}
       </ol>
     </section>
 
@@ -109,7 +139,18 @@ const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' 
         link.classList.toggle('is-selected', selected);
         link.setAttribute('aria-current', String(selected));
       });
-      return shown as HTMLElement | null;
+      // Point the how-to steps at the chosen set.
+      const card = shown as HTMLElement | null;
+      if (card) {
+        const hrefs: Record<string, string> = JSON.parse(card.dataset.howto ?? '{}');
+        document.querySelectorAll<HTMLAnchorElement>('[data-howto-step]').forEach((link) => {
+          link.href = hrefs[link.dataset.howtoStep ?? ''] ?? link.href;
+        });
+        document.querySelectorAll('[data-howto-set]').forEach((el) => {
+          el.textContent = card.dataset.name ?? '';
+        });
+      }
+      return card;
     }
 
     select(todaySlug);
