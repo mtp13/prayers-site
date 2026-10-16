@@ -32,9 +32,11 @@
   --spacing-unit: 30px;
 }
 
-/* Dark mode follows the system setting: on a dark warm brown, burgundy becomes a soft gold and bronze a copper */
+/* Dark palette: on a dark warm brown, burgundy becomes a soft gold and bronze a copper. It applies when the
+   Appearance setting in the menu is Dark, or Auto (the default) with the system in dark mode; the theme script in
+   BaseHead.astro sets data-theme on <html> for an explicit choice. The values appear twice: keep both in sync. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --sacred-bronze: #cc8f5a;
     --sacred-burgundy: #c9ae88;
     --warm-cream: #1c1512;
@@ -49,6 +51,26 @@
     --surface-rgb: 50, 38, 32;
     --shadow-rgb: 0, 0, 0;
   }
+}
+:root[data-theme='dark'] {
+  --sacred-bronze: #cc8f5a;
+  --sacred-burgundy: #c9ae88;
+  --warm-cream: #1c1512;
+  --rich-brown: #ede3d6;
+  --light-rose: #2a201a;
+  --bronze-hover: #e0aa78;
+  --burgundy-hover: #d8c19f;
+
+  --bronze-rgb: 204, 143, 90;
+  --burgundy-rgb: 201, 174, 136;
+  --text-rgb: 237, 227, 214;
+  --surface-rgb: 50, 38, 32;
+  --shadow-rgb: 0, 0, 0;
+
+  color-scheme: dark;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
 }
 
 /* Base Reset & Typography (Minima-like) */
@@ -841,6 +863,62 @@ html.menu-open .site-footer {
 .site-menu a:hover {
   color: var(--sacred-bronze);
   text-decoration: none;
+}
+/* Appearance setting: Auto / Light / Dark as one segmented control below the menu columns */
+.site-menu-appearance {
+  padding-top: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-top: 1px solid rgba(var(--bronze-rgb), 0.15);
+}
+.theme-picker {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.theme-picker legend {
+  padding: 0;
+  font-weight: bold; /* a legend isn't bold like the other menu headings (h2) */
+}
+.theme-options {
+  display: inline-flex;
+  border: 1px solid rgba(var(--bronze-rgb), 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.theme-options label {
+  position: relative;
+  cursor: pointer;
+}
+.theme-options label + label {
+  border-left: 1px solid rgba(var(--bronze-rgb), 0.3);
+}
+/* The radio itself is invisible but still focusable and clickable; its label text is the button */
+.theme-options input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.theme-options span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5rem;
+  min-height: 44px;
+  padding: 0.4rem 1rem;
+  color: var(--text-color);
+}
+.theme-options label:hover span {
+  background: rgba(var(--bronze-rgb), 0.06);
+}
+.theme-options input:checked + span {
+  background: var(--sacred-burgundy);
+  color: var(--warm-cream);
+  font-weight: bold;
+}
+.theme-options input:focus-visible + span {
+  box-shadow: inset 0 0 0 2px var(--sacred-bronze);
 }
 
 /* Cross-fade between pages where the browser supports it (Safari 18.2+, Chrome 126+) */
