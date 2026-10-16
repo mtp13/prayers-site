@@ -32,19 +32,19 @@
   --spacing-unit: 30px;
 }
 
-/* Dark mode follows the system setting: the same palette, lightened to read on a dark warm brown */
+/* Dark mode follows the system setting: on a dark warm brown, burgundy becomes a soft gold and bronze a copper */
 @media (prefers-color-scheme: dark) {
   :root {
-    --sacred-bronze: #D9A066;
-    --sacred-burgundy: #DDA0CF;
+    --sacred-bronze: #CC8F5A;
+    --sacred-burgundy: #E6C89B;
     --warm-cream: #1C1512;
     --rich-brown: #EDE3D6;
-    --light-rose: #2B1D25;
-    --bronze-hover: #EDC08F;
-    --burgundy-hover: #EBBDE0;
+    --light-rose: #2A201A;
+    --bronze-hover: #E0AA78;
+    --burgundy-hover: #F2DCB8;
 
-    --bronze-rgb: 217, 160, 102;
-    --burgundy-rgb: 221, 160, 207;
+    --bronze-rgb: 204, 143, 90;
+    --burgundy-rgb: 230, 200, 155;
     --text-rgb: 237, 227, 214;
     --surface-rgb: 50, 38, 32;
     --shadow-rgb: 0, 0, 0;
