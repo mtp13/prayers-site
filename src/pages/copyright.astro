@@ -1,15 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CopyrightNotice from '../components/CopyrightNotice.astro';
+
+// The footer opens this notice in a pop-up; this page is the fallback without JavaScript.
 ---
 
 <BaseLayout title="Copyright" description="Copyright notice for scripture texts used on this site">
   <article class="prayer">
     <h1>Copyright</h1>
-    <p class="copyright-notice">
-      Scripture texts in this work are taken from the <em>New American Bible, revised edition</em> © 2010, 1991,
-      1986, 1970 Confraternity of Christian Doctrine, Washington, D.C. and are used by permission of the copyright
-      owner. All Rights Reserved. No part of the <em>New American Bible</em> may be reproduced in any form without
-      permission in writing from the copyright owner.
-    </p>
+    <CopyrightNotice />
   </article>
 </BaseLayout>

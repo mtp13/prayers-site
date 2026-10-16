@@ -653,6 +653,48 @@ details .sequence-prayer-text {
   display: inline-block;
 }
 
+/* Copyright notice pop-up (opened from the footer) */
+.copyright-dialog {
+  width: min(32rem, calc(100% - 2rem));
+  padding: 1.25rem 1.25rem 1rem;
+  border: 1px solid rgba(139, 69, 19, 0.25);
+  border-radius: 10px;
+  background: var(--warm-cream);
+  color: var(--text-color);
+  box-shadow: 0 10px 30px rgba(44, 24, 16, 0.2);
+}
+.copyright-dialog h2:focus {
+  outline: none; /* focused only so reading starts at the title when the pop-up opens */
+}
+.copyright-dialog::backdrop {
+  background: rgba(44, 24, 16, 0.4);
+}
+.copyright-dialog h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+.copyright-dialog .copyright-notice {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.copyright-close {
+  display: block;
+  min-height: 44px;
+  margin-left: auto;
+  padding: 0.4rem 1.25rem;
+  border: 1px solid var(--sacred-burgundy);
+  border-radius: 6px;
+  background: var(--warm-cream);
+  color: var(--sacred-burgundy);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.copyright-close:hover {
+  background: rgba(112, 41, 99, 0.06);
+}
+
 /* Header and Navigation Improvements */
 .site-header {
   border-top: 5px solid var(--sacred-burgundy);
