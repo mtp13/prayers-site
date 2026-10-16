@@ -12,8 +12,17 @@ interface Props {
 const { title, description } = Astro.props;
 
 const commitDate = commitDateIso ? new Date(commitDateIso) : null;
+// Show the time in Central time; builds run on UTC servers, which would otherwise show UTC.
 const formattedCommitDate = commitDate
-  ? commitDate.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })
+  ? commitDate.toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: 'America/Chicago',
+    timeZoneName: 'short',
+  })
   : 'Unknown';
 ---
 
