@@ -3,8 +3,6 @@ title: The Joyful Mysteries
 order: 1
 ---
 
-## Traditionally prayed on Mondays and Saturdays
-
 ## First Joyful Mystery: The Annunciation
 
 *The angel Gabriel announces to Mary that she will conceive and bear the Son of God.*

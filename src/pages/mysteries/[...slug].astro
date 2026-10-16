@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import MysteryNav from '../../components/MysteryNav.astro';
+import DecadePrayers from '../../components/DecadePrayers.astro';
+import PageNav from '../../components/PageNav.astro';
 import {
+  getMysteryLabel,
   getMysteryNavigation,
   getMysterySectionHtml,
   mysterySetOrder,
@@ -26,71 +28,50 @@ export async function getStaticPaths() {
   });
 }
 
-const { kind, setSlug, pageIndex } = Astro.props as {
+const { kind, setSlug, pageIndex = 0 } = Astro.props as {
   kind: 'overview' | 'detail';
   setSlug: MysterySetSlug;
   pageIndex?: number;
 };
 
-const set = mysterySets[setSlug];
 const baseUrl = import.meta.env.BASE_URL;
-const firstPage = set.pages[0];
+const set = mysterySets[setSlug];
+const setUrl = `${baseUrl}/mysteries/${setSlug}`;
+const setName = set.title.replace(/^The /, '');
+const page = set.pages[pageIndex];
+const pageUrl = (slug: string) => `${setUrl}/${slug}`;
 
-let sectionHtml = '';
-let currentPage = firstPage;
-let currentPageTitle = set.title;
-let currentPageSlug = '';
-let navigation: ReturnType<typeof getMysteryNavigation> = { previous: null, next: null };
-let prayerLinks: { title: string; href: string }[] = [];
+const sectionHtml = kind === 'detail' ? await getMysterySectionHtml(setSlug, pageIndex) : '';
+const { previous, next } = getMysteryNavigation(setSlug, pageIndex);
 
-if (kind === 'detail') {
-  if (typeof pageIndex !== 'number') {
-    throw new Error(`Missing page index for ${setSlug}`);
-  }
-
-  const page = set.pages[pageIndex];
-  currentPage = page;
-  currentPageTitle = page.title;
-  currentPageSlug = page.slug;
-  sectionHtml = await getMysterySectionHtml(setSlug, pageIndex);
-  navigation = getMysteryNavigation(setSlug, pageIndex);
-
-  const currentMysteryUrl = `${baseUrl}/mysteries/${setSlug}/${currentPageSlug}`;
-  prayerLinks = [
-    { title: 'Our Father', slug: 'our_father' },
-    { title: 'Hail Mary', slug: 'hail_mary' },
-    { title: 'Fatima Prayer', slug: 'fatima_prayer' },
-  ].map((prayer) => ({
-    title: prayer.title,
-    href: `${baseUrl}/prayers/${prayer.slug}?back=${encodeURIComponent(currentMysteryUrl)}&backLabel=${encodeURIComponent(currentPageTitle)}`,
-  }));
-}
+// After the fifth mystery the Rosary continues with the Hail Holy Queen, then the closing prayer.
+const nav = kind === 'overview'
+  ? { previous: null, next: { href: pageUrl(page.slug), title: page.title } }
+  : {
+    previous: previous ? { href: pageUrl(previous.slug), title: previous.title } : null,
+    next: next
+      ? { href: pageUrl(next.slug), title: next.title }
+      : { href: `${baseUrl}/prayers/hail_holy_queen`, title: 'Hail Holy Queen' },
+  };
 ---
 
-<BaseLayout title={currentPageTitle}>
+<BaseLayout title={kind === 'overview' ? set.title : page.title}>
   <article class="mystery">
     {kind === 'overview' ? (
       <>
         <h1>{set.title}</h1>
-        <p class="mystery-overview-intro">
-          A shorter guide to pray one mystery at a time.
-        </p>
-
         <p class="mystery-overview-days">
-          <strong>Traditionally prayed on:</strong> {set.days.join(' and ')}
-        </p>
-
-        <p class="mystery-overview-start">
-          <a class="page-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${firstPage.slug}`}>
-            Start with {firstPage.title} →
-          </a>
+          Traditionally prayed on {set.days.join(' and ')}.
+          {set.note && <br />}
+          {set.note}
         </p>
 
         <ol class="mystery-overview-list">
-          {set.pages.map((page) => (
+          {set.pages.map((overviewPage, index) => (
             <li>
-              <a href={`${baseUrl}/mysteries/${setSlug}/${page.slug}`}>
-                {page.title}
+              <a href={pageUrl(overviewPage.slug)}>
+                <span class="mystery-overview-label">{getMysteryLabel(setSlug, index)}</span>
+                <span class="mystery-overview-title">{overviewPage.title}</span>
               </a>
             </li>
           ))}
@@ -98,35 +79,25 @@ if (kind === 'detail') {
       </>
     ) : (
       <>
-        <p class="mystery-back">
-          <a href={`${baseUrl}/mysteries/${setSlug}`}>← Back to {set.title}</a>
-        </p>
-
-        <MysteryNav setSlug={setSlug} current={currentPage} previous={navigation.previous} next={navigation.next} />
-
-        <nav class="mystery-quick-prayers" aria-label="Quick prayer links">
-          {prayerLinks.map((prayer) => (
-            <a class="mystery-quick-prayer-link" href={prayer.href}>
-              {prayer.title}
-            </a>
-          ))}
-        </nav>
+        <header class="mystery-header">
+          <p class="page-eyebrow">
+            <a href={setUrl}>{setName}</a> · {pageIndex + 1} of {set.pages.length}
+          </p>
+          <ol class="mystery-progress" aria-hidden="true">
+            {set.pages.map((_, index) => (
+              <li class:list={{ 'is-done': index < pageIndex, 'is-current': index === pageIndex }} />
+            ))}
+          </ol>
+          <h1>{page.title}</h1>
+          <p class="mystery-label">{getMysteryLabel(setSlug, pageIndex)}</p>
+        </header>
 
         <div class="mystery-content" set:html={sectionHtml} />
 
-        <MysteryNav setSlug={setSlug} current={currentPage} previous={navigation.previous} next={navigation.next} position="bottom" />
+        <DecadePrayers />
       </>
     )}
-  </article>
 
-  {kind === 'detail' && (
-    <div class="mystery-copyright">
-      <p>
-        Scripture texts in this work are taken from the <em>New American Bible, revised edition</em> © 2010, 1991,
-        1986, 1970 Confraternity of Christian Doctrine, Washington, D.C. and are used by permission of the copyright
-        owner. All Rights Reserved. No part of the <em>New American Bible</em> may be reproduced in any form without
-        permission in writing from the copyright owner.
-      </p>
-    </div>
-  )}
+    <PageNav previous={nav.previous} next={nav.next} label="Mysteries" />
+  </article>
 </BaseLayout>

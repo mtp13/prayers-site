@@ -9,84 +9,74 @@ const sortedMysteries = await getSortedCollection('mysteries');
 
 <header class="site-header" role="banner">
   <div class="wrapper">
-      <a class="site-title" rel="author" href={`${baseUrl}`}>
-          <!-- Traditional Catholic crucifix SVG -->
-      <svg class="site-crucifix" width="24" height="24" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-label="Traditional Catholic crucifix">
-        <rect x="47" y="20" width="6" height="100" fill="#8B4513"/>
-        <rect x="20" y="45" width="60" height="4" fill="#8B4513"/>
-        <rect x="35" y="25" width="30" height="3" fill="#8B4513"/>
-        <path d="M50 35c-2 0-4 1-4 3v8c0 2 2 3 4 3s4-1 4-3v-8c0-2-2-3-4-3zm0 15c-1 0-2 1-2 2v5c0 1 1 2 2 2s2-1 2-2v-5c0-1-1-2-2-2zm-3-12h6c1 0 2-1 2-2s-1-2-2-2h-6c-1 0-2 1-2 2s1 2 2 2z" 
-              fill="#8B4513" opacity="0.8"/>
+    <a class="site-title" href={baseUrl}>
+      <!-- Traditional Catholic crucifix SVG -->
+      <svg
+        class="site-crucifix"
+        width="24"
+        height="24"
+        viewBox="0 0 100 120"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <rect x="47" y="20" width="6" height="100" fill="#8B4513" />
+        <rect x="20" y="45" width="60" height="4" fill="#8B4513" />
+        <rect x="35" y="25" width="30" height="3" fill="#8B4513" />
+        <path
+          d="M50 35c-2 0-4 1-4 3v8c0 2 2 3 4 3s4-1 4-3v-8c0-2-2-3-4-3zm0 15c-1 0-2 1-2 2v5c0 1 1 2 2 2s2-1 2-2v-5c0-1-1-2-2-2zm-3-12h6c1 0 2-1 2-2s-1-2-2-2h-6c-1 0-2 1-2 2s1 2 2 2z"
+          fill="#8B4513"
+          opacity="0.8"
+        />
       </svg>
       <span class="site-title-text">Rosary Prayers</span>
     </a>
 
-    <nav class="site-nav">
-      <div class="trigger">
-        <div class="nav-dropdown">
-          <button class="page-link dropdown-toggle" type="button" aria-expanded="false" aria-controls="nav-prayers">
-            Prayers
-          </button>
-          <div class="dropdown-content" id="nav-prayers">
-            {sortedPrayers.map((prayer) => (
-              <a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a>
-            ))}
-          </div>
-        </div>
-
-        <div class="nav-dropdown">
-          <button class="page-link dropdown-toggle" type="button" aria-expanded="false" aria-controls="nav-mysteries">
-            Mysteries
-          </button>
-          <div class="dropdown-content" id="nav-mysteries">
-            {sortedMysteries.map((mystery) => (
-              <a href={`${baseUrl}/mysteries/${mystery.id}`}>{mystery.data.title}</a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span>Menu</span>
+      <span class="menu-icon" aria-hidden="true">☰</span>
+    </button>
   </div>
+
+  <nav class="site-menu" id="site-menu" aria-label="Site" hidden>
+    <div class="wrapper site-menu-columns">
+      <section>
+        <h2 class="site-menu-heading">Mysteries</h2>
+        <a href={baseUrl}>Today's Mystery</a>
+        {sortedMysteries.map((mystery) => (
+          <a href={`${baseUrl}/mysteries/${mystery.id}`}>{mystery.data.title}</a>
+        ))}
+      </section>
+      <section>
+        <h2 class="site-menu-heading">Prayers</h2>
+        {sortedPrayers.map((prayer) => (
+          <a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a>
+        ))}
+      </section>
+    </div>
+  </nav>
+
   <script>
-    (function () {
-      const dropdowns = document.querySelectorAll('.nav-dropdown');
+    const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+    const menu = document.getElementById('site-menu');
 
-      function closeAll() {
-        dropdowns.forEach((dropdown) => {
-          dropdown.classList.remove('is-open');
-          const toggle = dropdown.querySelector('.dropdown-toggle');
-          if (toggle) {
-            toggle.setAttribute('aria-expanded', 'false');
-          }
-        });
+    function setOpen(open: boolean) {
+      if (!toggle || !menu) return;
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+    }
+
+    toggle?.addEventListener('click', () => setOpen(menu?.hidden ?? false));
+
+    document.addEventListener('click', (event) => {
+      const target = event.target as Element;
+      if (!target.closest('.site-menu') && !target.closest('.menu-toggle')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        toggle?.focus();
       }
-
-      dropdowns.forEach((dropdown) => {
-        const toggle = dropdown.querySelector('.dropdown-toggle');
-        if (!toggle) return;
-
-        toggle.addEventListener('click', (event) => {
-          event.stopPropagation();
-          const isOpen = dropdown.classList.contains('is-open');
-          closeAll();
-          if (!isOpen) {
-            dropdown.classList.add('is-open');
-            toggle.setAttribute('aria-expanded', 'true');
-          }
-        });
-      });
-
-      document.addEventListener('click', (event) => {
-        if (!(event.target as Element).closest('.nav-dropdown')) {
-          closeAll();
-        }
-      });
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          closeAll();
-        }
-      });
-    })();
+    });
   </script>
 </header>

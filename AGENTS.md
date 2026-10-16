@@ -14,8 +14,11 @@
 - If you add front matter fields, update `src/content.config.ts`.
 - Ordering uses `order` with a fallback of `99`, then title; use `getSortedCollection` from `src/lib/collections.ts`.
 - Mystery files are split into pages on `---` lines. Each must have exactly as many sections as its `pages` entry in
-  `src/lib/rosary-mysteries.ts`, and each section must contain a heading like
-  `## First Joyful Mystery: The Annunciation` matching that page's title, or the build fails.
+  `src/lib/rosary-mysteries.ts`, and each section must start with a heading like
+  `## First Joyful Mystery: The Annunciation` matching that page's title, or the build fails. The page shows that
+  heading as its title, so put set-level notes (days, history) in `mysterySets`, not in the Markdown.
+- Mystery and prayer pages share `src/components/PageNav.astro`: a previous/next bar pinned to the bottom of the
+  screen that also handles swipe navigation. Mystery pages show the decade prayers inline via `DecadePrayers.astro`.
 - If you rename a content file, add a redirect for the old URL in `astro.config.mjs`.
 
 ## Commands
