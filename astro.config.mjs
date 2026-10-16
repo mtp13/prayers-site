@@ -1,5 +1,7 @@
 // @ts-check
 import { defineConfig, passthroughImageService } from 'astro/config';
+import { satteri } from '@astrojs/markdown-satteri';
+import { namespaceFootnotes } from './src/lib/namespace-footnotes.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,6 +10,10 @@ export default defineConfig({
   // No images are processed, so skip the optional sharp dependency.
   image: {
     service: passthroughImageService(),
+  },
+  markdown: {
+    // Keep footnote IDs unique when several prayers are shown on one page.
+    processor: satteri({ hastPlugins: [namespaceFootnotes()] }),
   },
   // Prayer files were renamed from kebab-case to snake_case; keep old URLs working.
   redirects: {

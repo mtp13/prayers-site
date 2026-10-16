@@ -22,6 +22,8 @@
 - Each mystery set is a sequence of steps (`getMysterySteps`): opening prayers, the five mysteries, then the
   concluding prayers, at `/mysteries/<set>/opening`, `/<mystery>` and `/conclusion`. Their prayers come from the prayer
   content files via `src/components/PrayerSequence.astro` (shown in full, or as expandable sections for the decade).
+- Markdown is rendered by Astro's Sätteri processor (configured in `astro.config.mjs`); remark/rehype plugins do not
+  apply. `src/lib/namespace-footnotes.mjs` prefixes footnote IDs with the file name so prayers can share a page.
 - Mystery and prayer pages share `src/components/PageNav.astro`: a previous/next bar pinned to the bottom of the
   screen that also handles swipe navigation.
 - If you rename a content file, add a redirect for the old URL in `astro.config.mjs`.
