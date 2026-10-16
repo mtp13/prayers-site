@@ -1,0 +1,36 @@
+# Runs on every pull request and every push to main. A red check on a PR means something below failed;
+# click "Details" on the check to see which step and why.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint Markdown
+        run: npm run lint
+
+      - name: Check formatting (fix locally with `npm run format`)
+        run: npm run format:check
+
+      - name: Type check
+        run: npm run check
+
+      - name: Build
+        run: npm run build
+
+      - name: Check links
+        run: npm run test:links

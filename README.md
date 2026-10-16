@@ -50,7 +50,23 @@ npm run preview:host
 npm test
 ```
 
-This lints Markdown (`npm run lint`), builds the site, and checks for broken links (`npm run test:links`).
+This runs every check, in order:
+
+- `npm run lint`: lint Markdown with markdownlint.
+- `npm run format:check`: check code formatting with Prettier. Run `npm run format` to fix it.
+- `npm run check`: type-check the TypeScript and Astro files.
+- `npm run build`: build the site.
+- `npm run test:links`: crawl the built site for broken links.
+
+GitHub runs the same checks on every pull request (`.github/workflows/ci.yml`) and shows a green check or a red
+cross on the PR. Prettier skips Markdown so prayer text is never reflowed; markdownlint covers it instead.
+
+## Making a Change
+
+1. Work on a branch, not `main`.
+2. Run `npm test` before pushing.
+3. Open a pull request into `main`. CI runs the checks, and Vercel posts a preview link to the PR.
+4. Merge when the checks are green and the preview looks right. Vercel then deploys `main`.
 
 ## Project Structure
 

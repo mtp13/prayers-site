@@ -37,8 +37,10 @@
 - `npm run preview`
 - `npm run preview:host`
 - `npm run test:links`: Serve `dist/` with a background `astro preview`, crawl it for broken links, then stop it.
-- `npm run test`: Lint, build the site, and check links.
+- `npm run test`: Lint, check formatting, type-check, build the site, and check links. CI runs the same on PRs.
 - `npm run lint`: Lint Markdown with markdownlint.
+- `npm run format`: Format code with Prettier (Markdown is excluded); `npm run format:check` only checks.
+- `npm run check`: Type-check with `astro check`.
 - Use Conventional Commits for git messages, e.g. `fix: ...`, `docs: ...`, `feat: ...`.
 
 ## Style
