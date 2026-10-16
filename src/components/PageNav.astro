@@ -61,7 +61,6 @@ const { previous, next, label } = Astro.props;
     { passive: true },
   );
 
-  // The browser may cancel a touch it treats as its own gesture, so finish the swipe on either event.
   function finishSwipe() {
     if (!start) return;
     const dx = last.x - start.x;
@@ -77,5 +76,6 @@ const { previous, next, label } = Astro.props;
   }
 
   document.addEventListener('touchend', finishSwipe, { passive: true });
-  document.addEventListener('touchcancel', finishSwipe, { passive: true });
+  // A cancelled touch was interrupted by the browser or system, so it never counts as a swipe.
+  document.addEventListener('touchcancel', () => { start = null; }, { passive: true });
 </script>
