@@ -14,16 +14,19 @@ const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' 
   <div class="home" data-day-sets={JSON.stringify(dayToMysterySet)}>
     <h1 class="visually-hidden">Rosary Prayers</h1>
 
-    {/* One card per set; the script below reveals the one for today's weekday. */}
+    {/* One card per set. The script shows today's, and the set cards below switch between them. */}
     {sets.map((set) => (
-      <section class="today-card" data-set={set.slug} aria-label="Today's Mystery" hidden>
+      <section class="today-card" id={`card-${set.slug}`} data-set={set.slug} aria-label={set.title} hidden>
         <p class="today-date" data-today-date></p>
-        <p class="today-kicker">Today's Mystery</p>
+        <p class="today-kicker">
+          <span class="today-kicker-today">Today's Mystery</span>
+          <span class="today-kicker-days">Prayed on {set.days.join(' and ')}</span>
+        </p>
         <h2 class="today-title">{set.title}</h2>
         <ol class="today-list">
           {set.pages.map((page) => <li>{page.title}</li>)}
         </ol>
-        <a class="today-begin" href={`${baseUrl}/mysteries/${set.slug}/opening`}>Begin the Rosary ›</a>
+        <a class="today-begin" href={`${baseUrl}/mysteries/${set.slug}/opening`}>Begin the Rosary</a>
       </section>
     ))}
 
@@ -32,7 +35,12 @@ const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' 
       <ul class="set-grid">
         {sets.map((set) => (
           <li>
-            <a class="set-card" data-set={set.slug} href={`${baseUrl}/mysteries/${set.slug}`}>
+            <a
+              class="set-card"
+              data-set={set.slug}
+              href={`${baseUrl}/mysteries/${set.slug}`}
+              aria-controls={`card-${set.slug}`}
+            >
               <span class="set-card-title">{shortName(set.title)}</span>
               <span class="set-card-days">{shortDays(set.days)}</span>
               <span class="set-card-today">Today</span>
@@ -76,17 +84,45 @@ const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' 
   </div>
 
   <script>
-    // Show today's set based on the visitor's local weekday, and mark it in the grid.
+    // Show today's set based on the visitor's local weekday. The set cards switch the card above them
+    // instead of navigating; without JavaScript they fall back to links to each set's overview.
     const home = document.querySelector<HTMLElement>('.home');
     const daySets: Record<string, string> = JSON.parse(home?.dataset.daySets ?? '{}');
     const today = new Date();
-    const slug = daySets[today.getDay()];
+    const todaySlug = daySets[today.getDay()];
     const dateText = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
-    document.querySelector(`.today-card[data-set="${slug}"]`)?.removeAttribute('hidden');
-    document.querySelector(`.set-card[data-set="${slug}"]`)?.classList.add('is-today');
     document.querySelectorAll('[data-today-date]').forEach((el) => {
       el.textContent = dateText;
+    });
+    document.querySelector(`.today-card[data-set="${todaySlug}"]`)?.classList.add('is-today');
+    document.querySelector(`.set-card[data-set="${todaySlug}"]`)?.classList.add('is-today');
+
+    function select(slug: string) {
+      let shown: HTMLElement | null = null;
+      document.querySelectorAll<HTMLElement>('.today-card').forEach((card) => {
+        card.hidden = card.dataset.set !== slug;
+        if (!card.hidden) shown = card;
+      });
+      document.querySelectorAll<HTMLElement>('.set-card').forEach((link) => {
+        const selected = link.dataset.set === slug;
+        link.classList.toggle('is-selected', selected);
+        link.setAttribute('aria-current', String(selected));
+      });
+      return shown as HTMLElement | null;
+    }
+
+    select(todaySlug);
+
+    document.querySelectorAll<HTMLAnchorElement>('.set-card').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const card = select(link.dataset.set ?? '');
+        // On a phone the card may be above the screen; bring its top into view.
+        if (card && card.getBoundingClientRect().top < 0) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     });
   </script>
 </BaseLayout>

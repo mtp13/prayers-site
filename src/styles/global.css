@@ -101,6 +101,13 @@ button:focus-visible {
   margin-top: 0.75rem;
   font-weight: bold;
 }
+.today-kicker-today,
+.today-card.is-today .today-kicker-days {
+  display: none;
+}
+.today-card.is-today .today-kicker-today {
+  display: inline;
+}
 .today-title {
   margin: 0.25rem 0 1rem;
   font-size: 1.7rem;
@@ -191,9 +198,10 @@ button:focus-visible {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.set-card.is-today {
+.set-card.is-selected {
   border-color: var(--sacred-burgundy);
   background: var(--light-rose);
+  box-shadow: inset 0 0 0 1px var(--sacred-burgundy);
 }
 .set-card.is-today .set-card-today {
   display: block;
