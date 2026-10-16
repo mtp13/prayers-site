@@ -36,15 +36,15 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --sacred-bronze: #CC8F5A;
-    --sacred-burgundy: #E6C89B;
+    --sacred-burgundy: #C9AE88;
     --warm-cream: #1C1512;
     --rich-brown: #EDE3D6;
     --light-rose: #2A201A;
     --bronze-hover: #E0AA78;
-    --burgundy-hover: #F2DCB8;
+    --burgundy-hover: #D8C19F;
 
     --bronze-rgb: 204, 143, 90;
-    --burgundy-rgb: 230, 200, 155;
+    --burgundy-rgb: 201, 174, 136;
     --text-rgb: 237, 227, 214;
     --surface-rgb: 50, 38, 32;
     --shadow-rgb: 0, 0, 0;
