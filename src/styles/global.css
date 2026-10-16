@@ -777,13 +777,13 @@ html.menu-open body {
   padding-bottom: 1rem;
 }
 .site-menu-columns > section {
-  padding-top: 0.75rem; /* padding, not margin: a column's top margin is dropped at the column break */
+  padding-top: 1.5rem; /* padding, not margin: a column's top margin is dropped at the column break */
   break-inside: avoid;
 }
 .site-menu-heading {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.6rem;
   color: var(--sacred-bronze);
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
