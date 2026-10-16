@@ -732,6 +732,12 @@ html.menu-open,
 html.menu-open body {
   overflow: hidden;
 }
+/* Hide the page behind the open menu, so any gap (e.g. around Safari's floating toolbar, or on taller or
+   foldable screens) shows only the background. The scroll position is kept for when the menu closes. */
+html.menu-open .page-content,
+html.menu-open .site-footer {
+  visibility: hidden;
+}
 .menu-toggle {
   display: inline-flex;
   align-items: center;
