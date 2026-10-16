@@ -1,0 +1,59 @@
+---
+import { getEntry, render } from 'astro:content';
+
+export interface PrayerItem {
+  id: string; // prayer content file, e.g. "our_father"
+  label: string;
+  count?: string; // e.g. "10×"
+  titled?: boolean; // false when the prayer's own text starts with its headings (e.g. Hail Holy Queen)
+}
+
+interface Props {
+  heading?: string;
+  items: PrayerItem[];
+  // Collapsed prayers expand in place (the decade); expanded ones are shown in full (opening and conclusion).
+  expanded?: boolean;
+}
+
+const { heading, items, expanded = false } = Astro.props;
+
+const prayers = await Promise.all(
+  items.map(async (item) => {
+    const entry = await getEntry('prayers', item.id);
+    if (!entry) {
+      throw new Error(`Missing prayer "${item.id}"`);
+    }
+    const { Content } = await render(entry);
+    return { ...item, Content };
+  }),
+);
+---
+
+<section class:list={['prayer-sequence', { 'prayer-sequence--expanded': expanded }]}>
+  {heading && <h2 class="prayer-sequence-heading">{heading}</h2>}
+  {prayers.map(({ label, count, titled = true, Content }) =>
+    expanded ? (
+      <div class="sequence-prayer">
+        {titled && (
+          <h2 class="sequence-prayer-title">
+            <span>{label}</span>
+            {count && <span class="sequence-count">{count}</span>}
+          </h2>
+        )}
+        <div class="sequence-prayer-text">
+          <Content />
+        </div>
+      </div>
+    ) : (
+      <details class="sequence-prayer">
+        <summary>
+          <span>{label}</span>
+          {count && <span class="sequence-count">{count}</span>}
+        </summary>
+        <div class="sequence-prayer-text">
+          <Content />
+        </div>
+      </details>
+    ),
+  )}
+</section>

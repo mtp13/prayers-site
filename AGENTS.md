@@ -17,8 +17,11 @@
   `src/lib/rosary-mysteries.ts`, and each section must start with a heading like
   `## First Joyful Mystery: The Annunciation` matching that page's title, or the build fails. The page shows that
   heading as its title, so put set-level notes (days, history) in `mysterySets`, not in the Markdown.
+- Each mystery set is a sequence of steps (`getMysterySteps`): opening prayers, the five mysteries, then the
+  concluding prayers, at `/mysteries/<set>/opening`, `/<mystery>` and `/conclusion`. Their prayers come from the prayer
+  content files via `src/components/PrayerSequence.astro` (shown in full, or as expandable sections for the decade).
 - Mystery and prayer pages share `src/components/PageNav.astro`: a previous/next bar pinned to the bottom of the
-  screen that also handles swipe navigation. Mystery pages show the decade prayers inline via `DecadePrayers.astro`.
+  screen that also handles swipe navigation.
 - If you rename a content file, add a redirect for the old URL in `astro.config.mjs`.
 
 ## Commands

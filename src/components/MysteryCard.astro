@@ -6,8 +6,6 @@ const baseUrl = import.meta.env.BASE_URL;
 const mysteryData = Object.values(mysterySets).map((set) => ({
   title: set.title,
   slug: set.slug,
-  firstPageSlug: set.pages[0].slug,
-  firstPageTitle: set.pages[0].title,
   list: set.pages.map((page) => page.title),
   days: set.days,
 }));
@@ -56,7 +54,7 @@ const mysteryData = Object.values(mysterySets).map((set) => ({
     const readMore = document.getElementById('mystery-read-more');
 
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const firstMysteryHref = `${baseUrl}/mysteries/${mystery.slug}/${mystery.firstPageSlug}`;
+    const openingHref = `${baseUrl}/mysteries/${mystery.slug}/opening`;
 
     if (link) {
       link.textContent = mystery.title;
@@ -77,8 +75,8 @@ const mysteryData = Object.values(mysterySets).map((set) => ({
     }
 
     if (readMore) {
-      readMore.href = firstMysteryHref;
-      readMore.textContent = `Start with ${mystery.firstPageTitle} →`;
+      readMore.href = openingHref;
+      readMore.textContent = 'Begin the Rosary →';
     }
   }
 

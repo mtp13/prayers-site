@@ -216,6 +216,10 @@ button:focus-visible {
   border-color: var(--sacred-burgundy);
   background: var(--sacred-burgundy);
 }
+.mystery-progress li.is-bookend {
+  border-radius: 1px;
+  transform: rotate(45deg) scale(0.85);
+}
 .mystery-label {
   margin: 0;
   color: rgba(44, 24, 16, 0.7);
@@ -254,6 +258,10 @@ button:focus-visible {
   color: var(--sacred-burgundy);
   font-weight: bold;
 }
+.mystery-overview-list .is-bookend .mystery-overview-title {
+  color: var(--sacred-bronze);
+  font-style: italic;
+}
 
 .mystery-content > :first-child {
   margin-top: 0;
@@ -270,21 +278,24 @@ button:focus-visible {
   color: var(--sacred-bronze);
 }
 
-/* Pray the decade: prayers that expand in place */
-.decade {
+/* Prayer sequences: the decade (expand in place) and the opening/concluding prayers (shown in full) */
+.prayer-sequence {
   margin: 2.5rem 0 1.5rem;
 }
-.mystery .decade h2 {
+.mystery-header + .prayer-sequence {
+  margin-top: 0;
+}
+.mystery .prayer-sequence-heading {
   margin: 0 0 0.75rem;
   font-size: 1.3rem;
 }
-.decade-prayer {
+details.sequence-prayer {
   border-top: 1px solid rgba(139, 69, 19, 0.15);
 }
-.decade-prayer:last-child {
+details.sequence-prayer:last-child {
   border-bottom: 1px solid rgba(139, 69, 19, 0.15);
 }
-.decade-prayer summary {
+.sequence-prayer summary {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -295,38 +306,50 @@ button:focus-visible {
   cursor: pointer;
   list-style: none;
 }
-.decade-prayer summary::-webkit-details-marker {
+.sequence-prayer summary::-webkit-details-marker {
   display: none;
 }
-.decade-prayer summary::before {
+.sequence-prayer summary::before {
   content: "›";
   display: inline-block;
   width: 1em;
   color: var(--sacred-bronze);
   transition: transform 0.2s ease;
 }
-.decade-prayer[open] summary::before {
+.sequence-prayer[open] summary::before {
   transform: rotate(90deg);
 }
-.decade-count {
+.sequence-count {
   margin-left: auto;
   color: var(--sacred-bronze);
   font-size: 0.85rem;
   font-weight: normal;
 }
-.decade-prayer-text {
+details .sequence-prayer-text {
   padding: 0 0.25rem 0.75rem 1.75rem;
+}
+.sequence-prayer-text {
   font-style: italic;
   line-height: 1.6;
 }
-.decade-prayer-text p {
+.sequence-prayer-text p {
   margin: 0 0 0.75rem;
 }
-.decade-prayer-text .footnotes {
+.sequence-prayer-text .footnotes {
   font-size: 0.8rem;
   font-style: normal;
 }
-
+.prayer-sequence--expanded .sequence-prayer + .sequence-prayer {
+  margin-top: 1.75rem;
+}
+.mystery .sequence-prayer-title,
+.mystery .sequence-prayer-text h2 {
+  display: flex;
+  align-items: baseline;
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  font-style: normal;
+}
 
 /* Previous / next bar, pinned to the bottom of the screen while the page is being read */
 .page-nav {

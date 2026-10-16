@@ -148,11 +148,15 @@ export async function getMysterySectionHtml(slug: MysterySetSlug, index: number)
   return await marked.parse(section.split('\n').slice(1).join('\n').trim());
 }
 
-export function getMysteryNavigation(slug: MysterySetSlug, index: number) {
-  const pages = mysterySets[slug].pages;
+// Each set is prayed as a sequence: opening prayers, the five mysteries, then the concluding prayers.
+export type MysteryStep =
+  | { kind: 'opening' | 'conclusion'; slug: string; title: string }
+  | { kind: 'mystery'; slug: string; title: string; index: number };
 
-  return {
-    previous: index > 0 ? pages[index - 1] : null,
-    next: index < pages.length - 1 ? pages[index + 1] : null,
-  };
+export function getMysterySteps(slug: MysterySetSlug): MysteryStep[] {
+  return [
+    { kind: 'opening', slug: 'opening', title: 'Opening Prayers' },
+    ...mysterySets[slug].pages.map((page, index) => ({ kind: 'mystery' as const, ...page, index })),
+    { kind: 'conclusion', slug: 'conclusion', title: 'Concluding Prayers' },
+  ];
 }

@@ -2,6 +2,7 @@
 interface NavLink {
   href: string;
   title: string;
+  label?: string; // replaces "Previous" / "Next", e.g. "Finish"
 }
 
 interface Props {
@@ -16,13 +17,13 @@ const { previous, next, label } = Astro.props;
 <nav class="page-nav" aria-label={label}>
   {previous && (
     <a class="page-nav-link page-nav-link--prev" href={previous.href} rel="prev">
-      <span class="page-nav-label">‹ Previous</span>
+      <span class="page-nav-label">‹ {previous.label ?? 'Previous'}</span>
       <span class="page-nav-title">{previous.title}</span>
     </a>
   )}
   {next && (
     <a class="page-nav-link page-nav-link--next" href={next.href} rel="next">
-      <span class="page-nav-label">Next ›</span>
+      <span class="page-nav-label">{next.label ?? 'Next'} ›</span>
       <span class="page-nav-title">{next.title}</span>
     </a>
   )}
