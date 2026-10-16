@@ -1,6 +1,7 @@
 ---
 title: The Fatima Prayer
 order: 6
+category: rosary
 ---
 
 O my Jesus, forgive us our sins, save us from the fires of hell, lead

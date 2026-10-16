@@ -1,35 +1,190 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MysteryCard from '../components/MysteryCard.astro';
-import { getSortedCollection } from '../lib/collections';
+import PrayerSequence from '../components/PrayerSequence.astro';
+import { getPrayerGroups } from '../lib/collections';
+import { dayToMysterySet, mysterySetOrder, mysterySets, type MysterySetMeta } from '../lib/rosary-mysteries';
 
 const baseUrl = import.meta.env.BASE_URL;
+const prayerGroups = await getPrayerGroups();
+const sets = mysterySetOrder.map((slug) => mysterySets[slug]);
+const shortName = (title: string) => title.replace(/^The /, '').replace(/ Mysteries$/, '');
+const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' · ');
+const setUrl = (set: MysterySetMeta) => `${baseUrl}/mysteries/${set.slug}`;
 
-const sortedPrayers = await getSortedCollection('prayers');
-const sortedMysteries = await getSortedCollection('mysteries');
+// The how-to steps link into the set shown in the card; the script updates them when the set changes.
+const defaultSet = sets[0];
+const howtoSteps = [
+  {
+    key: 'opening',
+    label: 'Step One',
+    title: 'Opening prayers',
+    detail: "Sign of the Cross, Apostles' Creed, Our Father, three Hail Marys, Glory Be",
+    href: (set: MysterySetMeta) => `${setUrl(set)}/opening`,
+  },
+  {
+    key: 'decades',
+    label: 'Step Two',
+    title: 'Five decades',
+    detail: 'For each mystery: Our Father, ten Hail Marys, Glory Be, Fatima Prayer',
+    href: (set: MysterySetMeta) => `${setUrl(set)}/${set.pages[0].slug}`,
+  },
+  {
+    key: 'conclusion',
+    label: 'Step Three',
+    title: 'Concluding prayers',
+    detail: 'Hail Holy Queen, Rosary Closing Prayer, Sign of the Cross',
+    href: (set: MysterySetMeta) => `${setUrl(set)}/conclusion`,
+  },
+];
 ---
 
-<BaseLayout title="Rosary Prayers" description="A collection of prayers for the Holy Rosary">
-  <section>
-    <h2>Today's Mystery</h2>
-    <MysteryCard />
-  </section>
+<BaseLayout title="Rosary Prayers" description="Pray the Holy Rosary: today's mysteries, step by step, and the prayers">
+  <div class="home" data-day-sets={JSON.stringify(dayToMysterySet)}>
+    <h1 class="visually-hidden">Rosary Prayers</h1>
 
-  <section>
-    <h2>Prayers</h2>
-    <ul>
-      {sortedPrayers.map((prayer) => (
-        <li><a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a></li>
-      ))}
-    </ul>
-  </section>
+    {/* One card per set. The script shows today's, and the set cards below switch between them. */}
+    {sets.map((set) => (
+      <section
+        class="today-card"
+        id={`card-${set.slug}`}
+        data-set={set.slug}
+        data-name={shortName(set.title)}
+        data-howto={JSON.stringify(Object.fromEntries(howtoSteps.map((h) => [h.key, h.href(set)])))}
+        aria-label={set.title}
+        hidden
+      >
+        <p class="today-date" data-today-date></p>
+        <p class="today-kicker">
+          <span class="today-kicker-today">Today's Mystery</span>
+          <span class="today-kicker-days">Prayed on {set.days.join(' and ')}</span>
+        </p>
+        <h2 class="today-title">{set.title}</h2>
+        <ol class="today-list">
+          {set.pages.map((page) => <li>{page.title}</li>)}
+        </ol>
+        <a class="today-begin" href={`${setUrl(set)}/opening`}>Begin the Rosary</a>
+      </section>
+    ))}
 
-  <section>
-    <h2>Mysteries</h2>
-    <ul>
-      {sortedMysteries.map((mystery) => (
-        <li><a href={`${baseUrl}/mysteries/${mystery.id}`}>{mystery.data.title}</a></li>
-      ))}
-    </ul>
-  </section>
+    <section class="home-section" aria-labelledby="home-mysteries">
+      <h2 class="home-heading" id="home-mysteries">The Mysteries</h2>
+      <p class="visually-hidden" id="set-announcer" aria-live="polite"></p>
+      <ul class="set-grid">
+        {sets.map((set) => (
+          <li>
+            <a
+              class="set-card"
+              data-set={set.slug}
+              href={setUrl(set)}
+              aria-controls={`card-${set.slug}`}
+            >
+              <span class="set-card-title">{shortName(set.title)}</span>
+              <span class="set-card-days">
+                {shortDays(set.days)}<span class="set-card-today"> · Today</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="home-section" aria-labelledby="home-howto">
+      <h2 class="home-heading" id="home-howto">How to Pray the Rosary</h2>
+      <p class="home-note">
+        Each step opens on its own for the <span data-howto-set>{shortName(defaultSet.title)}</span> Mysteries, the set
+        chosen above.
+      </p>
+      <ol class="howto">
+        {howtoSteps.map((howtoStep) => (
+          <li>
+            <a class="howto-link" data-howto-step={howtoStep.key} href={howtoStep.href(defaultSet)}>
+              <span class="howto-label">{howtoStep.label}</span>
+              <span class="howto-step">{howtoStep.title}</span>
+              <span class="howto-detail">{howtoStep.detail}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    {prayerGroups.map((group) => (
+      <section class="home-section" aria-labelledby={`home-${group.category}`}>
+        <h2 class="home-heading" id={`home-${group.category}`}>{group.title}</h2>
+        {group.note && <p class="home-note">{group.note}</p>}
+        <PrayerSequence
+          variant="list"
+          items={group.prayers.map((prayer) => ({
+            id: prayer.id,
+            label: prayer.data.title,
+            href: `${baseUrl}/prayers/${prayer.id}`,
+          }))}
+        />
+      </section>
+    ))}
+  </div>
+
+  <script>
+    // Show today's set based on the visitor's local weekday. The set cards switch the card above them
+    // instead of navigating; without JavaScript they fall back to links to each set's overview.
+    const home = document.querySelector<HTMLElement>('.home');
+    const daySets: Record<string, string> = JSON.parse(home?.dataset.daySets ?? '{}');
+    const today = new Date();
+    const todaySlug = daySets[today.getDay()];
+    const dateText = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+    document.querySelectorAll('[data-today-date]').forEach((el) => {
+      el.textContent = dateText;
+    });
+    document.querySelector(`.today-card[data-set="${todaySlug}"]`)?.classList.add('is-today');
+    document.querySelector(`.set-card[data-set="${todaySlug}"]`)?.classList.add('is-today');
+
+    // With JavaScript, the set links become selection buttons that switch the card above.
+    document.querySelectorAll<HTMLAnchorElement>('a.set-card').forEach((link) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = link.className;
+      button.dataset.set = link.dataset.set;
+      button.setAttribute('aria-controls', link.getAttribute('aria-controls') ?? '');
+      button.append(...link.childNodes);
+      link.replaceWith(button);
+    });
+
+    function select(slug: string): HTMLElement | null {
+      const card = document.querySelector<HTMLElement>(`.today-card[data-set="${slug}"]`);
+      document.querySelectorAll<HTMLElement>('.today-card').forEach((c) => {
+        c.hidden = c !== card;
+      });
+      document.querySelectorAll<HTMLButtonElement>('button.set-card').forEach((button) => {
+        const selected = button.dataset.set === slug;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      });
+      if (card) {
+        // Point the how-to steps at the chosen set.
+        const hrefs: Record<string, string> = JSON.parse(card.dataset.howto ?? '{}');
+        document.querySelectorAll<HTMLAnchorElement>('[data-howto-step]').forEach((link) => {
+          link.href = hrefs[link.dataset.howtoStep ?? ''] ?? link.href;
+        });
+        document.querySelectorAll('[data-howto-set]').forEach((el) => {
+          el.textContent = card.dataset.name ?? '';
+        });
+      }
+      return card;
+    }
+
+    select(todaySlug);
+
+    const announcer = document.getElementById('set-announcer');
+    document.querySelectorAll<HTMLButtonElement>('button.set-card').forEach((button) => {
+      button.addEventListener('click', () => {
+        const card = select(button.dataset.set ?? '');
+        if (!card) return;
+        if (announcer) announcer.textContent = `Showing ${card.getAttribute('aria-label')}`;
+        // On a phone the card may be above the screen; bring its top into view.
+        if (card.getBoundingClientRect().top < 0) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
 </BaseLayout>

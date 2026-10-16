@@ -1,6 +1,7 @@
 ---
 title: Fatima Angel's Prayer
 order: 13
+category: after-rosary
 ---
 
 My God, I believe, I adore, I hope and I love Thee! I beg pardon for

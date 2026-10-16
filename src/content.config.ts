@@ -8,7 +8,11 @@ const schema = z.object({
 
 const prayers = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/prayers' }),
-  schema,
+  schema: schema.extend({
+    // "rosary": part of the Rosary itself; "after-rosary": said after it by the St. Henry Rosary group;
+    // "other": additional prayers.
+    category: z.enum(['rosary', 'after-rosary', 'other']),
+  }),
 });
 
 const mysteries = defineCollection({

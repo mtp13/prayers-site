@@ -1,6 +1,7 @@
 ---
 title: The Apostles' Creed
 order: 2
+category: rosary
 ---
 
 I believe in God,

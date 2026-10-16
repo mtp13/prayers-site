@@ -3,8 +3,6 @@ title: The Sorrowful Mysteries
 order: 2
 ---
 
-## Traditionally prayed on Tuesdays and Fridays
-
 ## First Sorrowful Mystery: The Agony in the Garden
 
 *Jesus prays in the Garden of Gethsemane and accepts his Father's will.*

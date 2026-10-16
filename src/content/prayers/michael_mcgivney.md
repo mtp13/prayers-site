@@ -1,6 +1,7 @@
 ---
 title: Prayer for Fr. Michael McGivney
 order: 18
+category: other
 ---
 
 God, our Father, protector of the poor and defender of the widow and

@@ -1,6 +1,7 @@
 ---
 title: The Hail Mary
 order: 4
+category: rosary
 ---
 
 Hail Mary, full of grace, the Lord is with thee;

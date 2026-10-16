@@ -83,14 +83,15 @@ Example front matter:
 ```yaml
 ---
 title: "Hail Mary"
-order: 3
+order: 4
+category: rosary # or "after-rosary" / "other"
 ---
 ```
 
 ## Content Editing
 
 1. Add or edit a prayer in `src/content/prayers/` or a mystery in `src/content/mysteries/`.
-2. Use the front matter fields shown above (`title`, optional `order`).
+2. Use the front matter fields shown above (`title`, optional `order`, and `category` for prayers).
 3. Keep filenames in snake_case and preserve traditional wording.
 4. Run `npm run dev` to preview changes locally.
 

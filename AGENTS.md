@@ -9,13 +9,23 @@
 ## Content Rules
 
 - Markdown content uses front matter.
-- Current schema fields: `title` required, `order` optional.
+- Current schema fields: `title` required, `order` optional. Prayers also require `category`: `rosary` for prayers
+  of the Rosary itself, `after-rosary` for those the St. Henry Rosary group says after it (keep their `order`, which
+  is the order they are prayed), or `other`. Each category is its own section, sorted by `order`.
 - Keep filenames `snake_case`, titles in Title Case, and prayer text verbatim.
 - If you add front matter fields, update `src/content.config.ts`.
 - Ordering uses `order` with a fallback of `99`, then title; use `getSortedCollection` from `src/lib/collections.ts`.
 - Mystery files are split into pages on `---` lines. Each must have exactly as many sections as its `pages` entry in
-  `src/lib/rosary-mysteries.ts`, and each section must contain a heading like
-  `## First Joyful Mystery: The Annunciation` matching that page's title, or the build fails.
+  `src/lib/rosary-mysteries.ts`, and each section must start with a heading like
+  `## First Joyful Mystery: The Annunciation` matching that page's title, or the build fails. The page shows that
+  heading as its title, so put set-level notes (days, history) in `mysterySets`, not in the Markdown.
+- Each mystery set is a sequence of steps (`getMysterySteps`): opening prayers, the five mysteries, then the
+  concluding prayers, at `/mysteries/<set>/opening`, `/<mystery>` and `/conclusion`. Their prayers come from the prayer
+  content files via `src/components/PrayerSequence.astro` (shown in full, or as expandable sections for the decade).
+- Markdown is rendered by Astro's Sätteri processor (configured in `astro.config.mjs`); remark/rehype plugins do not
+  apply. `src/lib/namespace-footnotes.mjs` prefixes footnote IDs with the file name so prayers can share a page.
+- Mystery and prayer pages share `src/components/PageNav.astro`: a previous/next bar pinned to the bottom of the
+  screen that also handles swipe navigation.
 - If you rename a content file, add a redirect for the old URL in `astro.config.mjs`.
 
 ## Commands

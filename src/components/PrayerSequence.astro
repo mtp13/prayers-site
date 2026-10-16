@@ -1,0 +1,100 @@
+---
+import { getEntry, render } from 'astro:content';
+
+export interface PrayerItem {
+  id: string; // prayer content file, e.g. "our_father"
+  label: string;
+  count?: string; // e.g. "10×"
+  titled?: boolean; // false when the prayer's own text starts with its headings (e.g. Hail Holy Queen)
+  href?: string; // link to the prayer's own page, shown under its text
+}
+
+interface Props {
+  heading?: string;
+  items: PrayerItem[];
+  // Collapsed prayers expand in place (the decade); expanded ones are shown in full (opening and conclusion).
+  expanded?: boolean;
+  // "list" shows collapsed prayers as plain rows with the chevron on the right (home page).
+  variant?: 'decade' | 'list';
+}
+
+const { heading, items, expanded = false, variant = 'decade' } = Astro.props;
+
+const prayers = await Promise.all(
+  items.map(async (item) => {
+    const entry = await getEntry('prayers', item.id);
+    if (!entry) {
+      throw new Error(`Missing prayer "${item.id}"`);
+    }
+    const { Content } = await render(entry);
+    return { ...item, Content };
+  }),
+);
+---
+
+<section
+  class:list={[
+    'prayer-sequence',
+    { 'prayer-sequence--expanded': expanded, 'prayer-sequence--list': variant === 'list' },
+  ]}
+>
+  {heading && <h2 class="prayer-sequence-heading">{heading}</h2>}
+  {prayers.map(({ id, label, count, titled = true, href, Content }) =>
+    expanded ? (
+      <div class="sequence-prayer">
+        {titled && (
+          <h2 class="sequence-prayer-title">
+            <span>{label}</span>
+            {count && <span class="sequence-count">{count}</span>}
+          </h2>
+        )}
+        <div class="sequence-prayer-text">
+          <Content />
+        </div>
+      </div>
+    ) : (
+      <details class="sequence-prayer" data-prayer={id}>
+        <summary>
+          <span>{label}</span>
+          {count && <span class="sequence-count">{count}</span>}
+        </summary>
+        <div class="sequence-prayer-text">
+          <Content />
+          {href && <a class="sequence-prayer-open" href={href}>Open on its own page</a>}
+        </div>
+      </details>
+    ),
+  )}
+</section>
+
+<script>
+  // In the decade, remember which prayers the reader expanded for the rest of the visit, so they don't
+  // have to reopen them on each of the five mysteries. Session storage clears when the tab is closed.
+  const KEY = 'rosary:open-decade-prayers';
+  const decadePrayers = document.querySelectorAll<HTMLDetailsElement>(
+    '.prayer-sequence:not(.prayer-sequence--list):not(.prayer-sequence--expanded) details[data-prayer]',
+  );
+
+  function readOpen(): string[] {
+    try {
+      return JSON.parse(sessionStorage.getItem(KEY) ?? '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  const remembered = new Set(readOpen());
+  decadePrayers.forEach((details) => {
+    if (remembered.has(details.dataset.prayer ?? '')) details.open = true;
+    details.addEventListener('toggle', () => {
+      const open = new Set(readOpen());
+      if (details.open) open.add(details.dataset.prayer ?? '');
+      else open.delete(details.dataset.prayer ?? '');
+      try {
+        sessionStorage.setItem(KEY, JSON.stringify([...open]));
+      } catch {
+        // Storage can be unavailable (e.g. private browsing); prayers then just start collapsed.
+      }
+    });
+  });
+</script>

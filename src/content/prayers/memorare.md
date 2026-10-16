@@ -1,6 +1,7 @@
 ---
 title: The Memorare
 order: 9
+category: after-rosary
 ---
 
 Remember, O most gracious Virgin Mary, that never was it known that anyone who

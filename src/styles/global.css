@@ -7,7 +7,7 @@
   --light-rose: #FFF5F5;
 
   /* Typography variables */
-  --base-font-family: Georgia, serif;
+  --base-font-family: 'Lora Variable', Georgia, serif;
   --base-font-size: 18px;
   --prayer-font-size: 19px;
 
@@ -36,10 +36,12 @@ body {
   color: var(--text-color);
   background-color: var(--background-color);
   line-height: 1.5;
+  /* The page never scrolls sideways; leaving horizontal drags to the page lets swipe navigation work. */
+  touch-action: pan-y pinch-zoom;
 }
 h1, h2, h3, h4, h5, h6 {
   color: var(--sacred-burgundy);
-  font-family: Georgia, serif;
+  font-family: var(--base-font-family);
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
@@ -67,58 +69,186 @@ button:focus-visible {
 
 /* Enhanced styles for prayer and mystery components */
 
-/* Today's Mystery component */
-.todays-mystery {
-  border: 1px solid rgba(139, 69, 19, 0.2);
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--warm-cream) 0%, var(--light-rose) 100%);
-  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.05);
+/* Home page */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
-.todays-mystery h3 {
-  margin-top: 0;
-  color: var(--sacred-burgundy);
+.home {
+  padding-top: 1.25rem;
 }
-.todays-mystery h3 a {
-  color: var(--sacred-burgundy);
-  font-weight: bold;
+.today-card {
+  padding: 1.5rem 1.25rem;
+  border: 1px solid rgba(112, 41, 99, 0.18);
+  border-radius: 10px;
+  background: linear-gradient(160deg, var(--light-rose) 0%, var(--warm-cream) 70%);
+  box-shadow: 0 2px 10px rgba(112, 41, 99, 0.08);
+  text-align: center;
 }
-.todays-mystery h3 a:hover {
-  text-decoration: underline;
-}
-
-.mystery-list {
-  margin: 15px 0;
-}
-.mystery-list strong {
-  color: var(--sacred-burgundy);
-}
-.mystery-list ol {
-  margin: 10px 0;
-  padding-left: 20px;
-}
-.mystery-list li {
-  margin: 5px 0;
-  font-size: 0.95em;
-  line-height: 1.4;
-}
-
-.read-more-link {
+.today-date,
+.today-kicker {
+  margin: 0;
   color: var(--sacred-bronze);
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 12px;
-  border: 1px solid rgba(139, 69, 19, 0.3);
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
-.read-more-link:hover {
-  background-color: rgba(139, 69, 19, 0.05);
+.today-kicker {
+  margin-top: 0.75rem;
+  font-weight: bold;
+}
+.today-kicker-today,
+.today-card.is-today .today-kicker-days {
+  display: none;
+}
+.today-card.is-today .today-kicker-today {
+  display: inline;
+}
+.today-title {
+  margin: 0.25rem 0 1rem;
+  font-size: 1.7rem;
+  line-height: 1.2;
+}
+.today-list {
+  display: inline-block;
+  margin: 0 0 1.25rem;
+  padding-left: 1.5rem;
+  text-align: left;
+  line-height: 1.6;
+}
+.today-begin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 6px;
+  background: var(--sacred-burgundy);
+  color: var(--warm-cream);
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+.today-begin:hover {
+  background: #5a2050;
+  color: var(--warm-cream);
   text-decoration: none;
-  border-color: var(--sacred-bronze);
+}
+
+.home-section {
+  margin-top: 2.25rem;
+}
+.home .home-heading {
+  margin: 0 0 0.75rem;
+  color: var(--sacred-bronze);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.home-note {
+  margin: -0.4rem 0 0.75rem;
+  color: rgba(44, 24, 16, 0.7);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* The four sets as a 2×2 grid of cards; today's is highlighted */
+.set-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.set-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  min-height: 72px;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid rgba(139, 69, 19, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  line-height: 1.3;
+}
+.set-card:hover {
+  background: rgba(139, 69, 19, 0.05);
+  text-decoration: none;
+}
+.set-card-title {
+  color: var(--sacred-burgundy);
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+.set-card-days {
+  color: rgba(44, 24, 16, 0.7);
+  font-size: 0.85rem;
+}
+/* "· Today" sits on the days line, so it never crowds the set name on narrow phones */
+.set-card-today {
+  display: none;
+  color: var(--sacred-burgundy);
+  font-weight: bold;
+}
+.set-card.is-selected {
+  border-color: var(--sacred-burgundy);
+  background: var(--light-rose);
+  box-shadow: inset 0 0 0 1px var(--sacred-burgundy);
+}
+.set-card.is-today .set-card-today {
+  display: inline;
+}
+
+/* How to pray: numbered steps */
+.howto {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.howto-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 2rem 0.6rem 0.85rem;
+  border: 1px solid rgba(139, 69, 19, 0.15);
+  border-radius: 8px;
+  line-height: 1.35;
+}
+.howto-link::after {
+  content: "›";
+  position: absolute;
+  top: 50%;
+  right: 0.9rem;
+  color: var(--sacred-bronze);
+  transform: translateY(-50%);
+}
+.howto-link:hover {
+  background: rgba(139, 69, 19, 0.05);
+  text-decoration: none;
+}
+/* "Step One" label in the same small bronze capitals as the mystery labels */
+.howto-label {
+  color: var(--sacred-bronze);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.howto-step {
+  color: var(--sacred-burgundy);
+  font-weight: bold;
+}
+.howto-detail {
+  color: rgba(44, 24, 16, 0.8);
+  font-size: 0.92rem;
 }
 
 /* Prayer container styling */
@@ -138,7 +268,7 @@ button:focus-visible {
 }
 
 .prayer li > p:first-of-type {
-  font-family: Georgia, serif;
+  font-family: var(--base-font-family);
   text-align: left;
   line-height: 1.7;
   font-style: normal;
@@ -148,55 +278,12 @@ button:focus-visible {
 
 .prayer li > p:not(:first-of-type),
 .prayer > p {
-  font-family: Georgia, serif;
+  font-family: var(--base-font-family);
   text-align: left;
   line-height: 1.7;
   font-style: italic;
   font-size: var(--prayer-font-size);
   margin-bottom: 1.5rem;
-}
-
-/* Next prayer link styling */
-.next-prayer-link {
-  border-top: 1px solid rgba(139, 69, 19, 0.1);
-  margin-top: 2rem;
-  padding-top: 1rem;
-  text-align: center;
-}
-.next-prayer-link .next-prayer {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: rgba(139, 69, 19, 0.05);
-  color: var(--sacred-bronze);
-  text-decoration: none;
-  border-radius: 4px;
-  border: 1px solid rgba(139, 69, 19, 0.2);
-  transition: all 0.2s ease;
-  font-style: normal;
-  font-size: 14px;
-}
-.next-prayer-link .next-prayer:hover {
-  background-color: rgba(139, 69, 19, 0.1);
-  border-color: var(--sacred-bronze);
-}
-
-.prayer-return {
-  text-align: center;
-  margin: 0 0 1.25rem;
-}
-.prayer-return-link {
-  display: inline-block;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid rgba(139, 69, 19, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.3);
-  color: var(--sacred-burgundy);
-  font-size: 0.92rem;
-  line-height: 1.2;
-}
-.prayer-return-link:hover {
-  background: rgba(139, 69, 19, 0.05);
-  text-decoration: none;
 }
 
 /* Mystery page styling */
@@ -217,72 +304,93 @@ button:focus-visible {
   color: var(--sacred-burgundy);
   margin-top: 2rem;
 }
-.mystery-overview-intro,
-.mystery-overview-days,
-.mystery-overview-start {
+
+/* Title block: "Luminous Mysteries · 4 of 5", progress dots, title, "Fourth Luminous Mystery" */
+.mystery-header {
+  margin-bottom: 1.5rem;
   text-align: center;
 }
-.mystery-overview-start {
-  margin: 1.25rem 0 1.5rem;
+.mystery .mystery-header h1 {
+  margin: 0.6rem 0 0.2rem;
+}
+.page-eyebrow {
+  margin: 0;
+  color: var(--sacred-bronze);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.page-eyebrow a {
+  font-weight: bold;
+}
+.mystery-progress {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.mystery-progress li {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--sacred-bronze);
+  border-radius: 50%;
+}
+.mystery-progress li.is-done {
+  background: rgba(139, 69, 19, 0.35);
+}
+.mystery-progress li.is-current {
+  border-color: var(--sacred-burgundy);
+  background: var(--sacred-burgundy);
+}
+.mystery-progress li.is-bookend {
+  border-radius: 1px;
+  transform: rotate(45deg) scale(0.85);
+}
+.mystery-label {
+  margin: 0;
+  color: rgba(44, 24, 16, 0.7);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* Overview page: list of the five mysteries */
+.mystery-overview-days {
+  text-align: center;
 }
 .mystery-overview-list {
-  margin: 0;
-  padding-left: 1.25rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(139, 69, 19, 0.15);
 }
-.mystery-overview-list li {
-  margin: 0.65rem 0;
-}
-.mystery-back {
-  margin: 0 0 1rem;
-  text-align: center;
-}
-.mystery-nav {
+.mystery-overview-list a {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: space-between;
-  margin: 1.25rem 0 1.5rem;
+  flex-direction: column;
+  padding: 0.75rem 0.25rem;
+  border-bottom: 1px solid rgba(139, 69, 19, 0.15);
+  line-height: 1.3;
 }
-.mystery-nav--bottom {
-  margin-top: 2rem;
+.mystery-overview-list a:hover {
+  background: rgba(139, 69, 19, 0.05);
+  text-decoration: none;
 }
-.mystery-nav-link {
-  display: inline-block;
-  padding: 0.75rem 1rem;
-  border: 1px solid rgba(139, 69, 19, 0.22);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.35);
+.mystery-overview-label {
+  color: var(--sacred-bronze);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.mystery-overview-title {
   color: var(--sacred-burgundy);
   font-weight: bold;
 }
-.mystery-nav-link:hover {
-  background: rgba(139, 69, 19, 0.05);
-  text-decoration: none;
+.mystery-overview-list .is-bookend .mystery-overview-title {
+  color: var(--sacred-bronze);
+  font-style: italic;
 }
-.mystery-nav-link.is-disabled {
-  opacity: 0.5;
-}
-.mystery-quick-prayers {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  margin: 0 0 1.5rem;
-}
-.mystery-quick-prayer-link {
-  display: inline-block;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid rgba(139, 69, 19, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.3);
-  color: var(--sacred-burgundy);
-  font-size: 0.92rem;
-  line-height: 1.2;
-}
-.mystery-quick-prayer-link:hover {
-  background: rgba(139, 69, 19, 0.05);
-  text-decoration: none;
-}
+
 .mystery-content > :first-child {
   margin-top: 0;
 }
@@ -298,13 +406,219 @@ button:focus-visible {
   color: var(--sacred-bronze);
 }
 
-.mystery-copyright {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0px 20px;
-  font-size: .8rem;
+/* Prayer sequences: the decade (expand in place) and the opening/concluding prayers (shown in full) */
+.prayer-sequence {
+  margin: 2.5rem 0 1.5rem;
+}
+.mystery-header + .prayer-sequence {
+  margin-top: 0;
+}
+.mystery .prayer-sequence-heading {
+  margin: 0 0 0.75rem;
+  font-size: 1.3rem;
+}
+details.sequence-prayer {
+  border-top: 1px solid rgba(139, 69, 19, 0.15);
+}
+details.sequence-prayer:last-child {
+  border-bottom: 1px solid rgba(139, 69, 19, 0.15);
+}
+.sequence-prayer summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 0.25rem;
+  color: var(--sacred-burgundy);
+  font-weight: bold;
+  cursor: pointer;
+  list-style: none;
+}
+.sequence-prayer summary::-webkit-details-marker {
+  display: none;
+}
+.sequence-prayer summary::before {
+  content: "›";
+  display: inline-block;
+  width: 1em;
+  color: var(--sacred-bronze);
+  transition: transform 0.2s ease;
+}
+.sequence-prayer[open] summary::before {
+  transform: rotate(90deg);
+}
+.sequence-count {
+  margin-left: auto;
+  color: var(--sacred-bronze);
+  font-size: 0.85rem;
+  font-weight: normal;
+}
+details .sequence-prayer-text {
+  padding: 0 0.25rem 0.75rem 1.75rem;
+}
+.sequence-prayer-text {
   font-style: italic;
-  color: rgba(44, 24, 16, 0.7);
+  line-height: 1.6;
+}
+.sequence-prayer-text p {
+  margin: 0 0 0.75rem;
+}
+.sequence-prayer-text .footnotes {
+  font-size: 0.8rem;
+  font-style: normal;
+}
+.prayer-sequence--expanded .sequence-prayer + .sequence-prayer {
+  margin-top: 1.75rem;
+}
+.mystery .sequence-prayer-title,
+.mystery .sequence-prayer-text h2 {
+  display: flex;
+  align-items: baseline;
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  font-style: normal;
+}
+
+/* Home page prayer lists: rows that expand in place, chevron on the right */
+.prayer-sequence--list {
+  margin: 0;
+}
+.prayer-sequence--list .sequence-prayer summary {
+  justify-content: space-between;
+  color: var(--text-color);
+  font-weight: normal;
+  line-height: 1.3;
+}
+.prayer-sequence--list .sequence-prayer summary::before {
+  content: none;
+}
+.prayer-sequence--list .sequence-prayer summary::after {
+  content: "›";
+  flex: none;
+  color: var(--sacred-bronze);
+  transition: transform 0.2s ease;
+}
+.prayer-sequence--list .sequence-prayer[open] summary::after {
+  transform: rotate(90deg);
+}
+.prayer-sequence--list .sequence-prayer[open] summary {
+  color: var(--sacred-burgundy);
+  font-weight: bold;
+}
+.prayer-sequence--list details .sequence-prayer-text {
+  padding: 0 0.25rem 1rem;
+}
+.sequence-prayer-open {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(139, 69, 19, 0.3);
+  border-radius: 6px;
+  color: var(--sacred-burgundy);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+}
+.sequence-prayer-open:hover {
+  background: rgba(139, 69, 19, 0.05);
+  text-decoration: none;
+}
+
+/* Concluding page: invitation to continue with the prayers said after the Rosary */
+.rosary-complete {
+  margin: 2.5rem 0 0;
+  color: var(--sacred-burgundy);
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+}
+.rosary-complete + .continue-card {
+  margin-top: 1rem;
+}
+.continue-card {
+  margin: 2.5rem 0 0;
+  padding: 1.25rem;
+  border: 1px solid rgba(112, 41, 99, 0.18);
+  border-radius: 10px;
+  background: var(--light-rose);
+  text-align: center;
+}
+.mystery .continue-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+.continue-card p {
+  margin: 0 0 1rem;
+  color: rgba(44, 24, 16, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.continue-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--sacred-burgundy);
+  border-radius: 6px;
+  background: var(--warm-cream);
+  color: var(--sacred-burgundy);
+  font-weight: bold;
+}
+.continue-button:hover {
+  background: rgba(112, 41, 99, 0.06);
+  text-decoration: none;
+}
+
+/* Previous / next bar, pinned to the bottom of the screen while the page is being read */
+.page-nav {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 2rem 0 0;
+  padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(139, 69, 19, 0.2);
+  background: var(--warm-cream);
+}
+.page-nav-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 48px; /* comfortable touch target */
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(139, 69, 19, 0.22);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--sacred-burgundy);
+  line-height: 1.25;
+}
+.page-nav-link:hover {
+  background: rgba(139, 69, 19, 0.05);
+  text-decoration: none;
+}
+.page-nav-link--next {
+  grid-column: 2;
+  text-align: right;
+}
+.page-nav-label {
+  color: var(--sacred-bronze);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.page-nav-title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.9rem;
+  font-weight: bold;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* long titles wrap to two lines, then truncate */
 }
 
 /* Footer */
@@ -324,6 +638,9 @@ button:focus-visible {
   align-items: baseline;
 }
 
+.site-footer .footer-line + .footer-line {
+  margin-top: 0.5rem;
+}
 .site-footer .footer-line a {
   font-weight: bold;
 }
@@ -344,7 +661,7 @@ button:focus-visible {
   position: relative;
   background-color: var(--warm-cream);
 }
-.site-header .wrapper {
+.site-header > .wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -369,138 +686,103 @@ button:focus-visible {
   transition: opacity 0.3s ease;
   min-width: 24px;
 }
-.site-nav {
-  margin-top: 0;
-}
-.site-nav .trigger {
-  display: flex;
+.menu-toggle {
+  display: inline-flex;
   align-items: center;
-  gap: 20px;
-}
-.page-link {
-  display: inline-block;
-  line-height: 1.5;
-  padding: 5px 0;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(139, 69, 19, 0.22);
+  border-radius: 6px;
+  background: none;
   color: var(--text-color);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.menu-toggle:hover,
+.menu-toggle[aria-expanded="true"] {
+  background: rgba(139, 69, 19, 0.06);
+}
+.menu-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.site-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+  border-bottom: 1px solid var(--sacred-bronze);
+  background: var(--warm-cream);
+  box-shadow: 0 8px 16px rgba(139, 69, 19, 0.1);
+}
+.site-menu-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+}
+.site-menu-heading {
+  margin: 0.75rem 0 0.25rem;
+  color: var(--sacred-bronze);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.site-menu a {
+  display: block;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+  color: var(--text-color);
+  line-height: 1.3;
+}
+.site-menu a:hover {
+  color: var(--sacred-bronze);
+  text-decoration: none;
 }
 
-/* Dropdown navigation styles */
-.nav-dropdown {
-  position: relative;
-  display: inline-block;
+/* Cross-fade between pages where the browser supports it (Safari 18.2+, Chrome 126+) */
+@view-transition {
+  navigation: auto;
 }
-.dropdown-toggle {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font: inherit;
-  color: inherit;
-  padding: 5px 0;
-}
-.dropdown-toggle::after {
-  content: " ▼";
-  font-size: 0.7em;
-  opacity: 0.7;
-  margin-left: 4px;
-  transition: opacity 0.2s ease;
-}
-.dropdown-toggle:hover::after {
-  opacity: 1;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: var(--warm-cream);
-  min-width: 220px;
-  box-shadow: 0 8px 16px 0px rgba(139, 69, 19, 0.1);
-  z-index: 1000;
-  border-radius: 4px;
-  border: 1px solid rgba(139, 69, 19, 0.2);
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
-}
-.nav-dropdown.is-open .dropdown-content {
-  display: block;
-}
-/* Touch devices keep :hover after a tap, so only open on hover with a real pointer. */
-@media (hover: hover) {
-  .nav-dropdown:hover .dropdown-content {
-    display: block;
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
   }
-}
-.dropdown-content a {
-  color: var(--text-color);
-  padding: 8px 16px;
-  text-decoration: none;
-  display: block;
-  font-size: 16px;
-  line-height: 1.4;
-  border-bottom: 1px solid rgba(139, 69, 19, 0.1);
-  transition: background-color 0.2s ease;
-}
-.dropdown-content a:last-child {
-  border-bottom: none;
-}
-.dropdown-content a:hover {
-  background-color: rgba(139, 69, 19, 0.05);
-  color: var(--sacred-bronze);
 }
 
 /* Mobile Responsive Adjustments */
 @media screen and (max-width: 600px) {
-  .site-header .wrapper {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-  }
   .site-title {
-    font-size: 1.4rem;
-    gap: 6px;
-    white-space: normal;
-    line-height: 1.1;
-  }
-  .site-title-text {
-    display: none;
-  }
-  .site-nav .trigger {
-    flex-direction: row;
-    align-items: center;
     gap: 8px;
-    margin-top: 0;
+    font-size: 1.25rem;
   }
-  .dropdown-toggle::after {
-    font-size: 0.8em;
-    margin-left: 2px;
+  .site-menu-columns {
+    grid-template-columns: 1fr;
   }
-  .todays-mystery {
-    margin: 10px;
-    padding: 15px;
-  }
+  /* On phones the page gutter is enough; drop the card frame to give the text more width. */
   .prayer, .mystery {
-    padding: 20px 15px;
+    padding: 12px 0 0;
+    border: none;
+    background: none;
+    box-shadow: none;
   }
-  .mystery-nav {
-    flex-direction: column;
+  .prayer h1, .mystery h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.25;
+  }
+  .prayer h2, .mystery h2 {
+    font-size: 1.35rem;
+    line-height: 1.25;
+    margin-top: 1.25rem;
   }
   .prayer > p {
     font-size: 18px;
-  }
-
-  /* Mobile Dropdown */
-  .nav-dropdown {
-    display: inline-flex;
-    width: auto;
-    white-space: nowrap;
-  }
-  .dropdown-content {
-    position: absolute;
-    display: none;
-    min-width: 200px;
-    box-shadow: 0 8px 16px 0px rgba(139, 69, 19, 0.1);
-    border: 1px solid rgba(139, 69, 19, 0.2);
-    background-color: var(--warm-cream);
-    padding-left: 0;
   }
 }

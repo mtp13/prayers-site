@@ -15,6 +15,7 @@ export interface MysterySetMeta {
   slug: MysterySetSlug;
   title: string;
   days: string[];
+  note?: string;
   pages: MysteryPageMeta[];
 }
 
@@ -66,6 +67,7 @@ export const mysterySets: Record<MysterySetSlug, MysterySetMeta> = {
     slug: 'luminous_mysteries',
     title: 'The Luminous Mysteries',
     days: ['Thursday'],
+    note: 'Introduced by Pope John Paul II in 2002.',
     pages: [
       { slug: 'baptism_in_the_jordan', title: 'The Baptism of Jesus' },
       { slug: 'wedding_at_cana', title: 'The Wedding at Cana' },
@@ -115,38 +117,46 @@ export function getMysterySections(slug: MysterySetSlug): string[] {
     .filter(Boolean);
 
   // Sections are matched to pages by position, so a stray `---` would pair text with the wrong title.
-  const { pages, title } = mysterySets[slug];
+  const { pages } = mysterySets[slug];
   if (sections.length !== pages.length) {
     throw new Error(
       `${slug}.md has ${sections.length} sections separated by "---" but ${pages.length} pages are defined in mysterySets`,
     );
   }
 
-  // Catch reordered sections or titles that drifted from mysterySets, e.g. "## First Joyful Mystery: The Annunciation".
-  const setName = title.replace(/^The /, '').replace(/ Mysteries$/, '');
+  // Each section must start with its heading, e.g. "## First Joyful Mystery: The Annunciation". This catches
+  // reordered sections or titles that drifted from mysterySets.
   sections.forEach((section, index) => {
-    const heading = `## ${ordinals[index]} ${setName} Mystery: ${pages[index].title}`;
-    if (!section.split('\n').some((line) => line.trim() === heading)) {
-      throw new Error(`${slug}.md section ${index + 1} is missing the heading "${heading}"`);
+    const heading = `## ${getMysteryLabel(slug, index)}: ${pages[index].title}`;
+    if (section.split('\n')[0].trim() !== heading) {
+      throw new Error(`${slug}.md section ${index + 1} must start with the heading "${heading}"`);
     }
   });
 
   return sections;
 }
 
-export function getMysterySectionMarkdown(slug: MysterySetSlug, index: number): string {
-  return getMysterySections(slug)[index] ?? '';
+// "Fourth Luminous Mystery"
+export function getMysteryLabel(slug: MysterySetSlug, index: number): string {
+  const setName = mysterySets[slug].title.replace(/^The /, '').replace(/ Mysteries$/, '');
+  return `${ordinals[index]} ${setName} Mystery`;
 }
 
+// The section body without its heading line; the page shows the title separately.
 export async function getMysterySectionHtml(slug: MysterySetSlug, index: number): Promise<string> {
-  return await marked.parse(getMysterySectionMarkdown(slug, index));
+  const section = getMysterySections(slug)[index] ?? '';
+  return await marked.parse(section.split('\n').slice(1).join('\n').trim());
 }
 
-export function getMysteryNavigation(slug: MysterySetSlug, index: number) {
-  const pages = mysterySets[slug].pages;
+// Each set is prayed as a sequence: opening prayers, the five mysteries, then the concluding prayers.
+export type MysteryStep =
+  | { kind: 'opening' | 'conclusion'; slug: string; title: string }
+  | { kind: 'mystery'; slug: string; title: string; index: number };
 
-  return {
-    previous: index > 0 ? pages[index - 1] : null,
-    next: index < pages.length - 1 ? pages[index + 1] : null,
-  };
+export function getMysterySteps(slug: MysterySetSlug): MysteryStep[] {
+  return [
+    { kind: 'opening', slug: 'opening', title: 'Opening Prayers' },
+    ...mysterySets[slug].pages.map((page, index) => ({ kind: 'mystery' as const, ...page, index })),
+    { kind: 'conclusion', slug: 'conclusion', title: 'Concluding Prayers' },
+  ];
 }

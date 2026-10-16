@@ -1,68 +1,38 @@
 ---
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getSortedCollection } from '../../lib/collections';
+import PageNav from '../../components/PageNav.astro';
+import { getPrayerGroups } from '../../lib/collections';
 
+// Previous/next stay within a group, so the Rosary prayers end at the closing prayer.
 export async function getStaticPaths() {
-  const sortedPrayers = await getSortedCollection('prayers');
+  const groups = await getPrayerGroups();
 
-  return sortedPrayers.map((entry, index) => ({
-    params: { slug: entry.id },
-    props: { entry, nextPrayer: sortedPrayers[index + 1] ?? null },
-  }));
+  return groups.flatMap(({ prayers }) =>
+    prayers.map((entry, index) => ({
+      params: { slug: entry.id },
+      props: {
+        entry,
+        previousPrayer: prayers[index - 1] ?? null,
+        nextPrayer: prayers[index + 1] ?? null,
+      },
+    })),
+  );
 }
 
-const { entry, nextPrayer } = Astro.props;
+const { entry, previousPrayer, nextPrayer } = Astro.props;
 const { Content } = await render(entry);
 const baseUrl = import.meta.env.BASE_URL;
+const link = (prayer: typeof entry | null) =>
+  prayer ? { href: `${baseUrl}/prayers/${prayer.id}`, title: prayer.data.title } : null;
 ---
 
 <BaseLayout title={entry.data.title}>
   <article class="prayer">
     <h1>{entry.data.title}</h1>
 
-    <div class="prayer-return" id="prayer-return" hidden>
-      <a class="prayer-return-link" id="prayer-return-link" href={baseUrl}>← Back to mystery</a>
-    </div>
-
     <Content />
 
-    {nextPrayer && (
-      <div class="next-prayer-link">
-        <a href={`${baseUrl}/prayers/${nextPrayer.id}`} class="next-prayer">
-          Next: {nextPrayer.data.title} →
-        </a>
-      </div>
-    )}
+    <PageNav previous={link(previousPrayer)} next={link(nextPrayer)} label="Prayers" />
   </article>
-
-  <script>
-    const params = new URL(window.location.href).searchParams;
-    const backUrl = params.get('back');
-    const backLabel = params.get('backLabel');
-    const returnWrap = document.getElementById('prayer-return');
-    const returnLink = document.getElementById('prayer-return-link') as HTMLAnchorElement | null;
-
-    // Only follow `back` links that stay on this site, so a crafted URL can't inject e.g. `javascript:`.
-    function safeBackUrl(value: string | null): string | null {
-      if (!value) return null;
-
-      try {
-        const url = new URL(value, window.location.origin);
-        const isSameSite = url.origin === window.location.origin
-          && url.pathname.startsWith(`${import.meta.env.BASE_URL}/`);
-        return isSameSite ? url.pathname + url.search + url.hash : null;
-      } catch {
-        return null;
-      }
-    }
-
-    const safeUrl = safeBackUrl(backUrl);
-
-    if (safeUrl && returnWrap && returnLink) {
-      returnLink.href = safeUrl;
-      returnLink.textContent = `← Back to ${backLabel || 'mystery'}`;
-      returnWrap.hidden = false;
-    }
-  </script>
 </BaseLayout>

@@ -16,3 +16,29 @@ export async function getSortedCollection<C extends OrderedCollection>(
       a.data.title.localeCompare(b.data.title),
   );
 }
+
+export interface PrayerGroup {
+  category: CollectionEntry<'prayers'>['data']['category'];
+  title: string;
+  note?: string;
+  prayers: CollectionEntry<'prayers'>[];
+}
+
+// The prayers of the Rosary itself, those said after it, then other prayers, each in `order`.
+export async function getPrayerGroups(): Promise<PrayerGroup[]> {
+  const prayers = await getSortedCollection('prayers');
+  const groups: Omit<PrayerGroup, 'prayers'>[] = [
+    { category: 'rosary', title: 'Rosary Prayers' },
+    {
+      category: 'after-rosary',
+      title: 'After the Rosary',
+      note: 'As prayed by the Rosary group at St. Henry Catholic Church',
+    },
+    { category: 'other', title: 'Other Catholic Prayers' },
+  ];
+
+  return groups.map((group) => ({
+    ...group,
+    prayers: prayers.filter((prayer) => prayer.data.category === group.category),
+  }));
+}

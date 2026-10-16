@@ -3,10 +3,6 @@ title: The Luminous Mysteries
 order: 4
 ---
 
-## Traditionally prayed on Thursdays
-
-### Introduced by Pope John Paul II in 2002
-
 ## First Luminous Mystery: The Baptism of Jesus
 
 *Jesus is baptized by John the Baptist in the Jordan River.*

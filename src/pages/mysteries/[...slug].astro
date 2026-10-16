@@ -1,94 +1,99 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import MysteryNav from '../../components/MysteryNav.astro';
+import PageNav from '../../components/PageNav.astro';
+import PrayerSequence, { type PrayerItem } from '../../components/PrayerSequence.astro';
+import { getPrayerGroups } from '../../lib/collections';
 import {
-  getMysteryNavigation,
+  getMysteryLabel,
   getMysterySectionHtml,
+  getMysterySteps,
   mysterySetOrder,
   mysterySets,
   type MysterySetSlug,
+  type MysteryStep,
 } from '../../lib/rosary-mysteries';
 
 export async function getStaticPaths() {
-  return mysterySetOrder.flatMap((setSlug) => {
-    const set = mysterySets[setSlug];
-
-    return [
-      {
-        params: { slug: setSlug },
-        props: { kind: 'overview', setSlug },
-      },
-      ...set.pages.map((page, pageIndex) => ({
-        params: { slug: `${setSlug}/${page.slug}` },
-        props: { kind: 'detail', setSlug, pageIndex },
-      })),
-    ];
-  });
+  return mysterySetOrder.flatMap((setSlug) => [
+    { params: { slug: setSlug }, props: { setSlug, stepIndex: -1 } },
+    ...getMysterySteps(setSlug).map((step, stepIndex) => ({
+      params: { slug: `${setSlug}/${step.slug}` },
+      props: { setSlug, stepIndex },
+    })),
+  ]);
 }
 
-const { kind, setSlug, pageIndex } = Astro.props as {
-  kind: 'overview' | 'detail';
-  setSlug: MysterySetSlug;
-  pageIndex?: number;
-};
+const { setSlug, stepIndex } = Astro.props as { setSlug: MysterySetSlug; stepIndex: number };
 
-const set = mysterySets[setSlug];
 const baseUrl = import.meta.env.BASE_URL;
-const firstPage = set.pages[0];
+const set = mysterySets[setSlug];
+const setUrl = `${baseUrl}/mysteries/${setSlug}`;
+const setName = set.title.replace(/^The /, '');
+const steps = getMysterySteps(setSlug);
+const step = steps[stepIndex]; // undefined on the overview page
+const stepLink = (s: MysteryStep) => ({ href: `${setUrl}/${s.slug}`, title: s.title });
 
-let sectionHtml = '';
-let currentPageTitle = set.title;
-let currentPageSlug = '';
-let navigation: ReturnType<typeof getMysteryNavigation> = { previous: null, next: null };
-let prayerLinks: { title: string; href: string }[] = [];
+const openingPrayers: PrayerItem[] = [
+  { id: 'sign_of_the_cross', label: 'Sign of the Cross' },
+  { id: 'apostles_creed', label: "Apostles' Creed" },
+  { id: 'our_father', label: 'Our Father' },
+  { id: 'hail_mary', label: 'Hail Mary', count: '3×' },
+  { id: 'glory_be', label: 'Glory Be' },
+];
+const decadePrayers: PrayerItem[] = [
+  { id: 'our_father', label: 'Our Father' },
+  { id: 'hail_mary', label: 'Hail Mary', count: '10×' },
+  { id: 'glory_be', label: 'Glory Be' },
+  { id: 'fatima_prayer', label: 'Fatima Prayer' },
+];
+const concludingPrayers: PrayerItem[] = [
+  { id: 'hail_holy_queen', label: 'Hail Holy Queen', titled: false },
+  { id: 'rosary_closing_prayer', label: 'Rosary Closing Prayer' },
+  { id: 'sign_of_the_cross', label: 'Sign of the Cross' },
+];
 
-if (kind === 'detail') {
-  if (typeof pageIndex !== 'number') {
-    throw new Error(`Missing page index for ${setSlug}`);
-  }
+// The concluding page offers the prayers the St. Henry Rosary group says after the Rosary.
+const afterRosary = (await getPrayerGroups()).find((group) => group.category === 'after-rosary');
 
-  const page = set.pages[pageIndex];
-  currentPageTitle = page.title;
-  currentPageSlug = page.slug;
-  sectionHtml = await getMysterySectionHtml(setSlug, pageIndex);
-  navigation = getMysteryNavigation(setSlug, pageIndex);
+const sectionHtml = step?.kind === 'mystery' ? await getMysterySectionHtml(setSlug, step.index) : '';
 
-  const currentMysteryUrl = `${baseUrl}/mysteries/${setSlug}/${currentPageSlug}`;
-  prayerLinks = [
-    { title: 'Our Father', slug: 'our_father' },
-    { title: 'Hail Mary', slug: 'hail_mary' },
-    { title: 'Fatima Prayer', slug: 'fatima_prayer' },
-  ].map((prayer) => ({
-    title: prayer.title,
-    href: `${baseUrl}/prayers/${prayer.slug}?back=${encodeURIComponent(currentMysteryUrl)}&backLabel=${encodeURIComponent(currentPageTitle)}`,
-  }));
-}
+const eyebrow = !step
+  ? ''
+  : step.kind === 'mystery'
+    ? `${step.index + 1} of ${set.pages.length}`
+    : step.kind === 'opening'
+      ? 'Opening'
+      : 'Conclusion';
+
+const previousStep = step ? steps[stepIndex - 1] : undefined;
+const nextStep = step ? steps[stepIndex + 1] : steps[0];
+const nav = {
+  previous: previousStep ? stepLink(previousStep) : step ? { href: setUrl, title: set.title } : null,
+  next: nextStep
+    ? { ...stepLink(nextStep), label: step ? undefined : 'Begin' }
+    : { href: setUrl, title: set.title, label: 'Finish Rosary' },
+};
 ---
 
-<BaseLayout title={currentPageTitle}>
+<BaseLayout title={step ? `${step.title} · ${set.title}` : set.title}>
   <article class="mystery">
-    {kind === 'overview' ? (
+    {!step ? (
       <>
         <h1>{set.title}</h1>
-        <p class="mystery-overview-intro">
-          A shorter guide to pray one mystery at a time.
-        </p>
-
         <p class="mystery-overview-days">
-          <strong>Traditionally prayed on:</strong> {set.days.join(' and ')}
-        </p>
-
-        <p class="mystery-overview-start">
-          <a class="mystery-nav-link" href={`${baseUrl}/mysteries/${setSlug}/${firstPage.slug}`}>
-            Start with {firstPage.title} →
-          </a>
+          Traditionally prayed on {set.days.join(' and ')}.
+          {set.note && <br />}
+          {set.note}
         </p>
 
         <ol class="mystery-overview-list">
-          {set.pages.map((page) => (
-            <li>
-              <a href={`${baseUrl}/mysteries/${setSlug}/${page.slug}`}>
-                {page.title}
+          {steps.map((overviewStep) => (
+            <li class:list={{ 'is-bookend': overviewStep.kind !== 'mystery' }}>
+              <a href={`${setUrl}/${overviewStep.slug}`}>
+                {overviewStep.kind === 'mystery' && (
+                  <span class="mystery-overview-label">{getMysteryLabel(setSlug, overviewStep.index)}</span>
+                )}
+                <span class="mystery-overview-title">{overviewStep.title}</span>
               </a>
             </li>
           ))}
@@ -96,35 +101,55 @@ if (kind === 'detail') {
       </>
     ) : (
       <>
-        <p class="mystery-back">
-          <a href={`${baseUrl}/mysteries/${setSlug}`}>← Back to {set.title}</a>
-        </p>
+        <header class="mystery-header">
+          <p class="page-eyebrow">
+            <a href={setUrl}>{setName}</a> · {eyebrow}
+          </p>
+          <ol class="mystery-progress" aria-hidden="true">
+            {steps.map((progressStep, index) => (
+              <li
+                class:list={{
+                  'is-bookend': progressStep.kind !== 'mystery',
+                  'is-done': index < stepIndex,
+                  'is-current': index === stepIndex,
+                }}
+              />
+            ))}
+          </ol>
+          <h1>{step.title}</h1>
+          {step.kind === 'mystery' && <p class="mystery-label">{getMysteryLabel(setSlug, step.index)}</p>}
+        </header>
 
-        <MysteryNav setSlug={setSlug} previous={navigation.previous} next={navigation.next} />
+        {step.kind === 'opening' && <PrayerSequence items={openingPrayers} expanded />}
 
-        <nav class="mystery-quick-prayers" aria-label="Quick prayer links">
-          {prayerLinks.map((prayer) => (
-            <a class="mystery-quick-prayer-link" href={prayer.href}>
-              {prayer.title}
-            </a>
-          ))}
-        </nav>
+        {step.kind === 'mystery' && (
+          <>
+            <div class="mystery-content" set:html={sectionHtml} />
+            <PrayerSequence heading="Pray the decade" items={decadePrayers} />
+          </>
+        )}
 
-        <div class="mystery-content" set:html={sectionHtml} />
-
-        <MysteryNav setSlug={setSlug} previous={navigation.previous} next={navigation.next} position="bottom" />
+        {step.kind === 'conclusion' && (
+          <>
+            <PrayerSequence items={concludingPrayers} expanded />
+            <p class="rosary-complete">The Rosary is complete.</p>
+            {afterRosary && afterRosary.prayers.length > 0 && (
+              <section class="continue-card" aria-labelledby="continue-heading">
+                <h2 id="continue-heading">Optional: Prayers After the Rosary</h2>
+                <p>
+                  The Rosary group at St. Henry Catholic Church continues with these prayers:
+                  {' '}{afterRosary.prayers.map((prayer) => prayer.data.title.replace(/^The /, '')).join(', ')}.
+                </p>
+                <a class="continue-button" href={`${baseUrl}/prayers/${afterRosary.prayers[0].id}`}>
+                  Continue with the St. Henry Prayers
+                </a>
+              </section>
+            )}
+          </>
+        )}
       </>
     )}
-  </article>
 
-  {kind === 'detail' && (
-    <div class="mystery-copyright">
-      <p>
-        Scripture texts in this work are taken from the <em>New American Bible, revised edition</em> © 2010, 1991,
-        1986, 1970 Confraternity of Christian Doctrine, Washington, D.C. and are used by permission of the copyright
-        owner. All Rights Reserved. No part of the <em>New American Bible</em> may be reproduced in any form without
-        permission in writing from the copyright owner.
-      </p>
-    </div>
-  )}
+    <PageNav previous={nav.previous} next={nav.next} label={set.title} />
+  </article>
 </BaseLayout>

@@ -1,6 +1,7 @@
 ---
 title: The Sign of the Cross
 order: 1
+category: rosary
 ---
 
 In the name of the Father,

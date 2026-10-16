@@ -3,8 +3,6 @@ title: The Glorious Mysteries
 order: 3
 ---
 
-## Traditionally prayed on Wednesdays and Sundays
-
 ## First Glorious Mystery: The Resurrection
 
 *Jesus rises from the dead on the third day.*
