@@ -222,7 +222,7 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
-  padding: 0.6rem 2rem 0.6rem 3.1rem;
+  padding: 0.6rem 2rem 0.6rem 0.85rem;
   border: 1px solid rgba(139, 69, 19, 0.15);
   border-radius: 8px;
   line-height: 1.35;
@@ -239,21 +239,13 @@ button:focus-visible {
   background: rgba(139, 69, 19, 0.05);
   text-decoration: none;
 }
+/* "Step 1" label in the same small bronze capitals as the mystery labels */
 .howto-link::before {
-  content: counter(howto);
-  position: absolute;
-  top: 0.6rem;
-  left: 0.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.8rem;
-  height: 1.8rem;
-  border: 1px solid var(--sacred-bronze);
-  border-radius: 50%;
+  content: "Step " counter(howto);
   color: var(--sacred-bronze);
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .howto-step {
   color: var(--sacred-burgundy);
