@@ -167,6 +167,11 @@ button:focus-visible {
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
   min-height: 72px;
   padding: 0.75rem 0.85rem;
   border: 1px solid rgba(139, 69, 19, 0.22);
@@ -187,16 +192,11 @@ button:focus-visible {
   color: rgba(44, 24, 16, 0.7);
   font-size: 0.85rem;
 }
+/* "· Today" sits on the days line, so it never crowds the set name on narrow phones */
 .set-card-today {
   display: none;
-  position: absolute;
-  top: 0.6rem;
-  right: 0.7rem;
   color: var(--sacred-burgundy);
-  font-size: 0.7rem;
   font-weight: bold;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 .set-card.is-selected {
   border-color: var(--sacred-burgundy);
@@ -204,7 +204,7 @@ button:focus-visible {
   box-shadow: inset 0 0 0 1px var(--sacred-burgundy);
 }
 .set-card.is-today .set-card-today {
-  display: block;
+  display: inline;
 }
 
 /* How to pray: numbered steps */
@@ -529,6 +529,16 @@ details .sequence-prayer-text {
 }
 
 /* Concluding page: invitation to continue with the prayers said after the Rosary */
+.rosary-complete {
+  margin: 2.5rem 0 0;
+  color: var(--sacred-burgundy);
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+}
+.rosary-complete + .continue-card {
+  margin-top: 1rem;
+}
 .continue-card {
   margin: 2.5rem 0 0;
   padding: 1.25rem;

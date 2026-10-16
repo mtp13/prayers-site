@@ -65,6 +65,7 @@ const howtoSteps = [
 
     <section class="home-section" aria-labelledby="home-mysteries">
       <h2 class="home-heading" id="home-mysteries">The Mysteries</h2>
+      <p class="visually-hidden" id="set-announcer" aria-live="polite"></p>
       <ul class="set-grid">
         {sets.map((set) => (
           <li>
@@ -75,8 +76,9 @@ const howtoSteps = [
               aria-controls={`card-${set.slug}`}
             >
               <span class="set-card-title">{shortName(set.title)}</span>
-              <span class="set-card-days">{shortDays(set.days)}</span>
-              <span class="set-card-today">Today</span>
+              <span class="set-card-days">
+                {shortDays(set.days)}<span class="set-card-today"> · Today</span>
+              </span>
             </a>
           </li>
         ))}
@@ -132,20 +134,29 @@ const howtoSteps = [
     document.querySelector(`.today-card[data-set="${todaySlug}"]`)?.classList.add('is-today');
     document.querySelector(`.set-card[data-set="${todaySlug}"]`)?.classList.add('is-today');
 
-    function select(slug: string) {
-      let shown: HTMLElement | null = null;
-      document.querySelectorAll<HTMLElement>('.today-card').forEach((card) => {
-        card.hidden = card.dataset.set !== slug;
-        if (!card.hidden) shown = card;
+    // With JavaScript, the set links become selection buttons that switch the card above.
+    document.querySelectorAll<HTMLAnchorElement>('a.set-card').forEach((link) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = link.className;
+      button.dataset.set = link.dataset.set;
+      button.setAttribute('aria-controls', link.getAttribute('aria-controls') ?? '');
+      button.append(...link.childNodes);
+      link.replaceWith(button);
+    });
+
+    function select(slug: string): HTMLElement | null {
+      const card = document.querySelector<HTMLElement>(`.today-card[data-set="${slug}"]`);
+      document.querySelectorAll<HTMLElement>('.today-card').forEach((c) => {
+        c.hidden = c !== card;
       });
-      document.querySelectorAll<HTMLElement>('.set-card').forEach((link) => {
-        const selected = link.dataset.set === slug;
-        link.classList.toggle('is-selected', selected);
-        link.setAttribute('aria-current', String(selected));
+      document.querySelectorAll<HTMLButtonElement>('button.set-card').forEach((button) => {
+        const selected = button.dataset.set === slug;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', String(selected));
       });
-      // Point the how-to steps at the chosen set.
-      const card = shown as HTMLElement | null;
       if (card) {
+        // Point the how-to steps at the chosen set.
         const hrefs: Record<string, string> = JSON.parse(card.dataset.howto ?? '{}');
         document.querySelectorAll<HTMLAnchorElement>('[data-howto-step]').forEach((link) => {
           link.href = hrefs[link.dataset.howtoStep ?? ''] ?? link.href;
@@ -159,12 +170,14 @@ const howtoSteps = [
 
     select(todaySlug);
 
-    document.querySelectorAll<HTMLAnchorElement>('.set-card').forEach((link) => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        const card = select(link.dataset.set ?? '');
+    const announcer = document.getElementById('set-announcer');
+    document.querySelectorAll<HTMLButtonElement>('button.set-card').forEach((button) => {
+      button.addEventListener('click', () => {
+        const card = select(button.dataset.set ?? '');
+        if (!card) return;
+        if (announcer) announcer.textContent = `Showing ${card.getAttribute('aria-label')}`;
         // On a phone the card may be above the screen; bring its top into view.
-        if (card && card.getBoundingClientRect().top < 0) {
+        if (card.getBoundingClientRect().top < 0) {
           card.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });

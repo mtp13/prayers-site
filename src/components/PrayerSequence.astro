@@ -39,7 +39,7 @@ const prayers = await Promise.all(
   ]}
 >
   {heading && <h2 class="prayer-sequence-heading">{heading}</h2>}
-  {prayers.map(({ label, count, titled = true, href, Content }) =>
+  {prayers.map(({ id, label, count, titled = true, href, Content }) =>
     expanded ? (
       <div class="sequence-prayer">
         {titled && (
@@ -53,7 +53,7 @@ const prayers = await Promise.all(
         </div>
       </div>
     ) : (
-      <details class="sequence-prayer">
+      <details class="sequence-prayer" data-prayer={id}>
         <summary>
           <span>{label}</span>
           {count && <span class="sequence-count">{count}</span>}
@@ -66,3 +66,35 @@ const prayers = await Promise.all(
     ),
   )}
 </section>
+
+<script>
+  // In the decade, remember which prayers the reader expanded for the rest of the visit, so they don't
+  // have to reopen them on each of the five mysteries. Session storage clears when the tab is closed.
+  const KEY = 'rosary:open-decade-prayers';
+  const decadePrayers = document.querySelectorAll<HTMLDetailsElement>(
+    '.prayer-sequence:not(.prayer-sequence--list):not(.prayer-sequence--expanded) details[data-prayer]',
+  );
+
+  function readOpen(): string[] {
+    try {
+      return JSON.parse(sessionStorage.getItem(KEY) ?? '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  const remembered = new Set(readOpen());
+  decadePrayers.forEach((details) => {
+    if (remembered.has(details.dataset.prayer ?? '')) details.open = true;
+    details.addEventListener('toggle', () => {
+      const open = new Set(readOpen());
+      if (details.open) open.add(details.dataset.prayer ?? '');
+      else open.delete(details.dataset.prayer ?? '');
+      try {
+        sessionStorage.setItem(KEY, JSON.stringify([...open]));
+      } catch {
+        // Storage can be unavailable (e.g. private browsing); prayers then just start collapsed.
+      }
+    });
+  });
+</script>

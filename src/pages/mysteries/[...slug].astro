@@ -71,7 +71,7 @@ const nav = {
   previous: previousStep ? stepLink(previousStep) : step ? { href: setUrl, title: set.title } : null,
   next: nextStep
     ? { ...stepLink(nextStep), label: step ? undefined : 'Begin' }
-    : { href: setUrl, title: set.title, label: 'Finish' },
+    : { href: setUrl, title: set.title, label: 'Finish Rosary' },
 };
 ---
 
@@ -132,9 +132,10 @@ const nav = {
         {step.kind === 'conclusion' && (
           <>
             <PrayerSequence items={concludingPrayers} expanded />
+            <p class="rosary-complete">The Rosary is complete.</p>
             {afterRosary && afterRosary.prayers.length > 0 && (
               <section class="continue-card" aria-labelledby="continue-heading">
-                <h2 id="continue-heading">Prayers After the Rosary</h2>
+                <h2 id="continue-heading">Optional: Prayers After the Rosary</h2>
                 <p>
                   The Rosary group at St. Henry Catholic Church continues with these prayers:
                   {' '}{afterRosary.prayers.map((prayer) => prayer.data.title.replace(/^The /, '')).join(', ')}.
