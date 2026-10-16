@@ -28,11 +28,12 @@ const baseUrl = import.meta.env.BASE_URL;
     <Content />
 
     {nextPrayer && (
-      <div class="next-prayer-link">
-        <a href={`${baseUrl}/prayers/${nextPrayer.id}`} class="next-prayer">
-          Next: {nextPrayer.data.title} →
+      <nav class="page-nav page-nav--bottom" aria-label="Next prayer">
+        <a class="page-nav-link page-nav-link--next" href={`${baseUrl}/prayers/${nextPrayer.id}`} rel="next">
+          <span class="page-nav-label">Next →</span>
+          <span class="page-nav-title">{nextPrayer.data.title}</span>
         </a>
-      </div>
+      </nav>
     )}
   </article>
 

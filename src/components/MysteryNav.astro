@@ -19,22 +19,22 @@ const hailHolyQueenHref = `${baseUrl}/prayers/hail_holy_queen?${back}`;
 ---
 
 <nav
-  class:list={['mystery-nav', { 'mystery-nav--bottom': position === 'bottom' }]}
+  class:list={['page-nav', { 'page-nav--bottom': position === 'bottom' }]}
   aria-label={position === 'bottom' ? 'Mystery navigation (bottom)' : 'Mystery navigation'}
 >
   {previous && (
-    <a class="mystery-nav-link mystery-nav-link--prev" href={`${setUrl}/${previous.slug}`} rel="prev">
-      <span class="mystery-nav-label">← Previous</span>
-      <span class="mystery-nav-title">{previous.title}</span>
+    <a class="page-nav-link page-nav-link--prev" href={`${setUrl}/${previous.slug}`} rel="prev">
+      <span class="page-nav-label">← Previous</span>
+      <span class="page-nav-title">{previous.title}</span>
     </a>
   )}
 
   <a
-    class="mystery-nav-link mystery-nav-link--next"
+    class="page-nav-link page-nav-link--next"
     href={next ? `${setUrl}/${next.slug}` : hailHolyQueenHref}
     rel={next ? 'next' : undefined}
   >
-    <span class="mystery-nav-label">Next →</span>
-    <span class="mystery-nav-title">{next ? next.title : 'Hail Holy Queen'}</span>
+    <span class="page-nav-label">Next →</span>
+    <span class="page-nav-title">{next ? next.title : 'Hail Holy Queen'}</span>
   </a>
 </nav>

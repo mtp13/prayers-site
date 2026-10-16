@@ -156,30 +156,6 @@ button:focus-visible {
   margin-bottom: 1.5rem;
 }
 
-/* Next prayer link styling */
-.next-prayer-link {
-  border-top: 1px solid rgba(139, 69, 19, 0.1);
-  margin-top: 2rem;
-  padding-top: 1rem;
-  text-align: center;
-}
-.next-prayer-link .next-prayer {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: rgba(139, 69, 19, 0.05);
-  color: var(--sacred-bronze);
-  text-decoration: none;
-  border-radius: 4px;
-  border: 1px solid rgba(139, 69, 19, 0.2);
-  transition: all 0.2s ease;
-  font-style: normal;
-  font-size: 14px;
-}
-.next-prayer-link .next-prayer:hover {
-  background-color: rgba(139, 69, 19, 0.1);
-  border-color: var(--sacred-bronze);
-}
-
 .prayer-return {
   text-align: center;
   margin: 0 0 1.25rem;
@@ -225,7 +201,7 @@ button:focus-visible {
 .mystery-overview-start {
   margin: 1.25rem 0 1.5rem;
 }
-.mystery-overview-start .mystery-nav-link {
+.mystery-overview-start .page-nav-link {
   font-weight: bold;
 }
 .mystery-overview-list {
@@ -240,16 +216,16 @@ button:focus-visible {
   text-align: center;
 }
 /* Two equal columns: Previous on the left, Next always on the right (even on the first mystery). */
-.mystery-nav {
+.page-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
   margin: 1rem 0 1.25rem;
 }
-.mystery-nav--bottom {
+.page-nav--bottom {
   margin-top: 2rem;
 }
-.mystery-nav-link {
+.page-nav-link {
   display: inline-flex;
   flex-direction: column;
   gap: 0.1rem;
@@ -261,21 +237,21 @@ button:focus-visible {
   color: var(--sacred-burgundy);
   line-height: 1.25;
 }
-.mystery-nav-link:hover {
+.page-nav-link:hover {
   background: rgba(139, 69, 19, 0.05);
   text-decoration: none;
 }
-.mystery-nav-link--next {
+.page-nav-link--next {
   grid-column: 2;
   text-align: right;
 }
-.mystery-nav-label {
+.page-nav-label {
   color: var(--sacred-bronze);
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.mystery-nav-title {
+.page-nav-title {
   font-size: 0.95rem;
   font-weight: bold;
 }
@@ -495,20 +471,19 @@ button:focus-visible {
     margin: 10px;
     padding: 15px;
   }
-  .prayer, .mystery {
-    padding: 20px 15px;
-  }
   /* On phones the page gutter is enough; drop the card frame to give the text more width. */
-  .mystery {
+  .prayer, .mystery {
     padding: 12px 0;
     border: none;
     background: none;
+    box-shadow: none;
   }
-  .mystery h1 {
+  .prayer h1, .mystery h1 {
     font-size: 1.6rem;
     margin-bottom: 1.25rem;
+    line-height: 1.25;
   }
-  .mystery h2 {
+  .prayer h2, .mystery h2 {
     font-size: 1.35rem;
     line-height: 1.25;
     margin-top: 1.25rem;
@@ -517,7 +492,7 @@ button:focus-visible {
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
   }
-  .mystery-nav-title {
+  .page-nav-title {
     font-size: 0.9rem;
   }
   .prayer > p {
