@@ -26,7 +26,11 @@ export function namespaceFootnotes() {
             if (typeof value === 'string' && rename(value) !== value) {
               ctx.setProperty(node, key, rename(value));
             } else if (Array.isArray(value) && value.some((v) => typeof v === 'string' && rename(v) !== v)) {
-              ctx.setProperty(node, key, value.map((v) => (typeof v === 'string' ? rename(v) : v)));
+              ctx.setProperty(
+                node,
+                key,
+                value.map((v) => (typeof v === 'string' ? rename(v) : v)),
+              );
             }
           }
         },

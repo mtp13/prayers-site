@@ -1,10 +1,6 @@
 import { marked } from 'marked';
 
-export type MysterySetSlug =
-  | 'joyful_mysteries'
-  | 'sorrowful_mysteries'
-  | 'glorious_mysteries'
-  | 'luminous_mysteries';
+export type MysterySetSlug = 'joyful_mysteries' | 'sorrowful_mysteries' | 'glorious_mysteries' | 'luminous_mysteries';
 
 export interface MysteryPageMeta {
   slug: string;

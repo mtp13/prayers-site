@@ -81,8 +81,7 @@ const nav = {
       <>
         <h1>{set.title}</h1>
         <p class="mystery-overview-days">
-          Traditionally prayed on {set.days.join(' and ')}.
-          {set.note && <br />}
+          Traditionally prayed on {set.days.join(' and ')}.{set.note && <br />}
           {set.note}
         </p>
 
@@ -137,8 +136,8 @@ const nav = {
               <section class="continue-card" aria-labelledby="continue-heading">
                 <h2 id="continue-heading">Optional: Prayers After the Rosary</h2>
                 <p>
-                  The Rosary group at St. Henry Catholic Church continues with these prayers:
-                  {' '}{afterRosary.prayers.map((prayer) => prayer.data.title.replace(/^The /, '')).join(', ')}.
+                  The Rosary group at St. Henry Catholic Church continues with these prayers:{' '}
+                  {afterRosary.prayers.map((prayer) => prayer.data.title.replace(/^The /, '')).join(', ')}.
                 </p>
                 <a class="continue-button" href={`${baseUrl}/prayers/${afterRosary.prayers[0].id}`}>
                   Continue with the St. Henry Prayers

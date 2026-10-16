@@ -1,12 +1,12 @@
 :root {
   /* Sacred color palette */
-  --sacred-bronze: #8B4513;
+  --sacred-bronze: #8b4513;
   --sacred-burgundy: #702963;
-  --warm-cream: #FFFBF5;
-  --rich-brown: #2C1810;
-  --light-rose: #FFF5F5;
-  --bronze-hover: #63310D; /* Darker shade of bronze */
-  --burgundy-hover: #5A2050;
+  --warm-cream: #fffbf5;
+  --rich-brown: #2c1810;
+  --light-rose: #fff5f5;
+  --bronze-hover: #63310d; /* Darker shade of bronze */
+  --burgundy-hover: #5a2050;
 
   /* The same colors as RGB triplets, for translucent tints: rgba(var(--bronze-rgb), 0.05) */
   --bronze-rgb: 139, 69, 19;
@@ -35,13 +35,13 @@
 /* Dark mode follows the system setting: on a dark warm brown, burgundy becomes a soft gold and bronze a copper */
 @media (prefers-color-scheme: dark) {
   :root {
-    --sacred-bronze: #CC8F5A;
-    --sacred-burgundy: #C9AE88;
-    --warm-cream: #1C1512;
-    --rich-brown: #EDE3D6;
-    --light-rose: #2A201A;
-    --bronze-hover: #E0AA78;
-    --burgundy-hover: #D8C19F;
+    --sacred-bronze: #cc8f5a;
+    --sacred-burgundy: #c9ae88;
+    --warm-cream: #1c1512;
+    --rich-brown: #ede3d6;
+    --light-rose: #2a201a;
+    --bronze-hover: #e0aa78;
+    --burgundy-hover: #d8c19f;
 
     --bronze-rgb: 204, 143, 90;
     --burgundy-rgb: 201, 174, 136;
@@ -55,7 +55,9 @@
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 body {
@@ -69,7 +71,12 @@ body {
   /* The page never scrolls sideways; leaving horizontal drags to the page lets swipe navigation work. */
   touch-action: pan-y pinch-zoom;
 }
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--sacred-burgundy);
   font-family: var(--base-font-family);
   margin-top: 2rem;
@@ -254,7 +261,7 @@ button:focus-visible {
   line-height: 1.35;
 }
 .howto-link::after {
-  content: "›";
+  content: '›';
   position: absolute;
   top: 50%;
   right: 0.9rem;
@@ -468,7 +475,7 @@ details.sequence-prayer:last-child {
   display: none;
 }
 .sequence-prayer summary::before {
-  content: "›";
+  content: '›';
   display: inline-block;
   width: 1em;
   color: var(--sacred-bronze);
@@ -523,7 +530,7 @@ details .sequence-prayer-text {
   content: none;
 }
 .prayer-sequence--list .sequence-prayer summary::after {
-  content: "›";
+  content: '›';
   flex: none;
   color: var(--sacred-bronze);
   transition: transform 0.2s ease;
@@ -676,7 +683,7 @@ details .sequence-prayer-text {
 }
 
 .site-footer .footer-line code {
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 0.8rem;
   line-height: 1;
   vertical-align: baseline;
@@ -784,7 +791,7 @@ html.menu-open .site-footer {
   cursor: pointer;
 }
 .menu-toggle:hover,
-.menu-toggle[aria-expanded="true"] {
+.menu-toggle[aria-expanded='true'] {
   background: rgba(var(--bronze-rgb), 0.06);
 }
 .menu-icon {
@@ -856,18 +863,21 @@ html.menu-open .site-footer {
     column-count: 1;
   }
   /* On phones the page gutter is enough; drop the card frame to give the text more width. */
-  .prayer, .mystery {
+  .prayer,
+  .mystery {
     padding: 12px 0 0;
     border: none;
     background: none;
     box-shadow: none;
   }
-  .prayer h1, .mystery h1 {
+  .prayer h1,
+  .mystery h1 {
     font-size: 1.6rem;
     margin-bottom: 1.25rem;
     line-height: 1.25;
   }
-  .prayer h2, .mystery h2 {
+  .prayer h2,
+  .mystery h2 {
     font-size: 1.35rem;
     line-height: 1.25;
     margin-top: 1.25rem;

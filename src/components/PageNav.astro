@@ -45,9 +45,10 @@ const { previous, next, label } = Astro.props;
       const touch = event.touches[0];
       const zoomed = (window.visualViewport?.scale ?? 1) > 1.01;
       const atEdge = touch.clientX < EDGE || touch.clientX > window.innerWidth - EDGE;
-      start = event.touches.length === 1 && !zoomed && !atEdge
-        ? { x: touch.clientX, y: touch.clientY, time: Date.now() }
-        : null;
+      start =
+        event.touches.length === 1 && !zoomed && !atEdge
+          ? { x: touch.clientX, y: touch.clientY, time: Date.now() }
+          : null;
       last = { x: touch.clientX, y: touch.clientY };
     },
     { passive: true },
@@ -78,5 +79,11 @@ const { previous, next, label } = Astro.props;
 
   document.addEventListener('touchend', finishSwipe, { passive: true });
   // A cancelled touch was interrupted by the browser or system, so it never counts as a swipe.
-  document.addEventListener('touchcancel', () => { start = null; }, { passive: true });
+  document.addEventListener(
+    'touchcancel',
+    () => {
+      start = null;
+    },
+    { passive: true },
+  );
 </script>
