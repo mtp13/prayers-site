@@ -23,3 +23,5 @@ O my God, \
 I am sorry for all my sins \
 because they offend you who are so good. \
 With your help I will not sin again.
+
+Amen.
