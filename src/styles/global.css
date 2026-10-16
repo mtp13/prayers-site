@@ -7,7 +7,7 @@
   --light-rose: #FFF5F5;
 
   /* Typography variables */
-  --base-font-family: Georgia, serif;
+  --base-font-family: 'Lora Variable', Georgia, serif;
   --base-font-size: 18px;
   --prayer-font-size: 19px;
 
@@ -41,7 +41,7 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
   color: var(--sacred-burgundy);
-  font-family: Georgia, serif;
+  font-family: var(--base-font-family);
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
@@ -235,8 +235,7 @@ button:focus-visible {
   background: rgba(139, 69, 19, 0.05);
   text-decoration: none;
 }
-/* "Step One" label in the same small bronze capitals as the mystery labels. Spelled out because Georgia's
-   old-style digits sit below the baseline and look like subscripts next to capitals. */
+/* "Step One" label in the same small bronze capitals as the mystery labels */
 .howto-label {
   color: var(--sacred-bronze);
   font-size: 0.75rem;
@@ -269,7 +268,7 @@ button:focus-visible {
 }
 
 .prayer li > p:first-of-type {
-  font-family: Georgia, serif;
+  font-family: var(--base-font-family);
   text-align: left;
   line-height: 1.7;
   font-style: normal;
@@ -279,7 +278,7 @@ button:focus-visible {
 
 .prayer li > p:not(:first-of-type),
 .prayer > p {
-  font-family: Georgia, serif;
+  font-family: var(--base-font-family);
   text-align: left;
   line-height: 1.7;
   font-style: italic;
