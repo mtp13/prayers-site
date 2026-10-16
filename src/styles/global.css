@@ -509,10 +509,21 @@ details .sequence-prayer-text {
   padding: 0 0.25rem 1rem;
 }
 .sequence-prayer-open {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   margin-top: 0.25rem;
-  font-size: 0.9rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(139, 69, 19, 0.3);
+  border-radius: 6px;
+  color: var(--sacred-burgundy);
+  font-size: 1rem;
   font-style: normal;
+  font-weight: 600;
+}
+.sequence-prayer-open:hover {
+  background: rgba(139, 69, 19, 0.05);
+  text-decoration: none;
 }
 
 /* Concluding page: invitation to continue with the prayers said after the Rosary */
