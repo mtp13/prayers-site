@@ -9,9 +9,12 @@
     "preview": "astro preview",
     "preview:host": "astro preview --host",
     "test:links": "sh scripts/test-links.sh",
-    "test": "npm run lint && npm run build && npm run test:links",
+    "test": "npm run lint && npm run format:check && npm run check && npm run build && npm run test:links",
     "astro": "astro",
-    "lint": "markdownlint \"**/*.md\" --config .markdownlint.json --ignore node_modules"
+    "lint": "markdownlint \"**/*.md\" --config .markdownlint.json --ignore node_modules",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.4",
@@ -20,8 +23,13 @@
     "marked": "^18.0.5"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^22.20.5",
     "linkinator": "^7.6.1",
-    "markdownlint-cli": "^0.49.1"
+    "markdownlint-cli": "^0.49.1",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1",
+    "typescript": "^6.0.3"
   },
   "allowScripts": {
     "esbuild@0.27.7": true,

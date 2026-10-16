@@ -15,14 +15,14 @@ const commitDate = commitDateIso ? new Date(commitDateIso) : null;
 // Show the time in Central time; builds run on UTC servers, which would otherwise show UTC.
 const formattedCommitDate = commitDate
   ? commitDate.toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    timeZone: 'America/Chicago',
-    timeZoneName: 'short',
-  })
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZone: 'America/Chicago',
+      timeZoneName: 'short',
+    })
   : 'Unknown';
 ---
 
@@ -42,20 +42,25 @@ const formattedCommitDate = commitDate
       <div class="wrapper">
         <p class="footer-line">
           Scripture texts: <em>New American Bible, revised edition</em> ·
-          <a href={`${import.meta.env.BASE_URL}/copyright`} data-copyright-open>Copyright notice</a>
+          <a href={`${import.meta.env.BASE_URL}/copyright`} data-copyright-open>
+            Copyright notice
+          </a>
         </p>
         <p class="footer-line">
           Built with <a href="https://astro.build">Astro</a> · Build:
-          <time datetime={commitDateIso || undefined}>{formattedCommitDate}</time> ·
-          Commit: <code>{commitSha}</code>
+          <time datetime={commitDateIso || undefined}>{formattedCommitDate}</time> · Commit: <code>{commitSha}</code>
         </p>
       </div>
     </footer>
 
     <dialog class="copyright-dialog" id="copyright-dialog" aria-labelledby="copyright-dialog-title">
-      <h2 id="copyright-dialog-title" tabindex="-1">Copyright</h2>
+      <h2 id="copyright-dialog-title" tabindex="-1">
+        Copyright
+      </h2>
       <CopyrightNotice />
-      <button type="button" class="copyright-close" data-copyright-close>Close</button>
+      <button type="button" class="copyright-close" data-copyright-close>
+        Close
+      </button>
     </dialog>
 
     <script>

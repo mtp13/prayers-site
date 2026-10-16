@@ -60,7 +60,11 @@ const prayers = await Promise.all(
         </summary>
         <div class="sequence-prayer-text">
           <Content />
-          {href && <a class="sequence-prayer-open" href={href}>Open on its own page</a>}
+          {href && (
+            <a class="sequence-prayer-open" href={href}>
+              Open on its own page
+            </a>
+          )}
         </div>
       </details>
     ),

@@ -1,0 +1,7 @@
+# Content: prayer text must stay verbatim, and markdownlint covers Markdown style.
+*.md
+# Generated or vendored
+dist/
+.astro/
+node_modules/
+package-lock.json

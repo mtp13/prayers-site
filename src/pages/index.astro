@@ -60,27 +60,29 @@ const howtoSteps = [
         </p>
         <h2 class="today-title">{set.title}</h2>
         <ol class="today-list">
-          {set.pages.map((page) => <li>{page.title}</li>)}
+          {set.pages.map((page) => (
+            <li>{page.title}</li>
+          ))}
         </ol>
-        <a class="today-begin" href={`${setUrl(set)}/opening`}>Begin the Rosary</a>
+        <a class="today-begin" href={`${setUrl(set)}/opening`}>
+          Begin the Rosary
+        </a>
       </section>
     ))}
 
     <section class="home-section" aria-labelledby="home-mysteries">
-      <h2 class="home-heading" id="home-mysteries">The Mysteries</h2>
+      <h2 class="home-heading" id="home-mysteries">
+        The Mysteries
+      </h2>
       <p class="visually-hidden" id="set-announcer" aria-live="polite"></p>
       <ul class="set-grid">
         {sets.map((set) => (
           <li>
-            <a
-              class="set-card"
-              data-set={set.slug}
-              href={setUrl(set)}
-              aria-controls={`card-${set.slug}`}
-            >
+            <a class="set-card" data-set={set.slug} href={setUrl(set)} aria-controls={`card-${set.slug}`}>
               <span class="set-card-title">{shortName(set.title)}</span>
               <span class="set-card-days">
-                {shortDays(set.days)}<span class="set-card-today"> · Today</span>
+                {shortDays(set.days)}
+                <span class="set-card-today"> · Today</span>
               </span>
             </a>
           </li>
@@ -89,7 +91,9 @@ const howtoSteps = [
     </section>
 
     <section class="home-section" aria-labelledby="home-howto">
-      <h2 class="home-heading" id="home-howto">How to Pray the Rosary</h2>
+      <h2 class="home-heading" id="home-howto">
+        How to Pray the Rosary
+      </h2>
       <p class="home-note">
         Each step opens on its own for the <span data-howto-set>{shortName(defaultSet.title)}</span> Mysteries, the set
         chosen above.
@@ -109,7 +113,9 @@ const howtoSteps = [
 
     {prayerGroups.map((group) => (
       <section class="home-section" aria-labelledby={`home-${group.category}`}>
-        <h2 class="home-heading" id={`home-${group.category}`}>{group.title}</h2>
+        <h2 class="home-heading" id={`home-${group.category}`}>
+          {group.title}
+        </h2>
         {group.note && <p class="home-note">{group.note}</p>}
         <PrayerSequence
           variant="list"

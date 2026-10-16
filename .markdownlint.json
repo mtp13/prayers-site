@@ -7,10 +7,5 @@
     "code_block_line_length": 120
   },
   "MD041": false,
-  "globs": [
-    "**/*.md",
-    "!_site/**",
-    "!venv/**",
-    "!**/venv/**"
-  ]
+  "globs": ["**/*.md", "!_site/**", "!venv/**", "!**/venv/**"]
 }

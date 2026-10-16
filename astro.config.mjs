@@ -5,8 +5,8 @@ import { namespaceFootnotes } from './src/lib/namespace-footnotes.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://mike.pullen.dev",
-  base: "/rosary",
+  site: 'https://mike.pullen.dev',
+  base: '/rosary',
   // No images are processed, so skip the optional sharp dependency.
   image: {
     service: passthroughImageService(),
