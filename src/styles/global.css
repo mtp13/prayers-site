@@ -264,34 +264,6 @@ button:focus-visible {
   font-size: 0.92rem;
 }
 
-/* Lists of links as tidy rows with a chevron */
-.link-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid rgba(139, 69, 19, 0.15);
-}
-.link-list a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 44px;
-  padding: 0.5rem 0.25rem;
-  border-bottom: 1px solid rgba(139, 69, 19, 0.15);
-  color: var(--text-color);
-  line-height: 1.3;
-}
-.link-list a::after {
-  content: "›";
-  color: var(--sacred-bronze);
-}
-.link-list a:hover {
-  background: rgba(139, 69, 19, 0.05);
-  color: var(--sacred-bronze);
-  text-decoration: none;
-}
-
 /* Prayer container styling */
 .prayer {
   max-width: 800px;
@@ -517,6 +489,42 @@ details .sequence-prayer-text {
   align-items: baseline;
   margin: 0 0 0.5rem;
   font-size: 1.2rem;
+  font-style: normal;
+}
+
+/* Home page prayer lists: rows that expand in place, chevron on the right */
+.prayer-sequence--list {
+  margin: 0;
+}
+.prayer-sequence--list .sequence-prayer summary {
+  justify-content: space-between;
+  color: var(--text-color);
+  font-weight: normal;
+  line-height: 1.3;
+}
+.prayer-sequence--list .sequence-prayer summary::before {
+  content: none;
+}
+.prayer-sequence--list .sequence-prayer summary::after {
+  content: "›";
+  flex: none;
+  color: var(--sacred-bronze);
+  transition: transform 0.2s ease;
+}
+.prayer-sequence--list .sequence-prayer[open] summary::after {
+  transform: rotate(90deg);
+}
+.prayer-sequence--list .sequence-prayer[open] summary {
+  color: var(--sacred-burgundy);
+  font-weight: bold;
+}
+.prayer-sequence--list details .sequence-prayer-text {
+  padding: 0 0.25rem 1rem;
+}
+.sequence-prayer-open {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
   font-style: normal;
 }
 

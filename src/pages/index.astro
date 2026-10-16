@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PrayerSequence from '../components/PrayerSequence.astro';
 import { getPrayerGroups } from '../lib/collections';
 import { dayToMysterySet, mysterySetOrder, mysterySets, type MysterySetMeta } from '../lib/rosary-mysteries';
 
@@ -104,11 +105,14 @@ const howtoSteps = [
       <section class="home-section" aria-labelledby={`home-${group.category}`}>
         <h2 class="home-heading" id={`home-${group.category}`}>{group.title}</h2>
         {group.note && <p class="home-note">{group.note}</p>}
-        <ul class="link-list">
-          {group.prayers.map((prayer) => (
-            <li><a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a></li>
-          ))}
-        </ul>
+        <PrayerSequence
+          variant="list"
+          items={group.prayers.map((prayer) => ({
+            id: prayer.id,
+            label: prayer.data.title,
+            href: `${baseUrl}/prayers/${prayer.id}`,
+          }))}
+        />
       </section>
     ))}
   </div>

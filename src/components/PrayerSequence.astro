@@ -6,6 +6,7 @@ export interface PrayerItem {
   label: string;
   count?: string; // e.g. "10×"
   titled?: boolean; // false when the prayer's own text starts with its headings (e.g. Hail Holy Queen)
+  href?: string; // link to the prayer's own page, shown under its text
 }
 
 interface Props {
@@ -13,9 +14,11 @@ interface Props {
   items: PrayerItem[];
   // Collapsed prayers expand in place (the decade); expanded ones are shown in full (opening and conclusion).
   expanded?: boolean;
+  // "list" shows collapsed prayers as plain rows with the chevron on the right (home page).
+  variant?: 'decade' | 'list';
 }
 
-const { heading, items, expanded = false } = Astro.props;
+const { heading, items, expanded = false, variant = 'decade' } = Astro.props;
 
 const prayers = await Promise.all(
   items.map(async (item) => {
@@ -29,9 +32,14 @@ const prayers = await Promise.all(
 );
 ---
 
-<section class:list={['prayer-sequence', { 'prayer-sequence--expanded': expanded }]}>
+<section
+  class:list={[
+    'prayer-sequence',
+    { 'prayer-sequence--expanded': expanded, 'prayer-sequence--list': variant === 'list' },
+  ]}
+>
   {heading && <h2 class="prayer-sequence-heading">{heading}</h2>}
-  {prayers.map(({ label, count, titled = true, Content }) =>
+  {prayers.map(({ label, count, titled = true, href, Content }) =>
     expanded ? (
       <div class="sequence-prayer">
         {titled && (
@@ -52,6 +60,7 @@ const prayers = await Promise.all(
         </summary>
         <div class="sequence-prayer-text">
           <Content />
+          {href && <a class="sequence-prayer-open" href={href}>Open on its own page</a>}
         </div>
       </details>
     ),
