@@ -5,6 +5,13 @@ const baseUrl = import.meta.env.BASE_URL;
 
 const prayerGroups = await getPrayerGroups();
 const sortedMysteries = await getSortedCollection('mysteries');
+
+// Appearance setting: Auto follows the system light/dark setting.
+const themes = [
+  { value: 'auto', label: 'Auto' },
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+];
 ---
 
 <header class="site-header" role="banner">
@@ -57,6 +64,19 @@ const sortedMysteries = await getSortedCollection('mysteries');
         </section>
       ))}
     </div>
+    <div class="wrapper site-menu-appearance">
+      <fieldset class="theme-picker">
+        <legend class="site-menu-heading">Appearance</legend>
+        <div class="theme-options">
+          {themes.map(({ value, label }) => (
+            <label>
+              <input type="radio" name="theme" value={value} checked={value === 'auto'} />
+              <span>{label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    </div>
   </nav>
 
   <script>
@@ -77,6 +97,34 @@ const sortedMysteries = await getSortedCollection('mysteries');
     }
 
     toggle?.addEventListener('click', () => setOpen(menu?.hidden === true));
+
+    // Appearance: BaseHead.astro applies the saved choice on load; this keeps the radios and page in step with it.
+    const themeColors = { light: '#FFFBF5', dark: '#1C1512' };
+
+    function applyTheme(theme: string) {
+      const root = document.documentElement;
+      const explicit = theme === 'light' || theme === 'dark';
+      if (explicit) root.dataset.theme = theme;
+      else delete root.dataset.theme;
+      document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]')!.content = explicit ? theme : 'light dark';
+      // The browser bar color: the chosen theme's, or per system scheme for Auto.
+      for (const meta of document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')) {
+        const scheme = explicit ? theme : meta.media.includes('dark') ? 'dark' : 'light';
+        meta.content = themeColors[scheme];
+      }
+      try {
+        if (explicit) localStorage.setItem('theme', theme);
+        else localStorage.removeItem('theme');
+      } catch {
+        // Storage blocked: the choice applies to this page only.
+      }
+    }
+
+    const savedTheme = document.documentElement.dataset.theme ?? 'auto';
+    for (const radio of document.querySelectorAll<HTMLInputElement>('input[name="theme"]')) {
+      radio.checked = radio.value === savedTheme;
+      radio.addEventListener('change', () => applyTheme(radio.value));
+    }
 
     document.addEventListener('click', (event) => {
       const target = event.target as Element;

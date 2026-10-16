@@ -48,5 +48,7 @@
 - Use 2-space indentation, LF endings, and a final newline.
 - Markdown line length is 120; heading line length is 100.
 - Use 4 spaces in Python files.
-- Colors follow the system light/dark setting: use the palette variables in `src/styles/global.css` (or the
-  `--*-rgb` triplets for tints, e.g. `rgba(var(--bronze-rgb), 0.05)`), never hardcoded colors, and set both themes.
+- Colors have light and dark themes, chosen by the Appearance setting in the menu (Auto follows the system). Use the
+  palette variables in `src/styles/global.css` (or the `--*-rgb` triplets for tints, e.g.
+  `rgba(var(--bronze-rgb), 0.05)`), never hardcoded colors, and set both themes. The dark values appear twice there
+  (system dark under Auto, and an explicit Dark choice); keep both copies in sync.
