@@ -1,35 +1,92 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MysteryCard from '../components/MysteryCard.astro';
-import { getSortedCollection } from '../lib/collections';
+import { getPrayerGroups } from '../lib/collections';
+import { dayToMysterySet, mysterySetOrder, mysterySets } from '../lib/rosary-mysteries';
 
 const baseUrl = import.meta.env.BASE_URL;
-
-const sortedPrayers = await getSortedCollection('prayers');
-const sortedMysteries = await getSortedCollection('mysteries');
+const prayerGroups = await getPrayerGroups();
+const sets = mysterySetOrder.map((slug) => mysterySets[slug]);
+const shortName = (title: string) => title.replace(/^The /, '').replace(/ Mysteries$/, '');
+const shortDays = (days: string[]) => days.map((day) => day.slice(0, 3)).join(' · ');
 ---
 
-<BaseLayout title="Rosary Prayers" description="A collection of prayers for the Holy Rosary">
-  <section>
-    <h2>Today's Mystery</h2>
-    <MysteryCard />
-  </section>
+<BaseLayout title="Rosary Prayers" description="Pray the Holy Rosary: today's mysteries, step by step, and the prayers">
+  <div class="home" data-day-sets={JSON.stringify(dayToMysterySet)}>
+    <h1 class="visually-hidden">Rosary Prayers</h1>
 
-  <section>
-    <h2>Prayers</h2>
-    <ul>
-      {sortedPrayers.map((prayer) => (
-        <li><a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a></li>
-      ))}
-    </ul>
-  </section>
+    {/* One card per set; the script below reveals the one for today's weekday. */}
+    {sets.map((set) => (
+      <section class="today-card" data-set={set.slug} aria-label="Today's Mystery" hidden>
+        <p class="today-date" data-today-date></p>
+        <p class="today-kicker">Today's Mystery</p>
+        <h2 class="today-title">{set.title}</h2>
+        <ol class="today-list">
+          {set.pages.map((page) => <li>{page.title}</li>)}
+        </ol>
+        <a class="today-begin" href={`${baseUrl}/mysteries/${set.slug}/opening`}>Begin the Rosary ›</a>
+      </section>
+    ))}
 
-  <section>
-    <h2>Mysteries</h2>
-    <ul>
-      {sortedMysteries.map((mystery) => (
-        <li><a href={`${baseUrl}/mysteries/${mystery.id}`}>{mystery.data.title}</a></li>
-      ))}
-    </ul>
-  </section>
+    <section class="home-section" aria-labelledby="home-mysteries">
+      <h2 class="home-heading" id="home-mysteries">The Mysteries</h2>
+      <ul class="set-grid">
+        {sets.map((set) => (
+          <li>
+            <a class="set-card" data-set={set.slug} href={`${baseUrl}/mysteries/${set.slug}`}>
+              <span class="set-card-title">{shortName(set.title)}</span>
+              <span class="set-card-days">{shortDays(set.days)}</span>
+              <span class="set-card-today">Today</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="home-section" aria-labelledby="home-howto">
+      <h2 class="home-heading" id="home-howto">How to Pray the Rosary</h2>
+      <ol class="howto">
+        <li>
+          <span class="howto-step">Opening prayers</span>
+          <span class="howto-detail">Sign of the Cross, Apostles' Creed, Our Father, three Hail Marys, Glory Be</span>
+        </li>
+        <li>
+          <span class="howto-step">Five decades</span>
+          <span class="howto-detail">
+            For each mystery: Our Father, ten Hail Marys, Glory Be, Fatima Prayer
+          </span>
+        </li>
+        <li>
+          <span class="howto-step">Concluding prayers</span>
+          <span class="howto-detail">Hail Holy Queen, Rosary Closing Prayer, Sign of the Cross</span>
+        </li>
+      </ol>
+    </section>
+
+    {prayerGroups.map((group) => (
+      <section class="home-section" aria-labelledby={`home-${group.category}`}>
+        <h2 class="home-heading" id={`home-${group.category}`}>{group.title}</h2>
+        {group.note && <p class="home-note">{group.note}</p>}
+        <ul class="link-list">
+          {group.prayers.map((prayer) => (
+            <li><a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <script>
+    // Show today's set based on the visitor's local weekday, and mark it in the grid.
+    const home = document.querySelector<HTMLElement>('.home');
+    const daySets: Record<string, string> = JSON.parse(home?.dataset.daySets ?? '{}');
+    const today = new Date();
+    const slug = daySets[today.getDay()];
+    const dateText = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+    document.querySelector(`.today-card[data-set="${slug}"]`)?.removeAttribute('hidden');
+    document.querySelector(`.set-card[data-set="${slug}"]`)?.classList.add('is-today');
+    document.querySelectorAll('[data-today-date]').forEach((el) => {
+      el.textContent = dateText;
+    });
+  </script>
 </BaseLayout>

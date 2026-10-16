@@ -1,6 +1,7 @@
 ---
 title: Saint Gertrude Prayer
 order: 14
+category: after-rosary
 ---
 
 Eternal Father, I offer Thee the Most Precious Blood of Thy Divine

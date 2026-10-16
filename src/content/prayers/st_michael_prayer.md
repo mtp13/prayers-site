@@ -1,6 +1,7 @@
 ---
 title: The Prayer to Saint Michael
 order: 10
+category: after-rosary
 ---
 
 Saint Michael the Archangel, defend us in battle; be our protection against the

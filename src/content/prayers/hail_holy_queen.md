@@ -1,6 +1,7 @@
 ---
 title: The Hail Holy Queen (The Salve Regina)
 order: 7
+category: rosary
 ---
 
 ## Hail Holy Queen

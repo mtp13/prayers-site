@@ -1,6 +1,7 @@
 ---
 title: The Glory Be (The Doxology)
 order: 5
+category: rosary
 ---
 
 Glory be to the Father, and to the Son, and to the Holy Spirit;

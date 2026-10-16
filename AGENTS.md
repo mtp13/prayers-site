@@ -9,7 +9,9 @@
 ## Content Rules
 
 - Markdown content uses front matter.
-- Current schema fields: `title` required, `order` optional.
+- Current schema fields: `title` required, `order` optional. Prayers also require `category`: `rosary` for prayers
+  of the Rosary itself, `after-rosary` for those the St. Henry Rosary group says after it (keep their `order`, which
+  is the order they are prayed), or `other`. Each category is its own section, sorted by `order`.
 - Keep filenames `snake_case`, titles in Title Case, and prayer text verbatim.
 - If you add front matter fields, update `src/content.config.ts`.
 - Ordering uses `order` with a fallback of `99`, then title; use `getSortedCollection` from `src/lib/collections.ts`.

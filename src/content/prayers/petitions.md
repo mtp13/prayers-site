@@ -1,6 +1,7 @@
 ---
 title: Petitions
 order: 11
+category: after-rosary
 ---
 
 Most Sacred Heart of Jesus, Have Mercy on us.

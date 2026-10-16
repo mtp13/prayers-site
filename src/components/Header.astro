@@ -1,9 +1,9 @@
 ---
-import { getSortedCollection } from '../lib/collections';
+import { getPrayerGroups, getSortedCollection } from '../lib/collections';
 
 const baseUrl = import.meta.env.BASE_URL;
 
-const sortedPrayers = await getSortedCollection('prayers');
+const prayerGroups = await getPrayerGroups();
 const sortedMysteries = await getSortedCollection('mysteries');
 ---
 
@@ -46,12 +46,14 @@ const sortedMysteries = await getSortedCollection('mysteries');
           <a href={`${baseUrl}/mysteries/${mystery.id}`}>{mystery.data.title}</a>
         ))}
       </section>
-      <section>
-        <h2 class="site-menu-heading">Prayers</h2>
-        {sortedPrayers.map((prayer) => (
-          <a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a>
-        ))}
-      </section>
+      {prayerGroups.map((group) => (
+        <section>
+          <h2 class="site-menu-heading">{group.title}</h2>
+          {group.prayers.map((prayer) => (
+            <a href={`${baseUrl}/prayers/${prayer.id}`}>{prayer.data.title}</a>
+          ))}
+        </section>
+      ))}
     </div>
   </nav>
 

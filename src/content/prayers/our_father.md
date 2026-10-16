@@ -1,6 +1,7 @@
 ---
 title: The Our Father
 order: 3
+category: rosary
 ---
 
 Our Father, who art in heaven,

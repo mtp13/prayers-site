@@ -1,6 +1,7 @@
 ---
 title: O Sacrament Most Holy
 order: 19
+category: other
 ---
 
 O Sacrament most Holy,

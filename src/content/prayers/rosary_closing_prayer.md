@@ -1,6 +1,7 @@
 ---
 title: The Rosary Closing Prayer
 order: 8
+category: rosary
 ---
 
 Let us pray:

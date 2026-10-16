@@ -2,19 +2,22 @@
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageNav from '../../components/PageNav.astro';
-import { getSortedCollection } from '../../lib/collections';
+import { getPrayerGroups } from '../../lib/collections';
 
+// Previous/next stay within a group, so the Rosary prayers end at the closing prayer.
 export async function getStaticPaths() {
-  const sortedPrayers = await getSortedCollection('prayers');
+  const groups = await getPrayerGroups();
 
-  return sortedPrayers.map((entry, index) => ({
-    params: { slug: entry.id },
-    props: {
-      entry,
-      previousPrayer: sortedPrayers[index - 1] ?? null,
-      nextPrayer: sortedPrayers[index + 1] ?? null,
-    },
-  }));
+  return groups.flatMap(({ prayers }) =>
+    prayers.map((entry, index) => ({
+      params: { slug: entry.id },
+      props: {
+        entry,
+        previousPrayer: prayers[index - 1] ?? null,
+        nextPrayer: prayers[index + 1] ?? null,
+      },
+    })),
+  );
 }
 
 const { entry, previousPrayer, nextPrayer } = Astro.props;

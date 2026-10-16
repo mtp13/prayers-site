@@ -1,6 +1,7 @@
 ---
 title: Prayer to Guardian Angel
 order: 12
+category: after-rosary
 ---
 
 Angel of God, my guardian dear, to whom God's love commits me here,

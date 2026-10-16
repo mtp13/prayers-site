@@ -1,6 +1,7 @@
 ---
 title: Prayer of St. Francis of Assisi (Prayer for Peace)
 order: 16
+category: other
 ---
 Lord, make me an instrument of your peace: \
 where there is hatred, let me sow love; \
