@@ -64,7 +64,14 @@ const sortedMysteries = await getSortedCollection('mysteries');
     function setOpen(open: boolean) {
       if (!toggle || !menu) return;
       toggle.setAttribute('aria-expanded', String(open));
+      if (open) {
+        // Place the fixed menu just below the header, wherever the header is on screen.
+        const headerBottom = toggle.closest('.site-header')?.getBoundingClientRect().bottom ?? 70;
+        menu.style.setProperty('--menu-top', `${Math.max(0, headerBottom)}px`);
+      }
       menu.hidden = !open;
+      // Lock the page behind the menu so a drag doesn't scroll both.
+      document.documentElement.classList.toggle('menu-open', open);
     }
 
     toggle?.addEventListener('click', () => setOpen(menu?.hidden ?? false));

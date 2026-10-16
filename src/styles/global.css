@@ -728,6 +728,10 @@ details .sequence-prayer-text {
   transition: opacity 0.3s ease;
   min-width: 24px;
 }
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
 .menu-toggle {
   display: inline-flex;
   align-items: center;
@@ -750,27 +754,34 @@ details .sequence-prayer-text {
   font-size: 1.1rem;
   line-height: 1;
 }
+/* The open menu is an overlay fixed below the header; the page behind it is locked (html.menu-open), so a
+   drag scrolls only the menu, or nothing when the whole menu fits on screen. */
 .site-menu {
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: var(--menu-top, 70px);
   right: 0;
+  bottom: 0; /* fill the screen below the header, so nothing behind it looks scrollable */
   left: 0;
   z-index: 1000;
-  max-height: calc(100vh - 70px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   border-bottom: 1px solid var(--sacred-bronze);
   background: var(--warm-cream);
   box-shadow: 0 8px 16px rgba(139, 69, 19, 0.1);
 }
+/* Two balanced columns on wider screens (one on phones, below) */
 .site-menu-columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 0 2rem;
+  column-count: 2;
+  column-gap: 2rem;
   padding-top: 0.5rem;
   padding-bottom: 1rem;
 }
+.site-menu-columns > section {
+  padding-top: 0.75rem; /* padding, not margin: a column's top margin is dropped at the column break */
+  break-inside: avoid;
+}
 .site-menu-heading {
-  margin: 0.75rem 0 0.25rem;
+  margin: 0 0 0.25rem;
   color: var(--sacred-bronze);
   font-size: 0.8rem;
   letter-spacing: 0.06em;
@@ -805,7 +816,7 @@ details .sequence-prayer-text {
     font-size: 1.25rem;
   }
   .site-menu-columns {
-    grid-template-columns: 1fr;
+    column-count: 1;
   }
   /* On phones the page gutter is enough; drop the card frame to give the text more width. */
   .prayer, .mystery {
