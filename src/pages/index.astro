@@ -16,18 +16,21 @@ const defaultSet = sets[0];
 const howtoSteps = [
   {
     key: 'opening',
+    label: 'Step One',
     title: 'Opening prayers',
     detail: "Sign of the Cross, Apostles' Creed, Our Father, three Hail Marys, Glory Be",
     href: (set: MysterySetMeta) => `${setUrl(set)}/opening`,
   },
   {
     key: 'decades',
+    label: 'Step Two',
     title: 'Five decades',
     detail: 'For each mystery: Our Father, ten Hail Marys, Glory Be, Fatima Prayer',
     href: (set: MysterySetMeta) => `${setUrl(set)}/${set.pages[0].slug}`,
   },
   {
     key: 'conclusion',
+    label: 'Step Three',
     title: 'Concluding prayers',
     detail: 'Hail Holy Queen, Rosary Closing Prayer, Sign of the Cross',
     href: (set: MysterySetMeta) => `${setUrl(set)}/conclusion`,
@@ -95,6 +98,7 @@ const howtoSteps = [
         {howtoSteps.map((howtoStep) => (
           <li>
             <a class="howto-link" data-howto-step={howtoStep.key} href={howtoStep.href(defaultSet)}>
+              <span class="howto-label">{howtoStep.label}</span>
               <span class="howto-step">{howtoStep.title}</span>
               <span class="howto-detail">{howtoStep.detail}</span>
             </a>

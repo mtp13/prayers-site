@@ -212,10 +212,6 @@ button:focus-visible {
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: howto;
-}
-.howto li {
-  counter-increment: howto;
 }
 .howto-link {
   position: relative;
@@ -239,9 +235,9 @@ button:focus-visible {
   background: rgba(139, 69, 19, 0.05);
   text-decoration: none;
 }
-/* "Step 1" label in the same small bronze capitals as the mystery labels */
-.howto-link::before {
-  content: "Step " counter(howto);
+/* "Step One" label in the same small bronze capitals as the mystery labels. Spelled out because Georgia's
+   old-style digits sit below the baseline and look like subscripts next to capitals. */
+.howto-label {
   color: var(--sacred-bronze);
   font-size: 0.75rem;
   letter-spacing: 0.06em;
