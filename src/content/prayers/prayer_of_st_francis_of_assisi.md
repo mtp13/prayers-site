@@ -1,6 +1,6 @@
 ---
 title: Prayer of St. Francis of Assisi (Prayer for Peace)
-order: 16
+order: 17
 category: other
 ---
 Lord, make me an instrument of your peace: \

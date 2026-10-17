@@ -1,6 +1,6 @@
 ---
 title: The Prayer to Saint Michael
-order: 10
+order: 11
 category: after-rosary
 ---
 

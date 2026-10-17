@@ -1,6 +1,6 @@
 ---
 title: O Sacrament Most Holy
-order: 19
+order: 20
 category: other
 ---
 
