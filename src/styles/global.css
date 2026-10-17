@@ -931,6 +931,41 @@ html.menu-open .site-footer {
   }
 }
 
+/* 404 page */
+.not-found {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  border: 1px solid rgba(var(--bronze-rgb), 0.1);
+  border-radius: 8px;
+  background-color: var(--warm-cream);
+  box-shadow: 0 2px 4px rgba(var(--bronze-rgb), 0.05);
+  text-align: center;
+}
+.not-found h1 {
+  margin: 0.4rem 0 0.75rem;
+}
+.not-found-message {
+  margin: 0 0 1.5rem;
+  color: rgba(var(--text-rgb), 0.8);
+}
+.not-found-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  background: var(--sacred-burgundy);
+  color: var(--warm-cream);
+  font-weight: bold;
+}
+.not-found-home:hover {
+  background: var(--burgundy-hover);
+  color: var(--warm-cream);
+  text-decoration: none;
+}
+
 /* Mobile Responsive Adjustments */
 @media screen and (max-width: 600px) {
   .site-title {
@@ -942,14 +977,16 @@ html.menu-open .site-footer {
   }
   /* On phones the page gutter is enough; drop the card frame to give the text more width. */
   .prayer,
-  .mystery {
+  .mystery,
+  .not-found {
     padding: 12px 0 0;
     border: none;
     background: none;
     box-shadow: none;
   }
   .prayer h1,
-  .mystery h1 {
+  .mystery h1,
+  .not-found h1 {
     font-size: 1.6rem;
     margin-bottom: 1.25rem;
     line-height: 1.25;
