@@ -1,6 +1,6 @@
 ---
 title: Prayers Before Communion
-order: 21
+order: 22
 category: other
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Divine Mercy Chaplet
-order: 17
+order: 18
 category: other
 ---
 1. **Make the Sign of the Cross**

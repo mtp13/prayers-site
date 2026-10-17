@@ -1,6 +1,6 @@
 ---
 title: The Rosary Closing Prayer
-order: 8
+order: 9
 category: rosary
 ---
 
