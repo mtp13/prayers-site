@@ -783,10 +783,10 @@ details .sequence-prayer-text {
   text-decoration: none;
   color: var(--sacred-bronze);
 }
-.site-crucifix {
+.site-logo {
+  flex-shrink: 0;
   color: var(--sacred-bronze);
   transition: opacity 0.3s ease;
-  min-width: 24px;
 }
 html.menu-open,
 html.menu-open body {
