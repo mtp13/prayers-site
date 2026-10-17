@@ -5,7 +5,7 @@ collections, rendered into simple, readable pages, and deployed as a static site
 
 ## Requirements
 
-- Node.js 22.22 or later
+- Node.js 24
 - npm
 
 ## Install

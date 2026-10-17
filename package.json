@@ -36,6 +36,6 @@
     "esbuild@0.25.12": true
   },
   "engines": {
-    "node": ">=22.22.0"
+    "node": "24.x"
   }
 }
