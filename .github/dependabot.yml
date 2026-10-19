@@ -1,0 +1,33 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    labels:
+      - dependencies
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      # Astro minor and patch updates land together. An Astro major isn't grouped, so it arrives as its own PR.
+      astro:
+        patterns:
+          - astro
+          - '@astrojs/*'
+        update-types:
+          - minor
+          - patch
+      dev-dependencies:
+        dependency-type: development
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels:
+      - dependencies
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      github-actions:
+        patterns:
+          - '*'
