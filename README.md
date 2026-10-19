@@ -57,6 +57,7 @@ This runs every check, in order:
 - `npm run check`: type-check the TypeScript and Astro files.
 - `npm run test:unit`: unit-test the helpers in `src/lib` with Vitest (`tests/`).
 - `npm run build`: build the site.
+- `npm run test:csp`: check the built pages against the Content Security Policy in `vercel.json`.
 - `npm run test:links`: crawl the built site for broken links.
 
 Browser tests (Playwright E2E and axe accessibility checks, in Desktop Chromium and Mobile WebKit) run separately:
