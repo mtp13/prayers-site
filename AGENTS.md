@@ -43,9 +43,10 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 - `npm run test:unit`: Unit tests for `src/lib` with Vitest (`tests/*.test.ts`).
 - `npm run test:e2e`: Build the site, serve it with `astro preview` on port 4323, and run the Playwright E2E and axe
   accessibility tests (`e2e/*.spec.ts`) in Desktop Chromium and Mobile WebKit (iPhone 14).
+- `npm run lint:html`: Validate the built HTML in `dist/` with html-validate (run `npm run build` first).
 - `npm run test:csp`: Check the built pages in `dist/` against the CSP in `vercel.json` (`scripts/check-csp.mjs`).
-- `npm run test`: Lint, check formatting, type-check, run unit tests, build the site, check it against the CSP, and
-  check links. CI
+- `npm run test`: Lint, check formatting, type-check, run unit tests, build the site, validate its HTML, check it
+  against the CSP, and check links. CI
   (`.github/workflows/ci.yml`) runs the same steps on Node 24 for pull requests and pushes to `main`, plus a
   separate `e2e` job that runs `npm run test:e2e` and uploads the Playwright report when it fails.
 - `npm run lint`: Lint Markdown with markdownlint.
@@ -65,8 +66,8 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 
 ## Testing
 
-- `npm test` is the gate: markdownlint, `prettier --check`, `astro check`, unit tests, `astro build`, then a
-  linkinator crawl of the built site. Run it before every commit.
+- `npm test` is the gate: markdownlint, `prettier --check`, `astro check`, unit tests, `astro build`, html-validate
+  on `dist/**/*.html`, the CSP check, then a linkinator crawl of the built site. Run it before every commit.
 - Unit tests live in `tests/*.test.ts` and cover the logic in `src/lib` (mystery steps, the weekday-to-set map,
   section counts, labels, collection sorting and the footnote plugin). Add or update them when you change `src/lib`.
 - They use **Vitest through Astro's `getViteConfig`** (`vitest.config.ts`), not `node --test`: this is a deliberate
@@ -87,6 +88,11 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
   `npx playwright install chromium webkit` once.
 - Add or update E2E tests when you change interactive behaviour, and run `npm test` and `npm run test:e2e` before you
   finish.
+- `.htmlvalidate.json` extends `html-validate:recommended` and `html-validate:a11y`, as tic-tac-toe does, with two
+  changes for Astro's output, which the source can't control: `void-style` expects omitted end tags (`<meta>`),
+  because Astro serializes void elements that way even when the source writes `<meta />`; and `doctype-style` is off,
+  because Astro writes `<!DOCTYPE html>` on pages but `<!doctype html>` on its redirect pages. Fix any other finding
+  in the source instead of turning the rule off.
 - The build is the content validator: a mystery file whose sections don't match `src/lib/rosary-mysteries.ts` fails
   it, so don't duplicate that check in tests.
 

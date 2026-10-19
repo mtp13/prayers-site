@@ -39,6 +39,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Validate the built HTML
+        run: npm run lint:html
+
       - name: Check the built pages against the vercel.json CSP
         run: npm run test:csp
 
