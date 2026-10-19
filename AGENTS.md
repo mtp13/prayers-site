@@ -1,5 +1,8 @@
 # AGENTS.md
 
+Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in this repo.
+`CLAUDE.md` and `GEMINI.md` just import this file, so edit this one.
+
 - Astro 7 static site for Rosary prayers and mysteries.
 - Content lives in `src/content/prayers/` and `src/content/mysteries/`.
 - Pages are `src/pages/index.astro`, `src/pages/prayers/[...slug].astro`, and `src/pages/mysteries/[...slug].astro`.
@@ -37,7 +40,8 @@
 - `npm run preview`
 - `npm run preview:host`
 - `npm run test:links`: Serve `dist/` with a background `astro preview`, crawl it for broken links, then stop it.
-- `npm run test`: Lint, check formatting, type-check, build the site, and check links. CI runs the same on PRs.
+- `npm run test`: Lint, check formatting, type-check, build the site, and check links. CI
+  (`.github/workflows/ci.yml`) runs the same steps on Node 24 for pull requests and pushes to `main`.
 - `npm run lint`: Lint Markdown with markdownlint.
 - `npm run format`: Format code with Prettier (Markdown is excluded); `npm run format:check` only checks.
 - `npm run check`: Type-check with `astro check`.
@@ -52,3 +56,44 @@
   palette variables in `src/styles/global.css` (or the `--*-rgb` triplets for tints, e.g.
   `rgba(var(--bronze-rgb), 0.05)`), never hardcoded colors, and set both themes. The dark values appear twice there
   (system dark under Auto, and an explicit Dark choice); keep both copies in sync.
+
+## Testing
+
+- `npm test` is the gate: markdownlint, `prettier --check`, `astro check`, `astro build`, then a linkinator crawl
+  of the built site. Run it before every commit.
+- The build is the content validator: a mystery file whose sections don't match `src/lib/rosary-mysteries.ts` fails
+  it, so don't duplicate that check in tests.
+
+## Deployment
+
+- Vercel builds the site with `npm run build` and serves `dist/`, using the Node version from `engines` in
+  `package.json`.
+- Production is `https://mike.pullen.dev/rosary/`, proxied by the main site (`mtp13/mike.pullen.dev`) from this
+  Vercel project (`prayers-site-mike-pullen.vercel.app`). `vercel.json` rewrites `/rosary/*` to the files in `dist/`.
+- All internal links use `import.meta.env.BASE_URL`, so every page works under `/rosary/`.
+- Vercel previews are behind login protection, so headers can only be checked with `curl` against production after
+  merging.
+
+## Dependencies
+
+- Dependabot (`.github/dependabot.yml`) opens monthly PRs: dev dependencies grouped, `astro` and `@astrojs/*` minor
+  and patch updates grouped, majors one per PR, and GitHub Actions grouped.
+- `allowScripts` in `package.json` lists the exact package versions allowed to run install scripts. If a
+  dependency PR (for example an Astro or Vite bump) changes the version of a package listed there, such as `esbuild`,
+  or brings in a new package with an install script, update `allowScripts` in the same PR, then check that `npm ci`
+  and `npm test` pass. (Today's `esbuild` entries match nothing installed, because Vite 8 bundles with Rolldown.)
+
+## Git & GitHub
+
+- The repo is on GitHub at `mtp13/prayers-site` (remote `origin`), and `main` is the default branch.
+- Before making changes, check the current branch. If you're on `main`, create a feature
+  branch first (`feat/…`, `fix/…`, `chore/…`, `docs/…`; `claude/…` is fine too). If you're already on a feature
+  branch for related work, keep using it. Once a PR is merged, start new work on a fresh
+  branch from an up-to-date `main`, and never push to a merged branch.
+- When the work is finished, run `npm run format`, then `npm test`. Commit only once it passes, then push the branch
+  and open a pull request against `main` with `gh pr create`. Every commit must be formatted, not just the last one
+  before a PR. Give the PR a summary and test notes. You don't need to ask first. If a PR is already open for the
+  branch, push to update it.
+- Use the `gh` CLI for PRs, issues and checking CI runs. Each PR runs CI through GitHub
+  Actions; check it with `gh pr checks` and fix any failures.
+- Never commit to, push to or force-push `main` directly.
