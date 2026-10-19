@@ -127,10 +127,9 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 
 - Dependabot (`.github/dependabot.yml`) opens monthly PRs: dev dependencies grouped, `astro` and `@astrojs/*` minor
   and patch updates grouped, majors one per PR, and GitHub Actions grouped.
-- `allowScripts` in `package.json` lists the exact package versions allowed to run install scripts. If a
-  dependency PR (for example an Astro or Vite bump) changes the version of a package listed there, such as `esbuild`,
-  or brings in a new package with an install script, update `allowScripts` in the same PR, then check that `npm ci`
-  and `npm test` pass. (Today's `esbuild` entries match nothing installed, because Vite 8 bundles with Rolldown.)
+- `package.json` has no `allowScripts` list, because no installed package needs to run an install script (`npm ci`
+  prints no warning about one). If a dependency PR brings in a package that does, add its exact version to an
+  `allowScripts` entry in the same PR and check that `npm ci` and `npm test` pass.
 
 ## Git & GitHub
 
