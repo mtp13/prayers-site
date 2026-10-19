@@ -40,7 +40,8 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 - `npm run preview`
 - `npm run preview:host`
 - `npm run test:links`: Serve `dist/` with a background `astro preview`, crawl it for broken links, then stop it.
-- `npm run test`: Lint, check formatting, type-check, build the site, and check links. CI
+- `npm run test:unit`: Unit tests for `src/lib` with Vitest (`tests/*.test.ts`).
+- `npm run test`: Lint, check formatting, type-check, run unit tests, build the site, and check links. CI
   (`.github/workflows/ci.yml`) runs the same steps on Node 24 for pull requests and pushes to `main`.
 - `npm run lint`: Lint Markdown with markdownlint.
 - `npm run format`: Format code with Prettier (Markdown is excluded); `npm run format:check` only checks.
@@ -59,8 +60,13 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 
 ## Testing
 
-- `npm test` is the gate: markdownlint, `prettier --check`, `astro check`, `astro build`, then a linkinator crawl
-  of the built site. Run it before every commit.
+- `npm test` is the gate: markdownlint, `prettier --check`, `astro check`, unit tests, `astro build`, then a
+  linkinator crawl of the built site. Run it before every commit.
+- Unit tests live in `tests/*.test.ts` and cover the logic in `src/lib` (mystery steps, the weekday-to-set map,
+  section counts, labels, collection sorting and the footnote plugin). Add or update them when you change `src/lib`.
+- They use **Vitest through Astro's `getViteConfig`** (`vitest.config.ts`), not `node --test`: this is a deliberate
+  exception to the tic-tac-toe standard, because `src/lib/rosary-mysteries.ts` uses Vite's `import.meta.glob` and
+  `src/lib/collections.ts` imports `astro:content`, which plain Node can't load. Mock `astro:content` with `vi.mock`.
 - The build is the content validator: a mystery file whose sections don't match `src/lib/rosary-mysteries.ts` fails
   it, so don't duplicate that check in tests.
 
