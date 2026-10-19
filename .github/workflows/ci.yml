@@ -41,3 +41,33 @@ jobs:
 
       - name: Check links
         run: npm run test:links
+
+  e2e:
+    name: E2E & Accessibility Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js (version from engines in package.json)
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Run Playwright E2E and accessibility tests (builds the site first)
+        run: npm run test:e2e
+
+      - name: Upload Playwright HTML report on failure
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14

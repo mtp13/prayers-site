@@ -59,8 +59,15 @@ This runs every check, in order:
 - `npm run build`: build the site.
 - `npm run test:links`: crawl the built site for broken links.
 
-GitHub runs the same checks on every pull request (`.github/workflows/ci.yml`) and shows a green check or a red
-cross on the PR. Prettier skips Markdown so prayer text is never reflowed; markdownlint covers it instead.
+Browser tests (Playwright E2E and axe accessibility checks, in Desktop Chromium and Mobile WebKit) run separately:
+
+```sh
+npx playwright install chromium webkit   # once
+npm run test:e2e
+```
+
+GitHub runs the same checks, plus the browser tests, on every pull request (`.github/workflows/ci.yml`) and shows a
+green check or a red cross on the PR. Prettier skips Markdown so prayer text is never reflowed; markdownlint covers it instead.
 
 ## Making a Change
 
@@ -74,7 +81,9 @@ cross on the PR. Prettier skips Markdown so prayer text is never reflowed; markd
 ```text
 .
 ├── astro.config.mjs
+├── e2e/                  # Playwright E2E and accessibility tests
 ├── package.json
+├── playwright.config.ts
 ├── public/
 ├── scripts/              # helper scripts (e.g. fetching scripture passages)
 ├── src/
