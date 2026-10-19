@@ -20,3 +20,13 @@ test.describe('unknown URLs', () => {
     await expect(page).toHaveURL(/\/rosary\/?$/);
   });
 });
+
+test('pages are served with the vercel.json security headers', async ({ page }) => {
+  const response = await page.goto('prayers/our_father');
+  const headers = response!.headers();
+
+  expect(headers['content-security-policy']).toContain("script-src 'self' 'sha256-");
+  expect(headers['content-security-policy']).not.toContain('unsafe-inline');
+  expect(headers['x-content-type-options']).toBe('nosniff');
+  expect(headers['cache-control']).toBe('public, max-age=0, must-revalidate');
+});

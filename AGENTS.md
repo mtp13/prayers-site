@@ -43,7 +43,9 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 - `npm run test:unit`: Unit tests for `src/lib` with Vitest (`tests/*.test.ts`).
 - `npm run test:e2e`: Build the site, serve it with `astro preview` on port 4323, and run the Playwright E2E and axe
   accessibility tests (`e2e/*.spec.ts`) in Desktop Chromium and Mobile WebKit (iPhone 14).
-- `npm run test`: Lint, check formatting, type-check, run unit tests, build the site, and check links. CI
+- `npm run test:csp`: Check the built pages in `dist/` against the CSP in `vercel.json` (`scripts/check-csp.mjs`).
+- `npm run test`: Lint, check formatting, type-check, run unit tests, build the site, check it against the CSP, and
+  check links. CI
   (`.github/workflows/ci.yml`) runs the same steps on Node 24 for pull requests and pushes to `main`, plus a
   separate `e2e` job that runs `npm run test:e2e` and uploads the Playwright report when it fails.
 - `npm run lint`: Lint Markdown with markdownlint.
@@ -76,8 +78,9 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
   expandable prayers, the old-URL redirects and the 404 page. `e2e/accessibility.spec.ts` runs axe on home, a prayer
   page, a mystery step, the open menu and the 404 page in light and dark, reached both through the system setting and
   an explicit choice; expect zero violations, with no rules disabled.
-- Every E2E test imports `test` from `e2e/harness.ts`, which fails it on any `console.error`, uncaught page error or
-  CSP violation. A test that expects a console error lists it with `test.use({ expectedConsoleErrors: [...] })`.
+- Every E2E test imports `test` from `e2e/harness.ts`, which serves each page with the `vercel.json` headers
+  (including the CSP) and fails the test on any `console.error`, uncaught page error or CSP violation. A test that
+  expects a console error lists it with `test.use({ expectedConsoleErrors: [...] })`.
 - Playwright builds the site and runs `astro preview --ignore-lock` itself, which keeps the server in the foreground
   even under an AI agent (Astro 7 otherwise backgrounds it). Outside CI it sets
   `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS`, because the local OS isn't one Playwright officially supports. Run
@@ -94,6 +97,23 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 - Production is `https://mike.pullen.dev/rosary/`, proxied by the main site (`mtp13/mike.pullen.dev`) from this
   Vercel project (`prayers-site-mike-pullen.vercel.app`). `vercel.json` rewrites `/rosary/*` to the files in `dist/`.
 - All internal links use `import.meta.env.BASE_URL`, so every page works under `/rosary/`.
+- `vercel.json` sets the security headers on every path: a strict `Content-Security-Policy`, `X-Content-Type-Options`,
+  `Referrer-Policy` and `Permissions-Policy`. It also sets `Cache-Control: public, max-age=31536000, immutable` on
+  `/_astro/*` (hashed build assets) and `public, max-age=0, must-revalidate` on everything else. Header `source`
+  patterns match the path **after** the `/rosary` rewrite (the hub proxies `/rosary/x` to `/x` here), so write
+  `/_astro/(.*)`, not `/rosary/_astro/(.*)`.
+- The CSP allows only same-origin resources (`'self'`; Lora comes from `@fontsource` and is served from `/_astro/`), no
+  `'unsafe-inline'`, and no external origins. Links to other sites are fine; loading anything from them isn't.
+- Processed `<script>`s and CSS are emitted as files in `/_astro/` (`build.inlineStylesheets: 'never'` and
+  `vite.build.assetsInlineLimit: 0` in `astro.config.mjs`), so `'self'` covers them. The only inline script is the
+  `is:inline` theme script in `BaseHead.astro`, which must run before first paint, and the CSP allows it by its
+  SHA-256 hash. **If you change that script, even its whitespace, update the hash in `vercel.json`**;
+  `npm run test:csp` fails and prints the new hash. Don't add other inline scripts, inline styles, `style=""` or `on*=`
+  attributes.
+- Astro's built-in `security.csp` isn't used: it only emits a `<meta>` CSP (which can't set `frame-ancestors`), and it
+  hashes processed scripts but not `is:inline` ones, so the theme script's hash would still be maintained by hand.
+- Playwright applies the `vercel.json` headers to every page it loads (`e2e/vercel-headers.ts`), so a CSP violation
+  fails `npm run test:e2e` before it reaches production.
 - Vercel previews are behind login protection, so headers can only be checked with `curl` against production after
   merging.
 

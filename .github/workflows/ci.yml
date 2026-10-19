@@ -39,6 +39,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check the built pages against the vercel.json CSP
+        run: npm run test:csp
+
       - name: Check links
         run: npm run test:links
 

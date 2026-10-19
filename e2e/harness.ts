@@ -1,12 +1,15 @@
 import { test as base, expect } from '@playwright/test';
+import { applyVercelHeaders } from './vercel-headers';
 
-// Every test fails on any console.error, uncaught page error or Content Security Policy violation, as in
-// tic-tac-toe's harness. A test that expects a console error (e.g. the 404 page's own status) lists a pattern for it
+// Every page gets the headers from vercel.json, including the Content Security Policy (see vercel-headers.ts), and
+// every test fails on any console.error, uncaught page error or CSP violation, as in tic-tac-toe's harness. A test that expects a console error (e.g. the 404 page's own status) lists a pattern for it
 // with test.use({ expectedConsoleErrors: [...] }).
 export const test = base.extend<{ expectedConsoleErrors: RegExp[]; harness: void }>({
   expectedConsoleErrors: [[], { option: true }],
   harness: [
-    async ({ page, expectedConsoleErrors }, use) => {
+    async ({ page, baseURL, expectedConsoleErrors }, use) => {
+      await applyVercelHeaders(page, new URL(baseURL!).origin);
+
       const consoleErrors: string[] = [];
       const pageErrors: string[] = [];
 

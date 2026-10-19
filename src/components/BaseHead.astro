@@ -20,6 +20,7 @@ const { title, description = 'A collection of prayers for the Holy Rosary' } = A
 <meta name="color-scheme" content="light dark" />
 <meta name="theme-color" content="#FFFBF5" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#1C1512" media="(prefers-color-scheme: dark)" />
+{/* The CSP in vercel.json allows this inline script by its hash: update the hash if you change it at all. */}
 <script is:inline>
   // Apply the saved Appearance setting (see Header.astro) before the page paints, so it never flashes the
   // other theme. Auto, the default, saves nothing and follows the system.

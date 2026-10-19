@@ -7,6 +7,17 @@ import { namespaceFootnotes } from './src/lib/namespace-footnotes.mjs';
 export default defineConfig({
   site: 'https://mike.pullen.dev',
   base: '/rosary',
+  // Emit processed <script>s and CSS as files in /_astro/ instead of inlining them, so the Content Security Policy
+  // in vercel.json needs only 'self' for them. The one inline script (the theme script in BaseHead.astro) is allowed
+  // by its hash there.
+  build: {
+    inlineStylesheets: 'never',
+  },
+  vite: {
+    build: {
+      assetsInlineLimit: 0,
+    },
+  },
   // No images are processed, so skip the optional sharp dependency.
   image: {
     service: passthroughImageService(),
