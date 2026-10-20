@@ -120,7 +120,11 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
   hashes processed scripts but not `is:inline` ones, so the theme script's hash would still be maintained by hand.
 - Playwright applies the `vercel.json` headers to every page it loads (`e2e/vercel-headers.ts`), so a CSP violation
   fails `npm run test:e2e` before it reaches production.
-- Vercel previews are behind login protection, so headers can only be checked with `curl` against production after
+- Only `main` is deployed (`git.deploymentEnabled` in `vercel.json`), so feature branches and PRs get no Vercel
+  preview (and no `Vercel` check on PRs, which is expected) because the Hobby plan caps deployments at 100/day. Test on
+  localhost instead. The keys are minimatch patterns: keep `"**": false` (a bare `*` does not match branch names
+  containing `/`, such as `feat/x`, so they would still deploy) and keep the explicit `"main": true`.
+  `tests/vercel-config.test.ts` guards this. Headers can only be checked with `curl` against production after
   merging.
 
 ## Dependencies
@@ -133,6 +137,8 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 
 ## Git & GitHub
 
+- Commit locally as often as you like, but push once per unit of work: every push to `main` is a Vercel deployment and
+  every PR push is a CI run. Don't push WIP commits, and batch review fixes into one push.
 - The repo is on GitHub at `mtp13/prayers-site` (remote `origin`), and `main` is the default branch.
 - Before making changes, check the current branch. If you're on `main`, create a feature
   branch first (`feat/…`, `fix/…`, `chore/…`, `docs/…`; `claude/…` is fine too). If you're already on a feature
