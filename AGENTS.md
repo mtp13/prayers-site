@@ -178,6 +178,11 @@ this repo. `CLAUDE.md` and `GEMINI.md` just import this file, so edit this one.
   blocks Git-triggered deployments: CLI `vercel` deploys and deploy hooks still
   count. `tests/vercel-config.test.ts` guards this. Headers can only be checked
   with `curl` against production after merging.
+- **To opt a branch into a Vercel preview,** add it to that branch's own
+  `vercel.json`, because the rule is read per branch:
+  `{"master": true, "feat/x": true, "**": false}`. Pushing the branch then
+  deploys it and the preview URL appears on the PR. Every deployment counts
+  against the 100/day budget, so drop the entry when the branch is finished.
 
 ## Dependencies
 
