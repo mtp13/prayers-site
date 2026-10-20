@@ -1,11 +1,15 @@
-# Runs on every pull request and every push to main. A red check on a PR means something below failed;
+# Runs on every pull request and every push to master. A red check on a PR means something below failed;
 # click "Details" on the check to see which step and why.
 name: CI
 
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [master]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
