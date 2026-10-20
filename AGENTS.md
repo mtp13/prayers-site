@@ -64,7 +64,7 @@ this repo. `CLAUDE.md` and `GEMINI.md` just import this file, so edit this one.
 - `npm run test`: Lint, check formatting, type-check, run unit tests, build the
   site, validate its HTML, check it against the CSP, and check links. CI
   (`.github/workflows/ci.yml`) runs the same steps on Node 24 for pull requests
-  and pushes to `main` (superseded runs on the same ref are cancelled), plus a
+  and pushes to `master` (superseded runs on the same ref are cancelled), plus a
   separate `e2e` job that runs `npm run test:e2e` and uploads the Playwright
   report when it fails.
 - `npm run lint`: Lint Markdown with markdownlint.
@@ -168,13 +168,13 @@ this repo. `CLAUDE.md` and `GEMINI.md` just import this file, so edit this one.
 - Playwright applies the `vercel.json` headers to every page it loads
   (`e2e/vercel-headers.ts`), so a CSP violation fails `npm run test:e2e` before
   it reaches production.
-- Only `main` is deployed (`git.deploymentEnabled` in `vercel.json`), so feature
+- Only `master` is deployed (`git.deploymentEnabled` in `vercel.json`), so feature
   branches and PRs get no Vercel preview (and no `Vercel` check on PRs, which is
   expected) because the Hobby plan caps deployments at 100/day. Test on
   localhost instead. The keys are minimatch patterns: keep `"**": false` (a bare
   `*` does not match branch names containing `/`, such as `feat/x`, so they
-  would still deploy) and keep the explicit `"main": true` (Vercel deploys a
-  branch if any matching rule is `true`, so `main` still deploys). This only
+  would still deploy) and keep the explicit `"master": true` (Vercel deploys a
+  branch if any matching rule is `true`, so `master` still deploys). This only
   blocks Git-triggered deployments: CLI `vercel` deploys and deploy hooks still
   count. `tests/vercel-config.test.ts` guards this. Headers can only be checked
   with `curl` against production after merging.
@@ -193,21 +193,21 @@ this repo. `CLAUDE.md` and `GEMINI.md` just import this file, so edit this one.
 ## Git & GitHub
 
 - Commit locally as often as you like, but push once per unit of work: every
-  push to `main` is a Vercel deployment and every PR push is a CI run. Don't
+  push to `master` is a Vercel deployment and every PR push is a CI run. Don't
   push WIP commits, and batch review fixes into one push.
-- The repo is on GitHub at `mtp13/prayers-site` (remote `origin`), and `main` is
+- The repo is on GitHub at `mtp13/prayers-site` (remote `origin`), and `master` is
   the default branch.
-- Before making changes, check the current branch. If you're on `main`, create a
+- Before making changes, check the current branch. If you're on `master`, create a
   feature branch first (`feat/…`, `fix/…`, `chore/…`, `docs/…`; `claude/…` is
   fine too). If you're already on a feature branch for related work, keep using
   it. Once a PR is merged, start new work on a fresh branch from an up-to-date
-  `main`, and never push to a merged branch.
+  `master`, and never push to a merged branch.
 - When the work is finished, run `npm run format`, then `npm test` and
   `npm run test:e2e`. Commit only once both pass, then push the branch and open
-  a pull request against `main` with `gh pr create`. Every commit must be
+  a pull request against `master` with `gh pr create`. Every commit must be
   formatted, not just the last one before a PR. Give the PR a summary and test
   notes. You don't need to ask first. If a PR is already open for the branch,
   push to update it.
 - Use the `gh` CLI for PRs, issues and checking CI runs. Each PR runs CI through
   GitHub Actions; check it with `gh pr checks` and fix any failures.
-- Never commit to, push to or force-push `main` directly.
+- Never commit to, push to or force-push `master` directly.

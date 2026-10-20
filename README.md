@@ -80,11 +80,11 @@ instead.
 
 ## Making a Change
 
-1. Work on a branch, not `main`.
+1. Work on a branch, not `master`.
 2. Run `npm test` before pushing.
-3. Open a pull request into `main`. CI runs the checks. Only `main` is deployed,
+3. Open a pull request into `master`. CI runs the checks. Only `master` is deployed,
    so PRs get no Vercel preview; verify locally with `npm run preview`.
-4. Merge when the checks are green. Vercel then deploys `main`.
+4. Merge when the checks are green. Vercel then deploys `master`.
 
 ## Project Structure
 
@@ -175,7 +175,7 @@ export const collections = { prayers };
 
 - Vercel builds the site using `npm run build` and serves the static output from
   `dist/`.
-- Only `main` deploys (`git.deploymentEnabled` in `vercel.json`), so branches
+- Only `master` deploys (`git.deploymentEnabled` in `vercel.json`), so branches
   and PRs get no preview. For local verification, use `npm run preview` to test
   the production build.
 - After merging, check headers on production with `curl -sI`.
