@@ -28,11 +28,3 @@ status, why it was deferred, and what to do about it.
   `vercel --prod` or a deploy hook still consumes the daily budget, and this
   project has no deploy hooks configured.
 - **Do:** Count CLI deploys and hooks against the budget by hand.
-
-- **Where:** `vercel.json`.
-- **Status:** Deferred (optional).
-- **Impact:** Without `"$schema": "https://openapi.vercel.sh/vercel.json"`
-  editors cannot validate the `git` block, so a typo in it is only caught when
-  a deployment silently does not happen.
-- **Do:** Add the `$schema` key in a later change, in the same pass as any
-  other `vercel.json` edit.
