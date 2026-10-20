@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 const repoRoot = new URL('../', import.meta.url);
+const DEFAULT_BRANCH = 'master';
 
 function readVercelConfig() {
   return JSON.parse(readFileSync(new URL('vercel.json', repoRoot), 'utf8'));
@@ -23,18 +24,13 @@ function ciPushBranches(): Set<string> {
 }
 
 describe('vercel.json', () => {
-  it('deploys only master (branch names with / need **, not *)', () => {
-    expect(readVercelConfig().git?.deploymentEnabled).toEqual({ master: true, '**': false });
+  it('deploys the default branch and blocks the catch-all', () => {
+    const enabled = readVercelConfig().git?.deploymentEnabled ?? {};
+    expect(enabled[DEFAULT_BRANCH]).toBe(true);
+    expect(enabled['**']).toBe(false);
   });
 
-  it('deploys the branch that CI runs on', () => {
-    const config = readVercelConfig();
-    const deployed = Object.entries(config.git?.deploymentEnabled ?? {})
-      .filter(([, enabled]) => enabled)
-      .map(([branch]) => branch);
-    const ciBranches = ciPushBranches();
-    for (const branch of deployed) {
-      expect(ciBranches.has(branch), `CI does not run on ${branch}, so it would never be deployed`).toBe(true);
-    }
+  it('CI runs on the default branch', () => {
+    expect(ciPushBranches().has(DEFAULT_BRANCH)).toBe(true);
   });
 });

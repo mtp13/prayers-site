@@ -29,8 +29,6 @@ status, why it was deferred, and what to do about it.
   project has no deploy hooks configured.
 - **Do:** Count CLI deploys and hooks against the budget by hand.
 
-#### D-3 — No `$schema` in `vercel.json`
-
 - **Where:** `vercel.json`.
 - **Status:** Deferred (optional).
 - **Impact:** Without `"$schema": "https://openapi.vercel.sh/vercel.json"`
