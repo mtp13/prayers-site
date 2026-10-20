@@ -47,7 +47,7 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 - `npm run test:csp`: Check the built pages in `dist/` against the CSP in `vercel.json` (`scripts/check-csp.mjs`).
 - `npm run test`: Lint, check formatting, type-check, run unit tests, build the site, validate its HTML, check it
   against the CSP, and check links. CI
-  (`.github/workflows/ci.yml`) runs the same steps on Node 24 for pull requests and pushes to `main`, plus a
+  (`.github/workflows/ci.yml`) runs the same steps on Node 24 for pull requests and pushes to `main` (superseded runs on the same ref are cancelled), plus a
   separate `e2e` job that runs `npm run test:e2e` and uploads the Playwright report when it fails.
 - `npm run lint`: Lint Markdown with markdownlint.
 - `npm run format`: Format code with Prettier (Markdown is excluded); `npm run format:check` only checks.
@@ -123,7 +123,7 @@ Guidance for AI coding agents (Claude Code, Gemini CLI, Codex, etc.) working in 
 - Only `main` is deployed (`git.deploymentEnabled` in `vercel.json`), so feature branches and PRs get no Vercel
   preview (and no `Vercel` check on PRs, which is expected) because the Hobby plan caps deployments at 100/day. Test on
   localhost instead. The keys are minimatch patterns: keep `"**": false` (a bare `*` does not match branch names
-  containing `/`, such as `feat/x`, so they would still deploy) and keep the explicit `"main": true`.
+  containing `/`, such as `feat/x`, so they would still deploy) and keep the explicit `"main": true` (Vercel deploys a branch if any matching rule is `true`, so `main` still deploys). This only blocks Git-triggered deployments: CLI `vercel` deploys and deploy hooks still count.
   `tests/vercel-config.test.ts` guards this. Headers can only be checked with `curl` against production after
   merging.
 
