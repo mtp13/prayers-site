@@ -42,6 +42,17 @@ for (const { name, colorScheme, saved } of themes) {
       await expectNoViolations(page);
     });
 
+    test('a mystery step with artwork shown and full-screen dialog', async ({ page, viewport }) => {
+      await page.goto('mysteries/sorrowful_mysteries/agony_in_the_garden');
+      const control = (viewport?.width ?? 0) >= 960 ? '[data-artwork-toggle]' : '[data-view-tab="artwork"]';
+      await page.locator(control).click();
+      await expectNoViolations(page);
+
+      await page.locator('[data-artwork-open]').click();
+      await expect(page.locator('#artwork-dialog')).toBeVisible();
+      await expectNoViolations(page);
+    });
+
     test('the menu open', async ({ page }) => {
       await page.goto('mysteries/glorious_mysteries');
       await page.locator('.menu-toggle').click();

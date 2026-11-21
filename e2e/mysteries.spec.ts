@@ -91,3 +91,50 @@ test("the decade's prayers expand and collapse, and stay open on the next myster
   await expect(page.locator('details[data-prayer="hail_mary"]')).not.toHaveAttribute('open');
   await expect(page.locator('details[data-prayer="hail_mary"] .sequence-prayer-text')).toBeHidden();
 });
+
+test('sacred artwork toggles, persists across mysteries, and opens full screen', async ({ page, viewport }) => {
+  await page.goto('mysteries/joyful_mysteries/annunciation');
+
+  const panel = page.locator('.mystery-artwork-panel');
+  const scripture = page.locator('.mystery-content');
+  const isWide = (viewport?.width ?? 0) >= 960;
+
+  await expect(panel).toBeHidden();
+  await expect(scripture).toBeVisible();
+
+  if (isWide) {
+    const toggle = page.locator('[data-artwork-toggle]');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(panel).toBeVisible();
+    await expect(scripture).toBeVisible();
+  } else {
+    const artworkTab = page.locator('[data-view-tab="artwork"]');
+    const scriptureTab = page.locator('[data-view-tab="scripture"]');
+    await artworkTab.click();
+    await expect(artworkTab).toHaveAttribute('aria-pressed', 'true');
+    await expect(scriptureTab).toHaveAttribute('aria-pressed', 'false');
+    await expect(panel).toBeVisible();
+    await expect(scripture).toBeHidden();
+  }
+
+  const loaded = await panel.locator('img').evaluate((img: HTMLImageElement) => {
+    if (img.complete) return img.naturalWidth > 0;
+    return new Promise<boolean>((resolve) => {
+      img.addEventListener('load', () => resolve(img.naturalWidth > 0), { once: true });
+      img.addEventListener('error', () => resolve(false), { once: true });
+    });
+  });
+  expect(loaded).toBe(true);
+
+  await page.locator('[data-artwork-open]').click();
+  const dialog = page.locator('#artwork-dialog');
+  await expect(dialog).toBeVisible();
+  await dialog.locator('[data-artwork-close]').click();
+  await expect(dialog).toBeHidden();
+
+  await page.locator('.page-nav [rel="next"]').click();
+  await expect(heading(page)).toHaveText('The Visitation');
+  await expect(panel).toBeVisible();
+});

@@ -33,6 +33,9 @@ const { title, description = 'A collection of prayers for the Holy Rosary' } = A
         meta.content = theme === 'dark' ? '#1C1512' : '#FFFBF5';
       }
     }
+    if (localStorage.getItem('rosary:mystery-artwork') === 'on') {
+      document.documentElement.dataset.artwork = 'on';
+    }
   } catch {
     // Storage can be blocked (e.g. some private windows); the site then follows the system.
   }

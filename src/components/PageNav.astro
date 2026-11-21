@@ -42,6 +42,10 @@ const { previous, next, label } = Astro.props;
   document.addEventListener(
     'touchstart',
     (event) => {
+      if (document.querySelector('dialog[open]')) {
+        start = null;
+        return;
+      }
       const touch = event.touches[0];
       const zoomed = (window.visualViewport?.scale ?? 1) > 1.01;
       const atEdge = touch.clientX < EDGE || touch.clientX > window.innerWidth - EDGE;

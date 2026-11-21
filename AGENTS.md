@@ -40,6 +40,11 @@ this repo. `CLAUDE.md` and `GEMINI.md` just import this file, so edit this one.
   prayers can share a page.
 - Mystery and prayer pages share `src/components/PageNav.astro`: a previous/next
   bar pinned to the bottom of the screen that also handles swipe navigation.
+- Sacred artwork for each mystery lives in `src/assets/artwork/<slug>.webp`
+  with metadata in `src/lib/mystery-artwork.ts`, rendered by
+  `src/components/MysteryArtwork.astro` (off by default; side-by-side split view
+  on wide screens, Scripture/Artwork toggle on narrow screens, plus a full-screen
+  `<dialog>`).
 - If you rename a content file, add a redirect for the old URL in
   `astro.config.mjs`.
 
@@ -103,9 +108,11 @@ this repo. `CLAUDE.md` and `GEMINI.md` just import this file, so edit this one.
   behaviour: today's set on the home page (with `page.clock`), Next/Previous
   through a set, swipe (touch projects only), the menu overlay and its scroll
   lock, Escape and focus return, Appearance (Light/Dark/Auto, persistence,
-  following the system), the decade's expandable prayers, the old-URL redirects
-  and the 404 page. `e2e/accessibility.spec.ts` runs axe on home, a prayer page,
-  a mystery step, the open menu and the 404 page in light and dark, reached both
+  following the system), the decade's expandable prayers, the sacred artwork
+  toggle (persisted across mysteries) and full-screen dialog, the old-URL
+  redirects and the 404 page. `e2e/accessibility.spec.ts` runs axe on home, a
+  prayer page, a mystery step (with prayers expanded, artwork shown, and the
+  full-screen dialog open), the open menu and the 404 page in light and dark, reached both
   through the system setting and an explicit choice; expect zero violations,
   with no rules disabled.
 - Every E2E test imports `test` from `e2e/harness.ts`, which serves each page

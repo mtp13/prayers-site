@@ -1,0 +1,116 @@
+---
+import type { MysteryArtwork } from '../lib/mystery-artwork';
+
+interface Props {
+  artwork: MysteryArtwork;
+  mysteryTitle: string;
+}
+
+const { artwork, mysteryTitle } = Astro.props;
+---
+
+<aside class="mystery-artwork-panel" aria-label="Sacred artwork">
+  <figure class="mystery-artwork">
+    <button type="button" class="artwork-expand" data-artwork-open>
+      <img
+        src={artwork.src}
+        width={artwork.width}
+        height={artwork.height}
+        alt={artwork.alt}
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="visually-hidden">View full screen</span>
+    </button>
+    <figcaption class="artwork-caption">
+      <span class="artwork-credit">
+        <em>{artwork.title}</em>, {artwork.artist} ({artwork.year})
+      </span>
+      <span class="artwork-hint">Select image to enlarge</span>
+    </figcaption>
+  </figure>
+</aside>
+
+<dialog class="artwork-dialog" id="artwork-dialog" aria-labelledby="artwork-dialog-title">
+  <div class="artwork-dialog-inner">
+    <div class="artwork-dialog-header">
+      <h2 id="artwork-dialog-title" tabindex="-1">
+        {mysteryTitle}
+      </h2>
+      <button type="button" class="artwork-dialog-close" data-artwork-close>
+        Close
+      </button>
+    </div>
+    <div class="artwork-dialog-stage">
+      <img
+        src={artwork.src}
+        width={artwork.width}
+        height={artwork.height}
+        alt={artwork.alt}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <p class="artwork-dialog-caption">
+      <em>{artwork.title}</em>, {artwork.artist} ({artwork.year})
+    </p>
+  </div>
+</dialog>
+
+<script>
+  const STORAGE_KEY = 'rosary:mystery-artwork';
+  const root = document.documentElement;
+  const controls = document.querySelector<HTMLElement>('.mystery-view-controls');
+  const toggleBtn = document.querySelector<HTMLButtonElement>('[data-artwork-toggle]');
+  const tabBtns = document.querySelectorAll<HTMLButtonElement>('[data-view-tab]');
+
+  function applyState(show: boolean) {
+    if (show) root.dataset.artwork = 'on';
+    else delete root.dataset.artwork;
+    toggleBtn?.setAttribute('aria-pressed', String(show));
+    tabBtns.forEach((btn) => {
+      const active = (btn.dataset.viewTab === 'artwork') === show;
+      btn.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function setArtwork(show: boolean) {
+    applyState(show);
+    try {
+      if (show) localStorage.setItem(STORAGE_KEY, 'on');
+      else localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Storage blocked: the choice applies to this page only.
+    }
+  }
+
+  if (controls) {
+    controls.hidden = false;
+    applyState(root.dataset.artwork === 'on');
+
+    toggleBtn?.addEventListener('click', () => {
+      setArtwork(root.dataset.artwork !== 'on');
+    });
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setArtwork(btn.dataset.viewTab === 'artwork');
+      });
+    });
+  }
+
+  const dialog = document.getElementById('artwork-dialog') as HTMLDialogElement | null;
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-artwork-open]');
+  const closeBtn = dialog?.querySelector<HTMLButtonElement>('[data-artwork-close]');
+
+  if (dialog) {
+    openBtn?.addEventListener('click', () => {
+      dialog.showModal();
+      dialog.querySelector<HTMLElement>('#artwork-dialog-title')?.focus();
+    });
+    closeBtn?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+</script>

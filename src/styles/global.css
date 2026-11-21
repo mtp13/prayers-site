@@ -469,6 +469,223 @@ button:focus-visible {
   color: var(--sacred-bronze);
 }
 
+.mystery-view-controls {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1.5rem;
+}
+.mystery-view-controls[hidden] {
+  display: none;
+}
+.artwork-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.4rem 1.1rem;
+  border: 1px solid rgba(var(--bronze-rgb), 0.3);
+  border-radius: 6px;
+  background: rgba(var(--surface-rgb), 0.4);
+  color: var(--sacred-burgundy);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.artwork-toggle:hover {
+  background: rgba(var(--bronze-rgb), 0.06);
+}
+.artwork-toggle[aria-pressed='true'] {
+  border-color: var(--sacred-burgundy);
+  background: var(--sacred-burgundy);
+  color: var(--warm-cream);
+}
+.artwork-toggle[aria-pressed='true']:hover {
+  background: var(--burgundy-hover);
+}
+.mystery-view-tabs {
+  display: inline-flex;
+  border: 1px solid rgba(var(--bronze-rgb), 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.mystery-view-tab {
+  min-width: 6.5rem;
+  min-height: 44px;
+  padding: 0.4rem 1rem;
+  border: 0;
+  background: none;
+  color: var(--text-color);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.mystery-view-tab + .mystery-view-tab {
+  border-left: 1px solid rgba(var(--bronze-rgb), 0.3);
+}
+.mystery-view-tab:hover {
+  background: rgba(var(--bronze-rgb), 0.06);
+}
+.mystery-view-tab[aria-pressed='true'] {
+  background: var(--sacred-burgundy);
+  color: var(--warm-cream);
+  font-weight: bold;
+}
+.mystery-view-tab:focus-visible {
+  outline-offset: -2px;
+}
+
+:root:not([data-artwork='on']) .mystery-artwork-panel {
+  display: none;
+}
+:root[data-artwork='on'] .mystery-content {
+  display: none;
+}
+:root[data-artwork='on'] .mystery-artwork-panel {
+  margin-bottom: 1.5rem;
+}
+.mystery-artwork {
+  margin: 0;
+}
+.artwork-expand {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid rgba(var(--bronze-rgb), 0.22);
+  border-radius: 8px;
+  background: rgba(var(--surface-rgb), 0.5);
+  cursor: zoom-in;
+}
+.artwork-expand:hover {
+  border-color: rgba(var(--bronze-rgb), 0.45);
+}
+.artwork-expand img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 68vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.artwork-caption {
+  margin-top: 0.65rem;
+  color: rgba(var(--text-rgb), 0.78);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  text-align: center;
+}
+.artwork-credit {
+  display: block;
+}
+.artwork-hint {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--sacred-bronze);
+  font-size: 0.8rem;
+}
+
+.artwork-dialog {
+  width: min(96vw, 1100px);
+  max-width: 96vw;
+  max-height: 94dvh;
+  padding: 0;
+  border: 1px solid rgba(var(--bronze-rgb), 0.25);
+  border-radius: 10px;
+  background: var(--warm-cream);
+  color: var(--text-color);
+  box-shadow: 0 12px 36px rgba(var(--shadow-rgb), 0.35);
+}
+.artwork-dialog-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 94dvh;
+  padding: 1rem 1.25rem;
+}
+.artwork-dialog::backdrop {
+  background: rgba(var(--shadow-rgb), 0.72);
+}
+.artwork-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.artwork-dialog-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.artwork-dialog-header h2:focus {
+  outline: none;
+}
+.artwork-dialog-close {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0.4rem 1.1rem;
+  border: 1px solid var(--sacred-burgundy);
+  border-radius: 6px;
+  background: var(--warm-cream);
+  color: var(--sacred-burgundy);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.artwork-dialog-close:hover {
+  background: rgba(var(--burgundy-rgb), 0.06);
+}
+.artwork-dialog-stage {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+.artwork-dialog-stage img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(94dvh - 9.5rem);
+  object-fit: contain;
+  border-radius: 4px;
+}
+.artwork-dialog-caption {
+  margin: 0;
+  color: rgba(var(--text-rgb), 0.8);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+@media screen and (min-width: 960px) {
+  .artwork-toggle {
+    display: inline-flex;
+  }
+  .mystery-view-tabs {
+    display: none;
+  }
+  :root[data-artwork='on'] .wrapper:has(.mystery-body) {
+    max-width: 1140px;
+  }
+  :root[data-artwork='on'] .mystery:has(.mystery-body) {
+    max-width: 1140px;
+  }
+  :root[data-artwork='on'] .mystery-content {
+    display: block;
+  }
+  :root[data-artwork='on'] .mystery-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 2rem;
+    align-items: start;
+  }
+  :root[data-artwork='on'] .mystery-artwork-panel {
+    position: sticky;
+    top: 1.5rem;
+    margin-bottom: 0;
+  }
+}
+
 /* Prayer sequences: the decade (expand in place) and the opening/concluding prayers (shown in full) */
 .prayer-sequence {
   margin: 2.5rem 0 1.5rem;

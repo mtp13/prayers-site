@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import MysteryArtwork from '../../components/MysteryArtwork.astro';
 import PageNav from '../../components/PageNav.astro';
 import PrayerSequence, { type PrayerItem } from '../../components/PrayerSequence.astro';
 import { getPrayerGroups } from '../../lib/collections';
+import { getMysteryArtwork } from '../../lib/mystery-artwork';
 import {
   getMysteryLabel,
   getMysterySectionHtml,
@@ -57,6 +59,7 @@ const concludingPrayers: PrayerItem[] = [
 const afterRosary = (await getPrayerGroups()).find((group) => group.category === 'after-rosary');
 
 const sectionHtml = step?.kind === 'mystery' ? await getMysterySectionHtml(setSlug, step.index) : '';
+const artwork = step?.kind === 'mystery' ? getMysteryArtwork(step.slug) : null;
 
 const eyebrow = !step
   ? ''
@@ -124,8 +127,27 @@ const nav = {
 
         {step.kind === 'mystery' && (
           <>
-            <div class="mystery-content" set:html={sectionHtml} />
-            <PrayerSequence heading="Pray the decade" items={decadePrayers} />
+            <div class="mystery-view-controls" hidden>
+              <button type="button" class="artwork-toggle" data-artwork-toggle aria-pressed="false">
+                Show artwork
+              </button>
+              <div class="mystery-view-tabs" role="group" aria-label="Reflection view">
+                <button type="button" class="mystery-view-tab" data-view-tab="scripture" aria-pressed="true">
+                  Scripture
+                </button>
+                <button type="button" class="mystery-view-tab" data-view-tab="artwork" aria-pressed="false">
+                  Artwork
+                </button>
+              </div>
+            </div>
+
+            <div class="mystery-body">
+              <MysteryArtwork artwork={artwork!} mysteryTitle={step.title} />
+              <div class="mystery-reflection">
+                <div class="mystery-content" set:html={sectionHtml} />
+                <PrayerSequence heading="Pray the decade" items={decadePrayers} />
+              </div>
+            </div>
           </>
         )}
 
