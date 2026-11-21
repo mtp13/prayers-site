@@ -104,9 +104,9 @@ test('sacred artwork toggles, persists across mysteries, and opens full screen',
 
   if (isWide) {
     const toggle = page.locator('[data-artwork-toggle]');
-    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await expect(toggle).toHaveText('Show artwork');
     await toggle.click();
-    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(toggle).toHaveText('Hide artwork');
     await expect(panel).toBeVisible();
     await expect(scripture).toBeVisible();
   } else {

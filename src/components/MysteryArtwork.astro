@@ -67,7 +67,7 @@ const { artwork, mysteryTitle } = Astro.props;
   function applyState(show: boolean) {
     if (show) root.dataset.artwork = 'on';
     else delete root.dataset.artwork;
-    toggleBtn?.setAttribute('aria-pressed', String(show));
+    if (toggleBtn) toggleBtn.textContent = show ? 'Hide artwork' : 'Show artwork';
     tabBtns.forEach((btn) => {
       const active = (btn.dataset.viewTab === 'artwork') === show;
       btn.setAttribute('aria-pressed', String(active));

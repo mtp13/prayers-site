@@ -495,12 +495,12 @@ button:focus-visible {
 .artwork-toggle:hover {
   background: rgba(var(--bronze-rgb), 0.06);
 }
-.artwork-toggle[aria-pressed='true'] {
+:root[data-artwork='on'] .artwork-toggle {
   border-color: var(--sacred-burgundy);
   background: var(--sacred-burgundy);
   color: var(--warm-cream);
 }
-.artwork-toggle[aria-pressed='true']:hover {
+:root[data-artwork='on'] .artwork-toggle:hover {
   background: var(--burgundy-hover);
 }
 .mystery-view-tabs {
